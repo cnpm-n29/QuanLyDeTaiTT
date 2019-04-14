@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Học liệu - Quản lý đề tài thực tập
+    </title>
+
+    <script src="../Scripts/jquery.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/validator.min.js"></script>
+    <script src="../Scripts/dropdown-menu.js"></script>
+    <script src="../Scripts/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../Content/font.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/style.css" />
+    <link href="../Content/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../Content/flags.min.css" rel="stylesheet" />
+    <link href="style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div id="navbar-header">
+                <a href="/Dashboard" class="logohome"></a>
+                <a href="/Dashboard" class="navbar-brand navbar-collapse collapse">
+                    <h4>Cổng thông tin sinh viên</h4>
+                </a>
+            </div>
+            <div class="rightmenu">
+                <ul class="nav">
+                    <li class="rad-dropdown" id="options-button"><a class="rad-menu-item"><i class="fa fa-th"
+                                aria-hidden="true"></i></a>
+                        <ul class="rad-dropmenu-item">
+
+                            <li class="rad-dropmenu-item-small">
+                                <a href="http://student.vinhuni.edu.vn/CMCSoft.IU.Web.Info" title="ĐKH CMC">
+                                    <span class="item-icon-small">
+                                        <img src="../Images/cmc_iu.png"></span>
+                                    <span class="item-icon-title">ĐKH CMC</span>
+                                </a>
+                            </li>
+
+                            <li class="rad-dropmenu-item-small">
+                                <a href="http://vinhuni.edu.vn" title="Trang Web">
+                                    <span class="item-icon-small">
+                                        <img src="../Images/logo.png"></span>
+                                    <span class="item-icon-title">Trang Web</span>
+                                </a>
+                            </li>
+
+                            <li class="rad-dropmenu-item-small">
+                                <a href="http://mail.google.com" title="Gmail">
+                                    <span class="item-icon-small">
+                                        <img src="../Images/gmail.png"></span>
+                                    <span class="item-icon-title">Gmail</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="rad-dropdown" id="notification-button"><a class="rad-menu-item"><i class="fa fa-bell"
+                                aria-hidden="true"></i>
+                        </a>
+                        <ul class="rad-dropmenu-item">
+                            <li class="rad-dropmenu-header">Thông báo mới</li>
+                            <li class="rad-notification-item rad-notification-item-scroll">
+                                <div id="divNullNotif"
+                                    style="margin: 5px 0; text-align: center; font-size: 12px; color: #98A0A3">
+                                    <span id="lbNullNotif">Không có thông báo mới</span>
+                                </div>
+                                <div id="upLoadNotif" style="display:none;">
+
+                                    <div style="text-align: center; margin: 5px 0">
+                                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                                            style="font-size: 18px; color: #98A0A3"></i>
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </li>
+                            <a href="/Profile?view=notif">
+                                <li class="rad-dropmenu-footer">Xem toàn bộ thông báo</li>
+                            </a>
+                        </ul>
+                    </li>
+
+                    <li class="rad-dropdown" id="messages-button"><a class="rad-menu-item"><i class="fa fa-envelope"
+                                aria-hidden="true"></i>
+                        </a>
+                        <ul class="rad-dropmenu-item">
+                            <li class="rad-dropmenu-header">Thư mới</li>
+                            <li class="rad-notification-item rad-notification-item-scroll">
+                                <div id="divNullMess"
+                                    style="margin: 5px 0; text-align: center; font-size: 12px; color: #98A0A3">
+                                    <span id="lbNullMess">Không có tin nhắn mới</span>
+                                </div>
+                                <div id="upLoadMess" style="display:none;">
+
+                                    <div style="text-align: center; margin: 5px 0">
+                                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                                            style="font-size: 18px; color: #98A0A3"></i>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <a href="/Profile?view=mail">
+                                <li class="rad-dropmenu-footer">Xem toàn bộ hộp thư</li>
+                            </a>
+                        </ul>
+                    </li>
+                    <li class="rad-dropdown" id="profile-button"><a class="rad-menu-item">
+                            <img class="avatar-circle" src="../Images/non-avatar.png"></a>
+                        <ul class="rad-dropmenu-user">
+                            <li class="rad-profile-content">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td colspan="2" style="text-align: center">
+                                            <span id="lbFullName" class="fullName">ĐINH THỊ THU THỦY</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3" style="width: 100px">
+                                            <img src="../Images/non-avatar.png" class="profile-avatar"></td>
+                                        <td>
+                                            <a href="/Profile"><i class="fa fa-address-card" aria-hidden="true"
+                                                    style="margin-right: 10px"></i>Hồ sơ</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="/Profile?view=setting"><i class="fa fa-cogs" aria-hidden="true"
+                                                    style="margin-right: 10px"></i>Thiết lập </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="http://my.vinhuni.edu.vn/upload/hdsd.pdf"><i
+                                                    class="fa fa-question-circle" aria-hidden="true"
+                                                    style="margin-right: 10px"></i>Trợ giúp</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+
+                            <li class="rad-profile-footer">
+                                <button onclick="__doPostBack('ctl00$btnLogout','')" id="btnLogout" type="button"
+                                    class="btn btn-primary"><i class="fa fa-sign-out" aria-hidden="true"
+                                        style="margin-right: 5px"></i>Đăng xuất</button>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; flex: 1 0 auto; flex-flow: column">
+
+        <main>
+
+            <div class="container">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color: white">
+                            <span style="margin: 0 20px;">Thực tập:</span>
+                            <select name="" onchange="" id="" class="subject-select" style="width:350px;">
+                                <option selected="selected" value="TTCS">Thực tập cơ sở</option>
+                                <option value="TTCN">Thực tập chuyên ngành</option>
+                                <option value="TTTN">Thực tập tốt nghiệp</option>
+                                <option value="Đồ án">Đồ án tốt nghiệp</option>
+                            </select>
+
+                        </div>
+                        <div class="panel-body" style="padding: 15px">
+                            <table cellpadding="10" style="width: 100%">
+                                <tr>
+                                    <td>
+                                        <img id="" src="../Images/thay-son.png"
+                                            style="height:170px;width:140px;border: 1px solid #ccc !important" />
+                                    </td>
+                                    <td style="vertical-align: top; width: 100%">
+                                        <table cellpadding="5" style="width: 100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td><b>Mã sinh viên:</b></td>
+                                                    <td><span id="">155D4802010033</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Tên sinh viên:</b></td>
+                                                    <td>
+                                                        <span id="">Lê Thị Huyền</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b>Tên GVHD:</b></td>
+                                                    <td>
+                                                        <span id="">Cao Thanh Sơn</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b>Bộ môn:</b></td>
+                                                    <td>
+                                                        <span id="">Hệ thống và mạng máy tính</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: right; font-weight: bold">
+                                                        <a id="" target="_blank" data-toggle="modal"
+                                                            data-target="#chitiet"><i class="fa fa-arrow-right"
+                                                                aria-hidden="true"></i> Chi tiết</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul class="nav nav-tabs" role="tablist" style="border-bottom: 2px solid #247bbf">
+                        <li class="active"><a style="margin-right:0px" class="a-tabs" href="#detai" role="tab"
+                                data-toggle="tab">Đề tài</a></li>
+                        <li><a class="a-tabs" href="#ketqua" role="tab" data-toggle="tab">Kết quả</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="detai">
+                            <table class="table table-bordered" cellspacing="0" cellpadding="5">
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:40%;">Tên đề tài</th>
+                                    <th class="center-header" scope="col" style="width:40%;">Mô tả</th>
+                                    <th class="center-header" scope="col">Chọn</th>
+                                    <th class="center-header" scope="col">Chi tiết</th>
+                                </tr>
+                                <tr>
+                                    <td align="center">1</td>
+                                    <td>Thiết kế, vận hành và triển khai phần mềm quản lý bán hàng</td>
+                                    <td>C# Winform</td>
+                                    <td align="center"><input type="checkbox"></td>
+                                    <td align="center">
+                                        <a data-toggle="modal"
+                                        data-target="#chitietdt"><i class="fa fa-address-card" data-toggle="tooltip" title="Chi tiết"></i></a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td align="center">2</td>
+                                    <td>Thiết kế, vận hành và triển khai phần mềm quản lý đề tài thực tập</td>
+                                    <td>C# ASP.NET</td>
+                                    <td align="center"><input type="checkbox"></td>
+                                    <td align="center">
+                                        <i class="fa fa-address-card" data-toggle="tooltip" title="Chi tiết"
+                                            data-placement="bottom"></i>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td align="center">3</td>
+                                    <td>Thiết kế, vận hành và triển khai phần mềm quản lý quán cà phê</td>
+                                    <td>C# Winform</td>
+                                    <td align="center"><input type="checkbox"></td>
+                                    <td align="center">
+                                        <i class="fa fa-address-card" data-toggle="tooltip" title="Chi tiết"
+                                            data-placement="bottom"></i>
+                                    </td>
+
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="ketqua">
+                            <table class="table table-bordered" cellspacing="0" cellpadding="5">
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:15%;">Thực tập</th>
+                                    <th class="center-header" scope="col" style="width:25%;">Tên đề tài</th>
+                                    <th class="center-header" scope="col">Điểm công ty</th>
+                                    <th class="center-header" scope="col">Điểm giáo viên hướng dẫn</th>
+                                    <th class="center-header" scope="col">Điểm báo cáo</th>
+                                    <th class="center-header" scope="col">Điểm tổng</th>
+                                </tr>
+                                <tr>
+                                    <td align="center">1</td>
+                                    <td align="center">Thực tập cơ sở</td>
+                                    <td>Thiết kế, vận hành và triển khai phần mềm quản lý đề tài thực tập</td>
+                                    <td align="center">8</td>
+                                    <td align="center">9</td>
+                                    <td align="center">8</td>
+                                    <td align="center">8.5</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="text-align: left; margin-bottom: 50px">
+                    <h5>CỔNG THÔNG TIN SINH VIÊN</h5>
+                    <h4>TRƯỜNG ĐẠI HỌC VINH</h4>
+                </div>
+                <div class="col-md-4 autohide" style="text-align: left"></div>
+                <div class="col-md-4 autohide" style="text-align: left">
+                    <h5><b>Liên hệ hỗ trợ</b></h5>
+                    <h5>Ban tư vấn xây dựng hệ thống thông tin</h5>
+                    <h5>Email: congthongtin@vinhuni.edu.vn</h5>
+                    Online:
+                    <span id="lbOnlineCount">16</span>
+                </div>
+            </div>
+            <div class="row" style="border-top: 1px solid #fff; height: 30px">
+                <h5>Copyright © 2017 by Vinh University</h5>
+            </div>
+        </div>
+    </div>
+    <!-- Modal chi tiết -->
+    <div class="modal fade" id="chitiet" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">THÔNG TIN CHI TIẾT</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table ">
+                        <tbody>
+                            <tr>
+                                <td colspan="1" style="border-top: 0px">
+                                    <label style="width:100%;text-align:  center" class="text-primary">
+                                        <h4>SINH VIÊN</h4>
+                                    </label>
+                                    <form class="well form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">MSSV</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-user"></i></span><input disabled id="mssv"
+                                                            name="mssv" class="form-control" required="true"
+                                                            value="155D4802010033" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Họ
+                                                    tên</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-user"></i></span><input disabled id="name"
+                                                            name="name" class="form-control" required="true"
+                                                            value="Lê Thị Huyền" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Ngày
+                                                    sinh</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-birthday-cake"></i></span><input disabled
+                                                            id="birthday" name="birthday" class="form-control"
+                                                            required="true" value="24/08/1997" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-envelope"></i></span><input disabled
+                                                            id="email" name="email" class="form-control" required="true"
+                                                            value="huyenle97@gmail.com" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">SDT</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-phone-square"></i></span><input disabled
+                                                            id="phone" name="phone" class="form-control" required="true"
+                                                            value="0169567123" type="text"></div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </td>
+                                <td colspan="1" style="border-top: 0px">
+                                    <label style="width:100%;text-align:  center" class="text-primary">
+                                        <h4>GIẢNG VIÊN</h4>
+                                    </label>
+                                    <form class="well form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Họ
+                                                    tên</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-user"></i></span><input disabled
+                                                            id="nameGV" name="name" class="form-control" required="true"
+                                                            value="Cao Thanh Sơn" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Bộ
+                                                    môn</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-address-card"></i></span><input disabled
+                                                            id="bomonGV" name="bomon" class="form-control"
+                                                            required="true" value="Hệ thống và mạng máy tính"
+                                                            type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Ngày
+                                                    sinh</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-birthday-cake"></i></span><input disabled
+                                                            id="birthday" name="birthday" class="form-control"
+                                                            required="true" value="24/08/1997" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-envelope"></i></span><input disabled
+                                                            id="emailGV" name="email" class="form-control"
+                                                            required="true" value="caothanhson@gmail.com" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">SDT</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-phone-square"></i></span><input disabled
+                                                            id="phoneGV" name="phone" class="form-control"
+                                                            required="true" value="0169567123" type="text"></div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal chi tiết -->
+    <!-- Modal chi tiết đề tài-->
+    <div style="width: 70%;margin: auto;margin-top: 10%;" class="modal fade" id="chitietdt" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">NHỮNG NGƯỜI ĐÃ CHỌN</h4>
+                    </div>
+                    <div class="modal-body">
+                            <table class="table table-bordered table-hover" style="max-width: 70%;margin: auto;margin-top: 3%;margin-bottom: 3%;">
+                                    <thead>
+                                      <tr class="bg-primary">
+                                        <th style="width: 50%;text-align: center">MSV</th>
+                                        <th style="text-align: center">Họ tên</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td align="center">155D4802010023</td>
+                                        <td>Đinh Thị Thu Thủy</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="center">155D4802010033</td>
+                                        <td>Lê Thị Huyền</td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal chi tiết -->
+</body>
+
+</html>

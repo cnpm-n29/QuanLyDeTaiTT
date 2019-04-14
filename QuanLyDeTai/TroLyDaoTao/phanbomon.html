@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Phân bộ môn - Quản lý đề tài thực tập
+    </title>
+
+    <script src="../Scripts/jquery.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/validator.min.js"></script>
+    <script src="../Scripts/dropdown-menu.js"></script>
+    <script src="../Scripts/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../Content/font.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/style.css" />
+    <link href="../Content/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../Content/flags.min.css" rel="stylesheet" />
+    <link href="style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div id="navbar-header">
+                <a href="/Dashboard" class="logohome"></a>
+                <a href="/Dashboard" class="navbar-brand navbar-collapse collapse">
+                    <h4>Cổng thông tin sinh viên</h4>
+                </a>
+            </div>
+            <div class="rightmenu">
+                <ul class="nav">
+
+
+                    <li class="rad-dropdown" id="notification-button"><a class="rad-menu-item"><i class="fa fa-bell"
+                                aria-hidden="true"></i>
+                        </a>
+                        <ul class="rad-dropmenu-item">
+                            <li class="rad-dropmenu-header">Thông báo mới</li>
+                            <li class="rad-notification-item rad-notification-item-scroll">
+                                <div id="divNullNotif"
+                                    style="margin: 5px 0; text-align: center; font-size: 12px; color: #98A0A3">
+                                    <span id="lbNullNotif">Không có thông báo mới</span>
+                                </div>
+                                <div id="upLoadNotif" style="display:none;">
+
+                                    <div style="text-align: center; margin: 5px 0">
+                                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                                            style="font-size: 18px; color: #98A0A3"></i>
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </li>
+                            <a href="/Profile?view=notif">
+                                <li class="rad-dropmenu-footer">Xem toàn bộ thông báo</li>
+                            </a>
+                        </ul>
+                    </li>
+
+                    <li class="rad-dropdown" id="messages-button"><a class="rad-menu-item"><i class="fa fa-envelope"
+                                aria-hidden="true"></i>
+                        </a>
+                        <ul class="rad-dropmenu-item">
+                            <li class="rad-dropmenu-header">Thư mới</li>
+                            <li class="rad-notification-item rad-notification-item-scroll">
+                                <div id="divNullMess"
+                                    style="margin: 5px 0; text-align: center; font-size: 12px; color: #98A0A3">
+                                    <span id="lbNullMess">Không có tin nhắn mới</span>
+                                </div>
+                                <div id="upLoadMess" style="display:none;">
+
+                                    <div style="text-align: center; margin: 5px 0">
+                                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                                            style="font-size: 18px; color: #98A0A3"></i>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <a href="/Profile?view=mail">
+                                <li class="rad-dropmenu-footer">Xem toàn bộ hộp thư</li>
+                            </a>
+                        </ul>
+                    </li>
+                    <li class="rad-dropdown" id="profile-button"><a class="rad-menu-item">
+                            <img class="avatar-circle" src="../Images/non-avatar.png"></a>
+                        <ul class="rad-dropmenu-user">
+                            <li class="rad-profile-content">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td colspan="2" style="text-align: center">
+                                            <span id="lbFullName" class="fullName">ĐINH THỊ THU THỦY</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3" style="width: 100px">
+                                            <img src="../Images/non-avatar.png" class="profile-avatar"></td>
+                                        <td>
+                                            <a href="/Profile"><i class="fa fa-address-card" aria-hidden="true"
+                                                    style="margin-right: 10px"></i>Hồ sơ</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="/Profile?view=setting"><i class="fa fa-cogs" aria-hidden="true"
+                                                    style="margin-right: 10px"></i>Thiết lập </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="http://my.vinhuni.edu.vn/upload/hdsd.pdf"><i
+                                                    class="fa fa-question-circle" aria-hidden="true"
+                                                    style="margin-right: 10px"></i>Trợ giúp</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+
+                            <li class="rad-profile-footer">
+                                <button onclick="" id="btnLogout" type="button"
+                                    class="btn btn-primary"><i class="fa fa-sign-out" aria-hidden="true"
+                                        style="margin-right: 5px"></i>Đăng xuất</button>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; flex: 1 0 auto; flex-flow: column">
+            <main>
+                <div class="container">
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div id="MainContent_upChoose">
+                                <div class="panel-heading" style="background: white; border-bottom: 1px solid #dddddd">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td>
+                                                <h4>Quản lý thực tập</h4>
+                                            </td>
+                                            <td style="float: right">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="input-group" style="max-width: 255px;" id="adv-search">
+                                                            <input type="text"   class="form-control"
+                                                                placeholder="Search ..." />
+                                                            <div class="input-group-btn">
+                                                                <div class="btn-group" role="group">
+                                                                    <div class="dropdown dropdown-lg">
+                                                                        <button type="button"
+                                                                            class="btn btn-default dropdown-toggle"
+                                                                            data-toggle="dropdown"
+                                                                            aria-expanded="false"><span
+                                                                                class="caret"></span></button>
+                                                                        <div class="dropdown-menu dropdown-menu-right"
+                                                                            role="menu">
+                                                                            <form class="form-horizontal" role="form">
+                                                                                <div class="form-group">
+                                                                                    <label for="filter">Tìm kiếm
+                                                                                        theo</label> <select
+                                                                                        class="form-control">
+                                                                                        <option value="0" selected>Mã sinh viên</option>
+                                                                                        <option value="1">Tên sinh viên </option>
+                                                                                    </select>
+                                                                                </div>
+    
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-primary"><span
+                                                                            class="fa fa-search"
+                                                                            aria-hidden="true"></span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+    
+                                        </tr>
+                                       
+                                    </table>
+                                </div>
+                                <div class="panel-body">
+                                    <table cellpadding="10">
+                                        <tr>
+                                            <td><span style="margin-right: 10px;">Học kỳ: </span></td>
+                                            <td>
+                                                <select name="" onchange="" id="MainContent_cbHocKy" class="subject-select"
+                                                    style="width:250px;">
+                                                    <option selected="selected" value="2018_2019_2">2018_2019_2</option>
+                                                    <option value="2018_2019_1">2018_2019_1</option>
+                                                    <option value="2017_2018_2">2017_2018_2</option>
+                                                    <option value="2017_2018_1">2017_2018_1</option>
+    
+                                                </select>
+                                            </td>
+                                            <td><span>Thực tập:</span></td>
+                                            <td>
+                                                <select name="" onchange="" id="" class="subject-select"
+                                                    style="width:350px;">
+                                                    <option selected="selected" value="TTCS">Thực tập cơ sở</option>
+                                                    <option value="TTCN">Thực tập chuyên ngành</option>
+                                                    <option value="TTTN">Thực tập tốt nghiệp</option>
+                                                    <option value="Đồ án">Đồ án tốt nghiệp</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+    
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" style="border-bottom: 2px solid #247bbf">
+                            <li class="active"><a class="a-tabs" href="#ketqua">Danh sách</a></li>
+                            
+                        </ul>
+
+                        <!-- Tab panes -->
+                            <div class="tab-content">
+                                <table class="table" style="margin-bottom: 0px">
+                                    <tr>
+                                        <td class="col-sm-7" style="border: 0px;">
+
+                                        </td>
+                                        <td style="border: 0px;padding-left: 20px;" >
+                                            <select class="form-control" >
+                                                <option selected>Chọn bộ môn</option>
+                                                <option value="1">Hệ thống và mạng máy tính</option>
+                                                <option value="2">Khoa học máy tính và CN Phần mềm</option>
+                                            </select>
+                                        </td>
+                                    
+                                </table>
+                                <div class="tab-pane active row" style="padding: 20px">
+                                    
+                                    <table class="table table-bordered col-sm-6" style="max-width: 50%;" cellspacing="0" cellpadding="5" id=""
+                                        style="border-collapse:collapse;">
+                                        <tr>
+                                                <th class="center-header" scope="col">Chọn</th>
+                                                <th class="center-header" scope="col" style="width:35%;">Mã SV</th>
+                                                <th class="center-header" scope="col" style="width:45%;">Họ tên</th>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><input type="checkbox"></td>
+                                                <td align="center">155D4802010033</td>
+                                                <td>Lê Thị Huyền</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><input type="checkbox"></td>
+                                                <td align="center">155D4802010023</td>
+                                                <td>Đinh Thị Thu Thủy</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><input type="checkbox"></td>
+                                                <td align="center">155D4802010081</td>
+                                                <td>Hoàng Thị Bích</td>
+
+                                            </tr>
+        
+                                    </table>
+                                    <div style="max-width: 10%;" class="col-sm-2" >
+                                            <button class="btn btn-primary center-block" style="margin-top: 50%;"><i class="fa fa-angle-right fa-2x"></i></button>
+                                    </div>
+                                    <table style="max-width: 40%;" class="table table-bordered col-sm-4" cellspacing="0" cellpadding="10" id=""
+                                        style="border-collapse:collapse;">
+                                        
+                                        <tr>
+                                                <th class="center-header" scope="col">STT</th>
+                                                <th class="center-header" scope="col" style="width:35%;">Mã SV</th>
+                                                <th class="center-header" scope="col" style="width:45%;">Họ tên</th>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td align="center">1</td>
+                                                <td align="center">155D4802010033</td>
+                                                <td>Lê Thị Huyền</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td align="center">2</td>
+                                                <td align="center">155D4802010023</td>
+                                                <td>Đinh Thị Thu Thủy</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td align="center">3</td>
+                                                <td align="center">155D4802010081</td>
+                                                <td>Hoàng Thị Bích</td>
+
+                                            </tr>
+        
+                                    </table>
+                                       
+                                   
+                                </div>
+                            </div>
+                           
+                        </div>
+                          
+    
+                    </div>
+                </div>
+            </main>
+        </div>
+
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="text-align: left; margin-bottom: 50px">
+                    <h5>CỔNG THÔNG TIN SINH VIÊN</h5>
+                    <h4>TRƯỜNG ĐẠI HỌC VINH</h4>
+                </div>
+                <div class="col-md-4 autohide" style="text-align: left"></div>
+                <div class="col-md-4 autohide" style="text-align: left">
+                    <h5><b>Liên hệ hỗ trợ</b></h5>
+                    <h5>Ban tư vấn xây dựng hệ thống thông tin</h5>
+                    <h5>Email: congthongtin@vinhuni.edu.vn</h5>
+                    Online:
+                    <span id="lbOnlineCount">16</span>
+                </div>
+            </div>
+            <div class="row" style="border-top: 1px solid #fff; height: 30px">
+                <h5>Copyright © 2017 by Vinh University</h5>
+            </div>
+        </div>
+    </div>
+    <!-- Modal chi tiết -->
+    <div class="modal fade" id="chitiet" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">THÔNG TIN CHI TIẾT</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table ">
+                        <tbody>
+                            <tr>
+                                <td colspan="1" style="border-top: 0px">
+                                    <label style="width:100%;text-align:  center" class="text-primary">
+                                        <h4>SINH VIÊN</h4>
+                                    </label>
+                                    <form class="well form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">MSSV</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-user"></i></span><input disabled id="mssv"
+                                                            name="mssv" class="form-control" required="true"
+                                                            value="155D4802010033" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Họ
+                                                    tên</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-user"></i></span><input disabled id="name"
+                                                            name="name" class="form-control" required="true"
+                                                            value="Lê Thị Huyền" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Ngày
+                                                    sinh</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-birthday-cake"></i></span><input disabled
+                                                            id="birthday" name="birthday" class="form-control"
+                                                            required="true" value="24/08/1997" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-envelope"></i></span><input disabled
+                                                            id="email" name="email" class="form-control" required="true"
+                                                            value="huyenle97@gmail.com" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">SDT</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-phone-square"></i></span><input disabled
+                                                            id="phone" name="phone" class="form-control" required="true"
+                                                            value="0169567123" type="text"></div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </td>
+                                <td colspan="1" style="border-top: 0px">
+                                    <label style="width:100%;text-align:  center" class="text-primary">
+                                        <h4>GIẢNG VIÊN</h4>
+                                    </label>
+                                    <form class="well form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Họ
+                                                    tên</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-user"></i></span><input disabled
+                                                            id="nameGV" name="name" class="form-control" required="true"
+                                                            value="Cao Thanh Sơn" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Bộ
+                                                    môn</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-address-card"></i></span><input disabled
+                                                            id="bomonGV" name="bomon" class="form-control"
+                                                            required="true" value="Hệ thống và mạng máy tính"
+                                                            type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">Ngày
+                                                    sinh</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-birthday-cake"></i></span><input disabled
+                                                            id="birthday" name="birthday" class="form-control"
+                                                            required="true" value="24/08/1997" type="text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-envelope"></i></span><input disabled
+                                                            id="emailGV" name="email" class="form-control"
+                                                            required="true" value="caothanhson@gmail.com" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                    class="col-md-3 control-label">SDT</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group"><span class="input-group-addon"><i
+                                                                class="fa fa-phone-square"></i></span><input disabled
+                                                            id="phoneGV" name="phone" class="form-control"
+                                                            required="true" value="0169567123" type="text"></div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal chi tiết -->
+    <!-- Modal chi tiết đề tài-->
+    <div style="width: 70%;margin: auto;margin-top: 10%;" class="modal fade" id="chitietdt" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">NHỮNG NGƯỜI ĐÃ CHỌN</h4>
+                    </div>
+                    <div class="modal-body">
+                            <table class="table table-bordered table-hover" style="max-width: 70%;margin: auto;margin-top: 3%;margin-bottom: 3%;">
+                                    <thead>
+                                      <tr class="bg-primary">
+                                        <th style="width: 50%;text-align: center">MSV</th>
+                                        <th style="text-align: center">Họ tên</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td align="center">155D4802010023</td>
+                                        <td>Đinh Thị Thu Thủy</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="center">155D4802010033</td>
+                                        <td>Lê Thị Huyền</td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal chi tiết -->
+</body>
+
+</html>
