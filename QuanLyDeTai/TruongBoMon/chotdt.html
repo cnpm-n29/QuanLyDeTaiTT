@@ -3,7 +3,7 @@
 
 
     <head>
-        <title>Phân giáo viên hướng dẫn | Quản lý đề tài thực tập</title>
+        <title>Chốt đề tài | Quản lý đề tài thực tập</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -95,10 +95,10 @@
 					<ul class="nav">
                         <li><a href="danhsachSVBM.html" class=""><i class="fa fa-book"></i> <span>Danh sách sinh viên</span></a></li>
                         <li><a href="danhsachGVBM.html" class=""><i class="fa fa-id-badge"></i> <span>Danh sách giảng viên</span></a></li>
-                        <li><a href="phanGVHD.html" class="active"><i class="fa fa-book"></i> <span>Phân GVHD</span></a></li>
+                        <li><a href="phanGVHD.html" class=""><i class="fa fa-book"></i> <span>Phân GVHD</span></a></li>
                         <li><a href="detai.html" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
                         <li><a href="danhsachhd.html" class=""><i class="fa fa-id-badge"></i> <span>Danh sách hướng dẫn</span></a></li>
-                        <li><a href="chotdt.html" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
+                        <li><a href="chotdt.html" class="active"><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
 						
 					</ul>
 				</nav>
@@ -114,7 +114,7 @@
                         <!-- OVERVIEW -->
 					    <div class="panel panel-headline row">
                             <div class="panel-heading col-md-4">
-                                <h4>PHÂN GIÁO VIÊN HƯỚNG DẪN</h4>
+                                <h4>CHỐT ĐỀ TÀI THỰC TẬP</h4>
                             </div>
                             <div class="col-md-8"  style="margin-top: 10px">
                                     <div class="input-group" style="max-width: 255px;float: right;" id="adv-search">
@@ -137,102 +137,114 @@
                             <div class="panel-body">
                                     <div>
                                         <div class="row">
-                                            <div class="col-sm-5">
-                                                    <label style="float: left;margin: 5px 30px 0px 20px ">Học kỳ </label>
-                                                    <select style="float: left;width: 70%;"class="form-control">
+                                            <div class="col-sm-4">
+                                                    <label style="float: left;margin: 5px 0px ">Học kỳ </label></td>
+                                                    <select style="float: right;width: 75%;"class="form-control">
+                                                    <option disabled value="thuctap"> -- Loại thực tập -- </option>
+                                                    <option selected="selected" value="TTCS">Thực tập cơ sở</option>
+                                                    <option value="TTCN">Thực tập chuyên ngành</option>
+                                                    <option value="TTTN">Thực tập tốt nghiệp</option>
+                                                    <option value="Đồ án">Đồ án tốt nghiệp</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                    <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                                    <select style="float: right;width: 75%;"class="form-control">
                                                     <option disabled value="thuctap"> -- Chọn khóa -- </option>
                                                     <option selected="selected" value="56">Khóa 56</option>
                                                     <option value="57">Khóa 57</option>
                                                     <option value="58">Khóa 58</option>
                                                     <option value="59">Khóa 59</option>
-        
+    
                                                 </select>
                                             </div>
                                             
                                         </div>
-                                        <table class="table" style="margin-bottom: 0px">
-                                            <tr>
-                                                <td class="col-sm-7" style="border: 0px;">
-        
-                                                </td>
-                                                <td class="col-sm-2" style="border: 0px;" >
-                                                    <label style="margin: 0px;">Chọn giáo viên hướng dẫn</label>
-                                                </td>
-                                                <td class="col-sm-3" style="border: 0px;">
-                                                    <select style="width: 100%" class="js-example-basic-single" aria-placeholder="Chọn GVHD" name="GVHD">
-                                                               
-                                                                <option value="1">Cao Thanh Sơn</option>
-                                                                <option value="2">Nguyễn Thị Uyên</option>
-                                                                <option value="3">Hoàng Hữu Việt</option>
-                                                                <option value="3">Phan Anh Phong</option>
-                                                        </select>
-                                                </td>
+                                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5"
+                                        style="border-collapse:collapse;">
+                                        <tr>
+                                                <th class="center-header" scope="col">STT</th>
+                                                <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
+                                                <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
+                                                <th class="center-header" scope="col" style="width:30%;">Tên đề tài</th>
+                                                <th class="center-header" scope="col" style="width:10%;">Mô tả</th>
+                                                <th class="center-header" scope="col">Độ ưu tiên</th>
+                                                <th class="center-header" scope="col">Trạng thái</th>
                                             </tr>
-                                        </table>
-                                        <div class="tab-pane active row" style="padding: 20px">
-                                            
-                                            <table class="table table-bordered col-sm-6" style="max-width: 50%;" cellspacing="0" cellpadding="5" id=""
-                                                style="border-collapse:collapse;">
-                                                <tr>
-                                                        <th class="center-header" scope="col">Chọn</th>
-                                                        <th class="center-header" scope="col" style="width:35%;">Mã SV</th>
-                                                        <th class="center-header" scope="col" style="width:45%;">Họ tên</th>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center"><input type="checkbox"></td>
-                                                        <td align="center">155D4802010033</td>
-                                                        <td>Lê Thị Huyền</td>
-        
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center"><input type="checkbox"></td>
-                                                        <td align="center">155D4802010023</td>
-                                                        <td>Đinh Thị Thu Thủy</td>
-        
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center"><input type="checkbox"></td>
-                                                        <td align="center">155D4802010081</td>
-                                                        <td>Hoàng Thị Bích</td>
-        
-                                                    </tr>
-                
-                                            </table>
-                                            <div style="max-width: 10%;" class="col-sm-2" >
-                                                    <button class="btn btn-primary center-block" style="margin-top: 50%;"><i class="fa fa-angle-right fa-2x"></i></button>
-                                            </div>
-                                            <table style="max-width: 40%;" class="table table-bordered col-sm-4" cellspacing="0" cellpadding="10" id=""
-                                                style="border-collapse:collapse;">
+                                            <tr>
+                                                <td align="center">1</td>
+                                                <td align="center">155D4802010033</td>
+                                                    <td>Lê Thị Huyền</td>
+                                                <td>Hình thành ý tưởng thiết kế vận hành và triển khai trang web quản lý đề tài thực tập</td>
+                                                <td>ASP.NET</td>
+                                                <td align="center">
+                                                       1
+                                                </td>
+                                                <td align="center"><div class="anil_nepal">
+                                                       
+                                                        <label class="switch " style="margin-bottom: 0px;">
+                                                            <input type="checkbox" class="primary">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
                                                 
-                                                <tr>
-                                                        <th class="center-header" scope="col">STT</th>
-                                                        <th class="center-header" scope="col" style="width:35%;">Mã SV</th>
-                                                        <th class="center-header" scope="col" style="width:45%;">Họ tên</th>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center">1</td>
-                                                        <td align="center">155D4802010033</td>
+            
+                                            </tr>
+                                            <tr>
+                                                    <td align="center">2</td>
+                                                    <td align="center">155D4802010033</td>
                                                         <td>Lê Thị Huyền</td>
-        
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center">2</td>
-                                                        <td align="center">155D4802010023</td>
-                                                        <td>Đinh Thị Thu Thủy</td>
-        
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center">3</td>
-                                                        <td align="center">155D4802010081</td>
-                                                        <td>Hoàng Thị Bích</td>
-        
-                                                    </tr>
+                                                    <td>Hình thành ý tưởng thiết kế vận hành và triển khai trang web quản lý đề tài thực tập</td>
+                                                    <td>ASP.NET</td>
+                                                    <td align="center">
+                                                           2
+                                                    </td>
+                                                    <td align="center"><label class="switch " style="margin-bottom: 0px;">
+                                                            <input type="checkbox" class="primary">
+                                                            <span class="slider round"></span>
+                                                        </label></td>
+                                                    
                 
-                                            </table>
-                                               
-                                           
+                                                </tr>
+                                                <tr>
+                                                        <td align="center">3</td>
+                                                        <td align="center">155D4802010033</td>
+                                                            <td>Lê Thị Huyền</td>
+                                                        <td>Hình thành ý tưởng thiết kế vận hành và triển khai trang web quản lý đề tài thực tập</td>
+                                                        <td>ASP.NET</td>
+                                                        <td align="center">
+                                                               3
+                                                        </td>
+                                                        <td align="center"><label class="switch " style="margin-bottom: 0px;">
+                                                                <input type="checkbox" class="primary">
+                                                                <span class="slider round"></span>
+                                                            </label></td>
+                                                        
+                    
+                                                    </tr>
+        
+                                        </table>
+                                        <div class="row">
+
+                                                <div class="col-sm-5">
+                                                        <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                                        <div style="float: left;margin: 0px 5px;" class="form-group">
+                                                            <select name="state" id="maxRows" class="form-control" style="width:80px;">
+                                                                <option value="5" selected>5</option>
+                                                                <option value="10">10</option>
+                                                                <option value="20">20</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                            </select>
+                                                        
+                                                        </div>
+                                                        <p style="float: left;margin-top: 5px">trên 1 trang </p></div>
+                                                    <div class="pagination-container col-sm-7" >
+                                                            <nav style="float:right;">
+                                                                <ul class="pagination"></ul>
+                                                            </nav>
+                                                        </div>
                                         </div>
                                         </div>
                             </div>

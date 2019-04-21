@@ -1,9 +1,10 @@
+
 <!doctype html>
 <html lang="en">
 
 
     <head>
-        <title>Điểm | Quản lý đề tài thực tập</title>
+        <title>Danh sách giảng viên | Quản lý đề tài thực tập</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -94,10 +95,10 @@
 				<nav>
 					<ul class="nav">
                             <li><a href="danhsachSV.html" class=""><i class="fa fa-book"></i> <span>Danh sách sinh viên</span></a></li>
-                            <li><a href="danhsachGV.html" class=""><i class="fa fa-id-badge"></i> <span>Danh sách giảng viên</span></a></li>
+                            <li><a href="danhsachGV.html" class="active"><i class="fa fa-id-badge"></i> <span>Danh sách giảng viên</span></a></li>
                             <li><a href="danhsachTT.html" class=""><i class="fa fa-check-circle"></i> <span>Danh sách thực tập</span></a></li>
                             <li><a href="phanbomon.html" class=""><i class="fa fa-book"></i> <span>Phân bộ môn</span></a></li>
-                            <li><a href="diem.html" class="active"><i class="fa fa-id-badge"></i> <span>Điểm</span></a></li>
+                            <li><a href="diem.html" class=""><i class="fa fa-id-badge"></i> <span>Điểm</span></a></li>
                             <li><a href="detai.html" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
                             <li><a href="danhsachhd.html" class=""><i class="fa fa-id-badge"></i> <span>Danh sách hướng dẫn</span></a></li>
                             <li><a href="chotdt.html" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
@@ -116,7 +117,7 @@
                         <!-- OVERVIEW -->
 					    <div class="panel panel-headline row">
                             <div class="panel-heading col-md-5">
-                                <h4>DANH SÁCH ĐIỂM THỰC TẬP</h4>
+                                <h4>DANH SÁCH GIẢNG VIÊN</h4>
                             </div>
                             <div class="col-md-7"  style="margin-top: 10px">
                                     <div class="input-group" style="max-width: 300px;float: right;" id="adv-search">
@@ -161,31 +162,19 @@
                             <div class="panel-body">
                                     <div>
                                         <div class="row">
-                                            <div class="col-sm-4">
-                                                    <label style="float: left;margin: 5px 0px ">Học kỳ </label>
-                                                    <select style="float: right;width: 75%;"class="form-control">
-                                                    <option disabled value="thuctap"> -- Loại thực tập -- </option>
-                                                    <option selected="selected" value="TTCS">Thực tập cơ sở</option>
-                                                    <option value="TTCN">Thực tập chuyên ngành</option>
-                                                    <option value="TTTN">Thực tập tốt nghiệp</option>
-                                                    <option value="Đồ án">Đồ án tốt nghiệp</option>
-                                                </select>
+                                            
+                                            <div class="col-sm-6">
+                                                <label style="float: left;margin: 5px 0px ">Bộ môn </label>
+                                                <select style="float: right;width: 75%;"class="form-control">
+                                                <option disabled value="thuctap"> -- Chọn bộ môn -- </option>
+                                                <option value="1">Hệ thống và mạng máy tính</option>
+                                                <option value="2">Khoa học máy tính và CN Phần mềm</option>
+
+                                            </select>
                                             </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                    <span style="float: left;margin: 5px 0px ">Học kỳ </span></td>
-                                                    <select style="float: right;width: 75%;"class="form-control">
-                                                    <option disabled value="thuctap"> -- Chọn kỳ học -- </option>
-                                                    <option selected="selected" value="2016_2017_1">2016_2017_1</option>
-                                                    <option value="2016_2017_2">2016_2017_2</option>
-                                                    <option value="2018_2019_1">2018_2019_1</option>
-                                                    <option value="2018_2019_2">2018_2019_2</option>
-    
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-4" style="padding: 0px;">
+                                            <div class="col-sm-6" style="padding: 0px;">
                                                     <button data-toggle="modal"
-                                                    data-target="#themdsthuctap" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary"><i
+                                                    data-target="#themdssv" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary"><i
                                                             class="fa fa-plus"></i> Thêm mới</button>
                                             </div>
                                         </div>
@@ -193,49 +182,31 @@
                                         style="border-collapse:collapse;">
                                         <tr>
                                                 <th class="center-header" scope="col">STT</th>
-                                                <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
-                                                <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
-                                                <th class="center-header" scope="col">Tên đề tài</th>
-                                                <th class="center-header" scope="col">Điểm công ty</th>
-                                                <th class="center-header" scope="col">Điểm GVHD</th>
-                                                <th class="center-header" scope="col">Điểm báo cáo</th>
-                                                <th class="center-header" scope="col">Điểm tổng</th>
+                                                <th class="center-header" scope="col" style="width:15%;">Mã GV</th>
+                                                <th class="center-header" scope="col" style="width:25%;">Họ tên</th>
+                                                <th class="center-header" scope="col">Ngày sinh</th>
+                                                <th class="center-header" scope="col">Giới tính</th>
+                                                <th class="center-header" scope="col">Email</th>
+                                                <th class="center-header" scope="col">SĐT</th>
+                                                <th class="center-header" scope="col">Địa chỉ</th>
                                                 <th class="center-header" scope="col">Thao tác</th>
                                             </tr>
                                             <tr>
                                                 <td align="center">1</td>
-                                                <td>155D4802010023</td>
-                                                <td>Đinh Thị Thu Thủy</td>
-                                                <td>Thiết kế, vận hành và triển khai phần mềm quản lý đề tài thực tập</td>
-                                                <td align="center">8</td>
-                                                <td align="center">7</td>
-                                                <td align="center">8</td>
-                                                <td align="center">8.5</td>
-                                                <td align="center"><a data-toggle="modal"
-                                                    data-target="#suadiem"><i class="fa fa-edit"></i></a></td>
+                                                <td align="center">155D4802010033</td>
+                                                <td>Cao Thanh Sơn</td>
+                                                <td align="center">Nam</td>
+                                                <td align="center">24/08/1997</td>
+                                                <td>ctsdhv@gmail.com</td>
+                                                <td align="center">0912445955</td>
+                                                <td align="center">Nghệ An</td>
+                                                <td align="center">
+                                                    <i class="fa fa-edit" data-toggle="modal" title="Sửa"
+                                                    data-target="#suasvthuctap"></i>
+                                                </td>
+            
                                             </tr>
-                                            <tr>
-                                                <td align="center">2</td>
-                                                <td>155D4802010033</td>
-                                                <td>Lê Thị Huyền</td>
-                                                <td>Thiết kế, vận hành và triển khai phần mềm quản lý nhà hàng</td>
-                                                <td align="center">8</td>
-                                                <td align="center">7</td>
-                                                <td align="center">6</td>
-                                                <td align="center">7</td>
-                                                <td align="center"><i class="fa fa-edit"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center">3</td>
-                                                <td>155D4802010081</td>
-                                                <td>Hoàng Thị Bích</td>
-                                                <td>Thiết kế, vận hành và triển khai phần mềm quản lý quán cà phê</td>
-                                                <td align="center">8</td>
-                                                <td align="center">9</td>
-                                                <td align="center">8</td>
-                                                <td align="center">8.5</td>
-                                                <td align="center"><i class="fa fa-edit"></i></td>
-                                            </tr>
+                                           
                                         </table>
                                         <div class="row">
 
@@ -281,111 +252,76 @@
 	<script src="../assets/vendor/jquery/jquery.min.js"></script>
 	<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../assets/scripts/klorofil-common.js"></script>
-	 <!-- Modal sua diem -->
-     <div class="modal fade" id="suadiem" role="dialog">
+	<!-- Modal sua sv -->
+    <div class="modal fade" id="suasvthuctap" role="dialog" >
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">THÔNG TIN CHI TIẾT ĐIỂM</h4>
+                        <h4 class="modal-title">CHỈNH SỬA THÔNG TIN SINH VIÊN</h4>
                     </div>
                     <div class="modal-body">
                        <!-- edit form column -->
                        <form style="max-width: 70%;margin: auto">
-                            <div class="form-group row">
-                            <label class="col-sm-4 control-label">Mã sinh viên</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="MSV">
-                            </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Họ tên sinh viên</label>
+                        <div class="row">
+                            <div class="form-group col-sm-6 row">
+                                <label class="col-sm-4 control-label" style="margin-top: 15px;">Bộ môn</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="name">
+                                        <select class="form-control" style="margin:10px 0px" onchange="" id="">
+                                            <option value="1">Hệ thống và mạng máy tính</option>
+                                            <option value="2">Khoa học máy tính và CN Phần mềm</option>
+                                        </select>   
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Tên đề tài</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm công ty</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemCongty" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm GVHD</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemGVHD">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm báo cáo</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemBaoCao">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm tổng</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemTong">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-edit"></i> Sửa</button>
-                            <button type="submit" class="btn btn-primary"> <i class="fa fa-edit"></i> Sửa và đóng</button>
-                            <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /Modal sua diem -->
-
-    <!-- Modal them diem -->
-    <div class="modal fade" id="themdsthuctap" role="dialog" style="margin-top: 7%">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">THÊM DANH SÁCH ĐIỂM</h4>
-                    </div>
-                    <div class="modal-body">
-                       <!-- edit form column -->
-                       <form style="max-width: 80%;margin: auto">
-                            <div class="row">
-                                <div class="form-group col-sm-5 row">
-                                    <label class="col-sm-4 control-label" style="margin-top: 15px;margin-left: -20px">Thực tập</label>
-                                    <div class="col-sm-8">
-                                            <select class="form-control" style="margin:10px 0px" onchange="" id="">
-                                                    <option value="TTCS">Thực tập cơ sở</option>
-                                                    <option value="TTCN">Thực tập chuyên ngành</option>
-                                                    <option value="TTTN">Thực tập tốt nghiệp</option>
-                                                    <option value="Đồ án">Đồ án tốt nghiệp</option>
-                                                </select>   
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-4 row">
-                                        <label class="col-sm-4 control-label" style="margin-top: 15px;">Kỳ học</label>
-                                        <div class="col-sm-8">
-                                        <select class="form-control" style="margin:10px 0px" onchange="" id="" >
-                                            <option value="2016_2017_1">2016_2017_1</option>
-                                            <option value="2016_2017_2">2016_2017_2</option>
-                                            <option value="2018_2019_1">2018_2019_1</option>
-                                            <option value="2018_2019_2">2018_2019_2</option>
-                                        </select>
-                                        </div>
-                                </div>
+                            <div class=" col-sm-1"></div>
+                            <div class="form-group col-sm-5 row">
+                                   
                             </div>
                             
-                            <div class="form-group">
-                                    <label class="col-sm-3" for="">Chọn file</label>
-                                    <input id="file" type="file" name="sortpic" class="" />
+                        </div>
+                            <div class="form-group row">
+                                    <label class="col-sm-5 control-label">Mã giảng viên</label>
+                                    <div class="col-sm-7">
+                                        <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
+                                </div>
+                            <div class="form-group row">
+                                    <label class="col-sm-5 control-label">Họ tên giảng viên</label>
+                                    <div class="col-sm-7">
+                                        <text  type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
                             </div>
+                            <div class="form-group row">
+                                <label class="col-sm-5 control-label">Ngày sinh</label>
+                                <div class="col-sm-7">
+                                    <text  type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                </div>
+                        </div>
+                            <div class="form-group row">
+                                <label class="col-sm-5 control-label">Giới tính</label>
+                                <div class="col-sm-7">
+                                    <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                </div>
+                            </div>
+                        
+                            <div class="form-group row">
+                                    <label class="col-sm-5 control-label">Email</label>
+                                    <div class="col-sm-7">
+                                        <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
+                                </div>
+                            <div class="form-group row">
+                                    <label class="col-sm-5 control-label">SDT</label>
+                                    <div class="col-sm-7">
+                                        <text  type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-5 control-label">Địa chỉ</label>
+                                <div class="col-sm-7">
+                                    <text  type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                </div>
+                        </div>
                         </form>
                             
                             <div class="modal-footer">
@@ -398,7 +334,51 @@
                 </div>
             </div>
     </div>
-    <!-- /Modal them diem -->
+    <!-- /Modal sua sv-->
+
+    <!-- Modal them sv -->
+    <div class="modal fade" id="themdssv" role="dialog" style="margin-top: 7%">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">THÊM DANH SÁCH GIẢNG VIÊN</h4>
+                    </div>
+                    <div class="modal-body">
+                       <!-- edit form column -->
+                       <form style="max-width: 80%;margin: auto">
+                            <div class="row">
+                                <div class="form-group col-sm-8 row">
+                                    <label class="col-sm-4 control-label" style="margin-top: 15px;margin-right: 20px">Bộ môn</label>
+                                    <div class="col-sm-6">
+                                            <select class="form-control" style="margin:10px 0px" onchange="" id="">
+                                                <option value="1">Hệ thống và mạng máy tính</option>
+                                                <option value="2">Khoa học máy tính và CN Phần mềm</option>
+                                            </select>   
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 row">
+                                       
+                                </div>
+                               
+                            </div>
+                           
+                            <div class="form-group">
+                                    <label class="col-sm-3" for="">Chọn file</label>
+                                    <input id="file" type="file" name="sortpic" class="" />
+                            </div>
+                        </form>
+                            
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Save</button>
+                            <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- /Modal them sv -->
 
 </body>
 

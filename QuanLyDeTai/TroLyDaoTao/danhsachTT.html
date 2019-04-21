@@ -3,7 +3,7 @@
 
 
     <head>
-        <title>Điểm | Quản lý đề tài thực tập</title>
+        <title>Danh sách thực tập | Quản lý đề tài thực tập</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -95,9 +95,9 @@
 					<ul class="nav">
                             <li><a href="danhsachSV.html" class=""><i class="fa fa-book"></i> <span>Danh sách sinh viên</span></a></li>
                             <li><a href="danhsachGV.html" class=""><i class="fa fa-id-badge"></i> <span>Danh sách giảng viên</span></a></li>
-                            <li><a href="danhsachTT.html" class=""><i class="fa fa-check-circle"></i> <span>Danh sách thực tập</span></a></li>
+                            <li><a href="danhsachTT.html" class="active"><i class="fa fa-check-circle"></i> <span>Danh sách thực tập</span></a></li>
                             <li><a href="phanbomon.html" class=""><i class="fa fa-book"></i> <span>Phân bộ môn</span></a></li>
-                            <li><a href="diem.html" class="active"><i class="fa fa-id-badge"></i> <span>Điểm</span></a></li>
+                            <li><a href="diem.html" class=""><i class="fa fa-id-badge"></i> <span>Điểm</span></a></li>
                             <li><a href="detai.html" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
                             <li><a href="danhsachhd.html" class=""><i class="fa fa-id-badge"></i> <span>Danh sách hướng dẫn</span></a></li>
                             <li><a href="chotdt.html" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
@@ -116,7 +116,7 @@
                         <!-- OVERVIEW -->
 					    <div class="panel panel-headline row">
                             <div class="panel-heading col-md-5">
-                                <h4>DANH SÁCH ĐIỂM THỰC TẬP</h4>
+                                <h4>DANH SÁCH SINH VIÊN THỰC TẬP</h4>
                             </div>
                             <div class="col-md-7"  style="margin-top: 10px">
                                     <div class="input-group" style="max-width: 300px;float: right;" id="adv-search">
@@ -173,7 +173,7 @@
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
-                                                    <span style="float: left;margin: 5px 0px ">Học kỳ </span></td>
+                                                    <label style="float: left;margin: 5px 0px ">Học kỳ </label>
                                                     <select style="float: right;width: 75%;"class="form-control">
                                                     <option disabled value="thuctap"> -- Chọn kỳ học -- </option>
                                                     <option selected="selected" value="2016_2017_1">2016_2017_1</option>
@@ -193,48 +193,51 @@
                                         style="border-collapse:collapse;">
                                         <tr>
                                                 <th class="center-header" scope="col">STT</th>
-                                                <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
-                                                <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
-                                                <th class="center-header" scope="col">Tên đề tài</th>
-                                                <th class="center-header" scope="col">Điểm công ty</th>
-                                                <th class="center-header" scope="col">Điểm GVHD</th>
-                                                <th class="center-header" scope="col">Điểm báo cáo</th>
-                                                <th class="center-header" scope="col">Điểm tổng</th>
+                                                <th class="center-header" scope="col" style="width:15%;">Mã SV</th>
+                                                <th class="center-header" scope="col" style="width:25%;">Họ tên</th>
+                                                <th class="center-header" scope="col">Lớp</th>
+                                                <th class="center-header" scope="col">Email</th>
+                                                <th class="center-header" scope="col">SĐT</th>
                                                 <th class="center-header" scope="col">Thao tác</th>
                                             </tr>
                                             <tr>
                                                 <td align="center">1</td>
-                                                <td>155D4802010023</td>
-                                                <td>Đinh Thị Thu Thủy</td>
-                                                <td>Thiết kế, vận hành và triển khai phần mềm quản lý đề tài thực tập</td>
-                                                <td align="center">8</td>
-                                                <td align="center">7</td>
-                                                <td align="center">8</td>
-                                                <td align="center">8.5</td>
-                                                <td align="center"><a data-toggle="modal"
-                                                    data-target="#suadiem"><i class="fa fa-edit"></i></a></td>
+                                                <td align="center">155D4802010033</td>
+                                                <td>Lê Thị Huyền</td>
+                                                <td align="center">56K2</td>
+                                                <td>huyenle97@gmail.com</td>
+                                                <td align="center">0389095378</td>
+                                                <td align="center">
+                                                    <i class="fa fa-edit" data-toggle="modal" title="Sửa"
+                                                    data-target="#suasvthuctap"></i>
+                                                </td>
+            
                                             </tr>
                                             <tr>
                                                 <td align="center">2</td>
-                                                <td>155D4802010033</td>
-                                                <td>Lê Thị Huyền</td>
-                                                <td>Thiết kế, vận hành và triển khai phần mềm quản lý nhà hàng</td>
-                                                <td align="center">8</td>
-                                                <td align="center">7</td>
-                                                <td align="center">6</td>
-                                                <td align="center">7</td>
-                                                <td align="center"><i class="fa fa-edit"></i></td>
+                                                <td align="center">155D4802010023</td>
+                                                <td>Đinh Thị Thu Thủy</td>
+                                                <td align="center">56K2</td>
+                                                <td>dinhthithuthuy2105@gmail.com</td>
+                                                <td align="center">0395824215</td>
+                                                <td align="center">
+                                                        <i class="fa fa-edit" data-toggle="modal" title="Sửa"
+                                                        data-target="#suasvthuctap"></i>
+                                                </td>
+            
                                             </tr>
                                             <tr>
-                                                <td align="center">3</td>
-                                                <td>155D4802010081</td>
+                                                <td align="center">2</td>
+                                                <td align="center">155D4802010081</td>
                                                 <td>Hoàng Thị Bích</td>
-                                                <td>Thiết kế, vận hành và triển khai phần mềm quản lý quán cà phê</td>
-                                                <td align="center">8</td>
-                                                <td align="center">9</td>
-                                                <td align="center">8</td>
-                                                <td align="center">8.5</td>
-                                                <td align="center"><i class="fa fa-edit"></i></td>
+                                                <td align="center">56K2</td>
+                                                <td>bichhoangdhv@gmail.com</td>
+                                                <td align="center">0395432178</td>
+                                                <td align="center">
+                                                        <i class="fa fa-edit" data-toggle="modal" title="Sửa"
+                                                        data-target="#suasvthuctap"></i>
+                                                </td>
+            
                                             </tr>
                                         </table>
                                         <div class="row">
@@ -281,78 +284,84 @@
 	<script src="../assets/vendor/jquery/jquery.min.js"></script>
 	<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../assets/scripts/klorofil-common.js"></script>
-	 <!-- Modal sua diem -->
-     <div class="modal fade" id="suadiem" role="dialog">
+	<!-- Modal sua sv thuc tap -->
+    <div class="modal fade" id="suasvthuctap" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">THÔNG TIN CHI TIẾT ĐIỂM</h4>
+                        <h4 class="modal-title">CHỈNH SỬA THỰC TẬP</h4>
                     </div>
                     <div class="modal-body">
                        <!-- edit form column -->
                        <form style="max-width: 70%;margin: auto">
                             <div class="form-group row">
-                            <label class="col-sm-4 control-label">Mã sinh viên</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="MSV">
-                            </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Họ tên sinh viên</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="name">
+                                <label class="col-sm-5 control-label">Thực tập</label>
+                                <div class="col-sm-7">
+                                        <select class="form-control" style="margin:10px 0px" onchange="" id="">
+                                            <option value="TTCS">Thực tập cơ sở</option>
+                                            <option value="TTCN">Thực tập chuyên ngành</option>
+                                            <option value="TTTN">Thực tập tốt nghiệp</option>
+                                            <option value="Đồ án">Đồ án tốt nghiệp</option>
+                                        </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-4 control-label">Tên đề tài</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="name">
-                                </div>
+                                    <label class="col-sm-5 control-label">Kỳ học</label>
+                                    <div class="col-sm-7">
+                                            <select class="form-control" style="margin:10px 0px" onchange="" id="" >
+                                        <option value="2016_2017_1">2016_2017_1</option>
+                                        <option value="2016_2017_2">2016_2017_2</option>
+                                        <option value="2018_2019_1">2018_2019_1</option>
+                                        <option value="2018_2019_2">2018_2019_2</option>
+                                    </select>
+                                    </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm công ty</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemCongty" >
+                                    <label class="col-sm-5 control-label">Mã sinh viên</label>
+                                    <div class="col-sm-7">
+                                        <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
                                 </div>
+                            <div class="form-group row">
+                                    <label class="col-sm-5 control-label">Họ tên sinh viên</label>
+                                    <div class="col-sm-7">
+                                        <text  type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm GVHD</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemGVHD">
+                                    <label class="col-sm-5 control-label">Email</label>
+                                    <div class="col-sm-7">
+                                        <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
                                 </div>
-                            </div>
                             <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm báo cáo</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemBaoCao">
-                                </div>
+                                    <label class="col-sm-5 control-label">SDT</label>
+                                    <div class="col-sm-7">
+                                        <text  type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                                    </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 control-label">Điểm tổng</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="diemTong">
-                                </div>
-                            </div>
+                        </form>
+                            
                             <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-edit"></i> Sửa</button>
+                            <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
                             <button type="submit" class="btn btn-primary"> <i class="fa fa-edit"></i> Sửa và đóng</button>
                             <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
                             </div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /Modal sua diem -->
+    </div>
+    <!-- /Modal sua sv thuctap -->
 
-    <!-- Modal them diem -->
+    <!-- Modal them sv thuc tap -->
     <div class="modal fade" id="themdsthuctap" role="dialog" style="margin-top: 7%">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">THÊM DANH SÁCH ĐIỂM</h4>
+                        <h4 class="modal-title">THÊM DANH SÁCH THỰC TẬP</h4>
                     </div>
                     <div class="modal-body">
                        <!-- edit form column -->
@@ -380,8 +389,27 @@
                                         </select>
                                         </div>
                                 </div>
+                                <div class="col-sm-3" style="padding: 0px;margin-top: 10px"">
+                                        <button style="float: right;border-radius: 2%;" class="btn"><a href="#themtt" aria-expanded="false" data-toggle="collapse"><i
+                                                class="fa fa-plus"> Thêm mới</i></a></button>
+                                </div>
                             </div>
-                            
+                            <div class="collapse" id="themtt">
+                                <fieldset>
+                                    <table class=" table table-bordered">
+                                        <tr>
+                                            <th class="center-header">Loại thực tập</th>
+                                            <th class="center-header">Học kỳ</th>
+                                            <th class="center-header">Thao tác</th>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td align="center"><i style="color:dodgerblue;margin:0px 20px" title="lưu" class="fa fa-save"></i><i style="color: red;" id="closett" title="hủy" class="fa fa-close"></i></td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </div>
                             <div class="form-group">
                                     <label class="col-sm-3" for="">Chọn file</label>
                                     <input id="file" type="file" name="sortpic" class="" />
@@ -398,7 +426,7 @@
                 </div>
             </div>
     </div>
-    <!-- /Modal them diem -->
+    <!-- /Modal them sv thuctap -->
 
 </body>
 
