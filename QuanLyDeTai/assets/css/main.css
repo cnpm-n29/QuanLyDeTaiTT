@@ -710,6 +710,7 @@ ul.list-justify>li span {
   border: 1px solid #eaeaea;
 }
 
+
 /* fancy checkbox and radio button */
 .fancy-checkbox {
   display: block;
@@ -2940,4 +2941,81 @@ border-bottom-left-radius: 4px;
 .panel .table>thead>tr>td:last-child, .panel .table>thead>tr>th:last-child, .panel .table>tbody>tr>td:last-child, .panel .table>tbody>tr>th:last-child, .panel .table>tfoot>tr>td:last-child, .panel .table>tfoot>tr>th:last-child {
   padding-left: 10px;
 }
+
+
+/* form login */
+ /*bootstrap class override for login page only*/
+ .form-login{
+  border-radius: 0px;
+  margin: 12px 3px;
+  height: 40px;
+}
+.logo{
+  margin: auto;
+  text-align: center;
+  padding-top: 20%;
+}
+.logo img{
+  height: 170px;
+  width: 170px;
+}
+/*for logintemplate blue*/
+.grayBody{
+  background-color: #E9E9E9;
+}
+.loginbox{
+  margin-top: 3%;
+  border-top: 6px solid #0088D8;
+  background-color:#eaeaea;
+  padding: 20px;
+  box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+}
+.singtext{    
+  font-size: 28px;  
+  color: #0088D8;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.submitButton{
+  background-color: #0088D8;
+  color: #fff;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  padding: 10px 0px;
+  width: 100%;
+  margin-left: 2px;
+  font-size: 16px;
+  border-radius: 0px;
+  outline: none;
+}
+.submitButton:hover,.submitButton:focus{
+  color: #fff;  
+  outline: none;
+}
+.forGotPassword{
+  background-color: #F2F2F2; 
+  padding: 15px 0px;
+  text-align: center;
+
+}
+.forGotPassword:hover{
+   box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12);    
+}
+.forGotPassword a{
+  color: #000;
+  outline: none;
+}
+.forGotPassword a:hover, .forGotPassword a:active,.forGotPassword a:focus{  
+  text-decoration: none; 
+  outline: none;
+}
+.footer {
+  margin-top: 140px;
+  height: 40px;
+  padding-bottom: 0px;
+  background-color: #2980B9;
+  color: white;
+  
+}
+
 
