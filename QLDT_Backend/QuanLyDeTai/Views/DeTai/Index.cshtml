@@ -1,0 +1,293 @@
+﻿@model QuanLyDeTai.Models.DeTaiModelView
+@{
+    ViewBag.Title = "Đề tài";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var i = 0;
+}
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+}
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                @if (Session["Thêm, Sửa,Xóa đề tài"] != null)
+                {
+                    <li><a href="~/DeTai/Index" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                }
+
+                @if (Session["Xem danh sách hướng dẫn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
+                }
+                @if (Session["Chốt đề tài"] != null)
+                {
+                    <li><a href="~/ChotDeTai/Index" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách sinh viên"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách Giảng viên"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+
+
+                @if (Session["Thêm, Sửa , Xóa Danh sách thực tập"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
+                }
+                @if (Session["Phân Bộ Môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                }
+                @if (Session["Thêm, Sửa, Xóa điểm"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
+                }
+                @if (Session["Xem danh sách sinh viên bộ môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Xem danh sách sinh viên bộ môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+                @if (Session["Phân giáo viên hướng dẫn "] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-3">
+                    <h4>ĐỀ TÀI THỰC TẬP</h4>
+                </div>
+                <div class="col-md-9" style="margin-top: 10px">
+                    <div class="input-group" style="max-width: 255px;float: right;" id="adv-search">
+                        <input type="text" class="form-control" placeholder="Search ..." />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary">
+                                <span class="fa fa-search"
+                                      aria-hidden="true"></span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                <div class="ddlHocKy col-sm-8" style="padding-left:20px">
+                                    
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4" style="padding-left:20px">
+                                <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                <div class="ddlLoaiTT col-sm-9" style="padding-left:20px">
+                                   </div>
+
+                            </div>
+
+                            
+                            <div class="col-sm-4" style="padding: 0px;">
+                                <button data-toggle="modal"
+                                        data-target="#themdetai" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <i class="fa fa-plus"></i> Thêm mới
+                                </button>
+                            </div>
+                        </div>
+                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
+                               style="border-collapse:collapse;">
+                            <tr>
+                                <th class="center-header" scope="col">STT</th>
+                                <th class="center-header" scope="col" style="width:50%;">Tên đề tài</th>
+                                <th class="center-header" scope="col" style="width:20%;">Mô tả</th>
+                                <th class="center-header" scope="col">Trạng thái</th>
+                                <th class="center-header" scope="col">Thao tác</th>
+                            </tr>
+                            <tbody class="tbody">
+                                
+                            </tbody>
+                        </table>
+                        <div class="row">
+
+                            <div class="col-sm-5">
+                                <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                <div style="float: left;margin: 0px 5px;" class="form-group">
+                                    <select name="state" id="maxRows" class="form-control" style="width:80px;">
+                                        <option value="5" selected>5</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+
+                                </div>
+                                <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                            </div>
+                            <div class="pagination-container col-sm-7">
+                                <nav style="float:right;">
+                                    <ul class="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END RECENT PURCHASES -->
+
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+<!-- Modal sua detai -->
+<div class="modal fade" id="suadetai" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">CHỈNH SỬA ĐỀ TÀI</h4>
+            </div>
+            @using (Html.BeginForm("Create", "DeTai", FormMethod.Post, new { @style = "max-width: 70%;margin: auto" }))
+            {
+                <div class="modal-body">
+                    <!-- edit form column -->
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Kỳ học</label>
+                        <div class="col-sm-5">
+                            @Html.DropDownListFor(model => model.deTaiModel.ID_HocKy, ViewBag.ID_HocKy as IEnumerable<SelectListItem>, new {  @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Thực tập</label>
+                        <div class="col-sm-5">
+                            @Html.DropDownListFor(model => model.deTaiModel.ID_HocKy, ViewBag.ID_LoaiTT as IEnumerable<SelectListItem>, new {  @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Tên đề tài</label>
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.deTaiModel.TenDeTai, new { htmlAttributes = new { @name = "TenDT", @class = "form-control" } })
+                            <label id="errorten"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Mô tả</label>
+                        <div class="col-sm-9">
+                            @Html.TextAreaFor(model => model.deTaiModel.MoTa, new { @name = "MoTa", @class = "form-control", @rows = "10" })
+                            <label id="errorMoTa"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Trạng thái</label>
+                        <div class="col-sm-3">
+                            @Html.CheckBoxFor(model => model.deTaiModel.TrangThai, new { @name = "kichhoat", @class = "kichhoat col-sm-3" })
+                            <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
+                            @Html.ValidationMessageFor(model => model.deTaiModel.TrangThai, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-edit"></i> Sửa và đóng</button>
+                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<!-- /Modal sua detai -->
+<!-- Modal them detai -->
+<div class="modal fade" id="themdetai" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">THÊM MỚI ĐỀ TÀI</h4>
+            </div>
+            @using (Html.BeginForm("Create", "DeTai", FormMethod.Post, new { @style = "max-width: 70%;margin: auto" }))
+            {
+                <div class="modal-body">
+                    <!-- edit form column -->
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Kỳ học</label>
+                        <div class="col-sm-5">
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Thực tập</label>
+                        <div class="col-sm-5">
+                           
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Tên đề tài</label>
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.deTaiModel.TenDeTai, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.deTaiModel.TenDeTai, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Mô tả</label>
+                        <div class="col-sm-9">
+                            @Html.TextAreaFor(model => model.deTaiModel.MoTa, new { @class = "form-control", @rows = "10" })
+                            @Html.ValidationMessageFor(model => model.deTaiModel.MoTa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Trạng thái</label>
+                        <div class="col-sm-3">
+                            @Html.CheckBoxFor(model => model.deTaiModel.TrangThai, new { @class = "kichhoat col-sm-3" })
+                            <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
+                            @Html.ValidationMessageFor(model => model.deTaiModel.TrangThai, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-primary"> <i class="fa fa-save"></i> Thêm mới</button>
+                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- /Modal them detai -->
