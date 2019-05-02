@@ -165,6 +165,7 @@
     <Content Include="Assets\img\user4.png" />
     <Content Include="Assets\img\user5.png" />
     <Content Include="Assets\scripts\common.js" />
+    <Content Include="Assets\scripts\DeTaiControl.js" />
     <Content Include="Assets\scripts\DropDown.js" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.min.css" />

@@ -1,5 +1,4 @@
 ﻿$(document).ready(function() {
-
 	var table = '.mytable'
 	$(window).on('load', function() {
 		$('.pagination').html('')
@@ -487,103 +486,6 @@ $.fn.clickToggle = function( f1, f2 ) {
 }
 
 
-
-
-
-//Function for getting the Data Based upon Employee ID  
-function getbyID(EmpID) {
-    alert(EmpID);
-}
-
-
-//Function for clearing the textboxes  
-function clearTextBox() {
-    $('#EmployeeID').val("");
-    $('#Name').val("");
-    $('#Age').val("");
-    $('#State').val("");
-    $('#Country').val("");
-    $('#btnUpdate').hide();
-    $('#btnAdd').show();
-    $('#Name').css('border-color', 'lightgrey');
-    $('#Age').css('border-color', 'lightgrey');
-    $('#State').css('border-color', 'lightgrey');
-    $('#Country').css('border-color', 'lightgrey');
-}  
-//Valdidation using jquery  
-function validate() {
-    var isValid = true;
-    if ($('#TenDT').val().trim() == "") {
-        $('#TenDT').css('border-color', 'Red');
-        $('#errorten').text("Chưa nhập tên đề tài");
-        isValid = false;
-    }
-    else {
-        $('#TenDT').css('border-color', 'lightgrey');
-    }
-    if ($('#MoTa').val().trim() == "") {
-        $('#MoTa').css('border-color', 'Red');
-        $('#errorten').text("Chưa nhập mô tả")
-        isValid = false;
-    }
-    else {
-        $('#MoTa').css('border-color', 'lightgrey');
-    }
-    
-    return isValid;
-}
-
-//Function for change dropdown
-function changeDrop(IDHK) {
-    $.ajax({
-        url: "/DeTai/GetLoaiTTByHK/"+IDHK,
-        type: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result)
-        {
-            var html = '<select class="form-control">';
-            html += '<option value=""> -- Chọn loại thực tập -- </option>';
-            $.each(result, function (key, item) {  
-                html += '<option value=' + item.ID + '>' + item.TenThucTap + '</option>';
-
-            });  
-            html +='</select>'
-            $("#ddlLoaiTT").html(html);
-        },
-        
-        error: function (errormessage) {
-            
-        }
-    });
-    return false;
-}
-
-
-function getListLoaiTT() {
-    $.ajax({
-        url: "/DeTai/listLoaiTT/",
-        type: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var html = '<select class="form-control">';
-            html += '<option value=""> -- Chọn loại thực tập -- </option>';
-            $.each(result, function (key, item) {
-                html += '<option value=' + item.ID + '>' + item.TenThucTap + '</option>';
-
-
-            });
-            html += '</select>'
-            $("#ddlLoaiTT").html(html);
-        },
-
-        error: function (errormessage) {
-
-        }
-    });
-    return false;
-}
 
 
 

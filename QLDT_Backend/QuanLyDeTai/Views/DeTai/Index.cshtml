@@ -7,6 +7,7 @@
 @section footer
 {
     <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/DeTaiControl.js"></script>
 }
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
@@ -78,9 +79,9 @@
                 </div>
                 <div class="col-md-9" style="margin-top: 10px">
                     <div class="input-group" style="max-width: 255px;float: right;" id="adv-search">
-                        <input type="text" class="form-control" placeholder="Search ..." />
+                        <input type="text" class="form-control" placeholder="Search ..."  id="myInput" onkeyup="Search()"/>
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" onclick="Search()">
                                 <span class="fa fa-search"
                                       aria-hidden="true"></span>
                             </button>
@@ -100,26 +101,26 @@
                             <div class="col-sm-4">
                                 <label style="float: left;margin: 5px 0px ">Học kỳ </label>
                                 <div class="ddlHocKy col-sm-8" style="padding-left:20px">
-                                    
+
                                 </div>
 
                             </div>
                             <div class="col-sm-4" style="padding-left:20px">
                                 <label style="float: left;margin: 5px 0px ">Thực tập </label>
                                 <div class="ddlLoaiTT col-sm-9" style="padding-left:20px">
-                                   </div>
+                                </div>
 
                             </div>
 
-                            
+
                             <div class="col-sm-4" style="padding: 0px;">
-                                <button data-toggle="modal"
+                                <button onclick="clearTextBox()" data-toggle="modal"
                                         data-target="#themdetai" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
                                     <i class="fa fa-plus"></i> Thêm mới
                                 </button>
                             </div>
                         </div>
-                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
+                        <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
                                style="border-collapse:collapse;">
                             <tr>
                                 <th class="center-header" scope="col">STT</th>
@@ -128,9 +129,7 @@
                                 <th class="center-header" scope="col">Trạng thái</th>
                                 <th class="center-header" scope="col">Thao tác</th>
                             </tr>
-                            <tbody class="tbody">
-                                
-                            </tbody>
+                            <tbody class="tbody"></tbody>
                         </table>
                         <div class="row">
 
@@ -172,58 +171,54 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">CHỈNH SỬA ĐỀ TÀI</h4>
             </div>
-            @using (Html.BeginForm("Create", "DeTai", FormMethod.Post, new { @style = "max-width: 70%;margin: auto" }))
-            {
+            <form>
                 <div class="modal-body">
                     <!-- edit form column -->
-
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" id="ID" />
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Kỳ học</label>
                         <div class="col-sm-5">
-                            @Html.DropDownListFor(model => model.deTaiModel.ID_HocKy, ViewBag.ID_HocKy as IEnumerable<SelectListItem>, new {  @class = "form-control" })
-
+                            <div class="ddlHocKy SuaHocKy"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Thực tập</label>
                         <div class="col-sm-5">
-                            @Html.DropDownListFor(model => model.deTaiModel.ID_HocKy, ViewBag.ID_LoaiTT as IEnumerable<SelectListItem>, new {  @class = "form-control" })
+                            <div class="ddlLoaiTT SuaLoaiTT"></div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Tên đề tài</label>
                         <div class="col-sm-9">
-                            @Html.EditorFor(model => model.deTaiModel.TenDeTai, new { htmlAttributes = new { @name = "TenDT", @class = "form-control" } })
-                            <label id="errorten"></label>
+                            <input type="text" class="form-control" id="SuaTenDeTai" />
+                            <p id="SuaerrorTenDT" class="text-danger"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Mô tả</label>
                         <div class="col-sm-9">
-                            @Html.TextAreaFor(model => model.deTaiModel.MoTa, new { @name = "MoTa", @class = "form-control", @rows = "10" })
-                            <label id="errorMoTa"></label>
+                            <textarea id="SuaMoTa" class="form-control" rows="10"></textarea>
+
+                            <p id="SuaerrorMoTa" class="text-danger"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Trạng thái</label>
                         <div class="col-sm-3">
-                            @Html.CheckBoxFor(model => model.deTaiModel.TrangThai, new { @name = "kichhoat", @class = "kichhoat col-sm-3" })
+                            <input type="checkbox" id="SuaTrangThai" class="kichhoat col-sm-3" />
                             <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
                             @Html.ValidationMessageFor(model => model.deTaiModel.TrangThai, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                 </div>
-
+            </form>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
-                    <button type="submit" class="btn btn-primary"> <i class="fa fa-edit"></i> Sửa và đóng</button>
+                    <button onclick="Update()" type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
                     <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
                 </div>
-            }
+            
         </div>
 
     </div>
@@ -237,57 +232,56 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">THÊM MỚI ĐỀ TÀI</h4>
             </div>
-            @using (Html.BeginForm("Create", "DeTai", FormMethod.Post, new { @style = "max-width: 70%;margin: auto" }))
-            {
+            <form style="width:75%;margin:auto">
                 <div class="modal-body">
                     <!-- edit form column -->
 
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Kỳ học</label>
                         <div class="col-sm-5">
-
+                            <div class="ddlHocKy drpHocKy"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Thực tập</label>
                         <div class="col-sm-5">
-                           
+                            <div class="ddlLoaiTT drpLoaiTT"></div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Tên đề tài</label>
                         <div class="col-sm-9">
-                            @Html.EditorFor(model => model.deTaiModel.TenDeTai, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.deTaiModel.TenDeTai, "", new { @class = "text-danger" })
+                            <input type="text" class="form-control" id="TenDeTai" />
+                            <p id="errorTenDT" class="text-danger"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Mô tả</label>
                         <div class="col-sm-9">
-                            @Html.TextAreaFor(model => model.deTaiModel.MoTa, new { @class = "form-control", @rows = "10" })
-                            @Html.ValidationMessageFor(model => model.deTaiModel.MoTa, "", new { @class = "text-danger" })
+                            <textarea id="MoTa" class="form-control" rows="10"></textarea>
+                           
+                            <p id="errorMoTa" class="text-danger"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Trạng thái</label>
                         <div class="col-sm-3">
-                            @Html.CheckBoxFor(model => model.deTaiModel.TrangThai, new { @class = "kichhoat col-sm-3" })
+                            <input type="checkbox" id="TrangThai" class="kichhoat col-sm-3" />
                             <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
                             @Html.ValidationMessageFor(model => model.deTaiModel.TrangThai, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                 </div>
-
+            </form>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-primary"> <i class="fa fa-save"></i> Thêm mới</button>
+                    <button onclick="Add()" type="submit" class="btn btn-primary btn-primary"> <i class="fa fa-save"></i> Thêm mới</button>
                     <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
                 </div>
-            }
+            
         </div>
     </div>
 </div>
 <!-- /Modal them detai -->
+

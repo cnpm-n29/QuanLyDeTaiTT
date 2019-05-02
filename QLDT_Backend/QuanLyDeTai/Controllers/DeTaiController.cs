@@ -17,7 +17,6 @@ namespace QuanLyDeTai.Controllers
         public ActionResult Index()
         {
             listHocKy1();
-            listLoaiTT1();
         
             long ID = long.Parse(Session["UserId"].ToString());
             var listDeTai = deTaiService.GetList(ID);
@@ -37,49 +36,47 @@ namespace QuanLyDeTai.Controllers
             return View(detaimodel);
         }
 
-        [HttpPost]
-        public ActionResult Create(DeTaiModelView model)
+        
+
+        public JsonResult Add(DeTaiModel model)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
-            model.deTaiModel.ID_GiangVien = id_gv;
-            if (ModelState.IsValid)
+            model.ID_GiangVien = id_gv;
+            var tt = thucTapService.GetByLoaiTTvaHocKy(model.ID_LoaiTT, model.ID_HocKy);
+            model.ID_ThucTap = tt.ID;
+            var m = new DeTai
             {
-                try
-                {
-                    var tt = thucTapService.GetByLoaiTTvaHocKy(model.deTaiModel.ID_LoaiTT, model.deTaiModel.ID_HocKy);
-                    model.deTaiModel.ID_ThucTap = tt.ID;
-                    var m =  new DeTai
-                    {
-                        ID_GiangVien = model.deTaiModel.ID_GiangVien,
-                        ID_ThucTap = model.deTaiModel.ID_ThucTap,
-                        TenDeTai = model.deTaiModel.TenDeTai,
-                        MoTa = model.deTaiModel.MoTa,
-                        TrangThai = model.deTaiModel.TrangThai
-                    };
-                    var action = deTaiService.Create(m);
-                    if (action)
-                    {
-                        return Redirect("/detai/index");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Thêm thất bại");
-                    }
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Thêm thất bại");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Thêm thất bại");
-            }
-            return Redirect("/detai/index");
-
+                ID_GiangVien = model.ID_GiangVien,
+                ID_ThucTap = model.ID_ThucTap,
+                TenDeTai = model.TenDeTai,
+                MoTa = model.MoTa,
+                TrangThai = model.TrangThai
+            };
+            return Json(deTaiService.Create(m), JsonRequestBehavior.AllowGet);
         }
 
-        
+
+        public JsonResult Update(DeTaiModel model)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            model.ID_GiangVien = id_gv;
+            var tt = thucTapService.GetByLoaiTTvaHocKy(model.ID_LoaiTT, model.ID_HocKy);
+            model.ID_ThucTap = tt.ID;
+            var m = new DeTai
+            {
+                ID=model.ID,
+                ID_ThucTap = model.ID_ThucTap,
+                TenDeTai = model.TenDeTai,
+                MoTa = model.MoTa,
+                TrangThai = model.TrangThai
+            };
+            return Json(deTaiService.Update(m), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Delete(long id)
+        {
+            return Json(deTaiService.Delete(id), JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult listLoaiTT(long? id=null)
         {

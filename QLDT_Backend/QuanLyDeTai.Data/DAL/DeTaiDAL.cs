@@ -11,12 +11,21 @@ namespace QuanLyDeTai.Data.DAL
     {
         private DefaultDbContext context = new DefaultDbContext();
 
-        public DeTai GetById(long id)
+        public IQueryable GetById(long id)
         {
             //Get from database
-            var user = context.DeTais
-                .Where(i => i.ID == id && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
-                .FirstOrDefault();
+            var user = from d in context.DeTais
+                       join t in context.ThucTaps on d.ID_ThucTap equals t.ID
+                       where d.ID == id && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                       select new
+                       {
+                           ID=d.ID,
+                           TenDeTai = d.TenDeTai,
+                           MoTa = d.MoTa,
+                           TrangThai=d.TrangThai,
+                           ID_HocKy=t.ID_HocKy,
+                           ID_LoaiTT=t.ID_LoaiTT
+                       };
             return user;
         }
 
@@ -33,7 +42,7 @@ namespace QuanLyDeTai.Data.DAL
         {
             //Get from database
             var user = context.DeTais
-                .Where(i => i.ID_ThucTap == id_tt && i.ID_GiangVien==id_gv)
+                .Where(i => i.ID_ThucTap == id_tt && i.ID_GiangVien==id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
                 .ToList();
             return user;
         }
@@ -103,7 +112,7 @@ namespace QuanLyDeTai.Data.DAL
             try
             {
                 //Tương tự update
-                var item = context.SinhViens.Where(i => i.ID == id).FirstOrDefault();
+                var item = context.DeTais.Where(i => i.ID == id).FirstOrDefault();
 
                 //Remove item.
 

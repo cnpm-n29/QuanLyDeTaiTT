@@ -59,7 +59,7 @@ namespace QuanLyDeTai.Service
             }
         }
 
-        public DeTai GetById(long id)
+        public IQueryable GetById(long id)
         {
             return DeTaiDAL.GetById(id);
         }
