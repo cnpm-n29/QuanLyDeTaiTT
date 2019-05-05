@@ -14,5 +14,9 @@ namespace QuanLyDeTai.Data.Entities
         public long? ID_SinhVien { get; set; }
 
         public long? ID_GiangVien { get; set; }
+
+        public virtual GiangVien GiangVien { get; set; }
+
+        public virtual SinhVien SinhVien { get; set; }
     }
 }

@@ -48,6 +48,20 @@ namespace QuanLyDeTai.Data.Entities
                 .WithOptional(e => e.ChucVu)
                 .HasForeignKey(e => e.ID_ChucVu);
 
+            modelBuilder.Entity<DeTai>()
+                .HasMany(e => e.DeTaiSinhVienTTs)
+                .WithOptional(e => e.DeTai)
+                .HasForeignKey(e => e.ID_DeTai);
+
+            modelBuilder.Entity<DeTaiSinhVienTT>()
+                .Property(e => e.Status)
+                .IsFixedLength();
+
+            modelBuilder.Entity<DeTaiSinhVienTT>()
+                .HasMany(e => e.DiemTTs)
+                .WithOptional(e => e.DeTaiSinhVienTT)
+                .HasForeignKey(e => e.ID_DeTaiSinhVienTT);
+
             modelBuilder.Entity<GiangVien>()
                 .Property(e => e.SDT)
                 .IsFixedLength();
@@ -56,6 +70,31 @@ namespace QuanLyDeTai.Data.Entities
                 .HasMany(e => e.ChucVuGVs)
                 .WithOptional(e => e.GiangVien)
                 .HasForeignKey(e => e.ID_GV);
+
+            modelBuilder.Entity<GiangVien>()
+                .HasMany(e => e.DeTais)
+                .WithOptional(e => e.GiangVien)
+                .HasForeignKey(e => e.ID_GiangVien);
+
+            modelBuilder.Entity<GiangVien>()
+                .HasMany(e => e.PhanCongGVs)
+                .WithOptional(e => e.GiangVien)
+                .HasForeignKey(e => e.ID_GiangVien);
+
+            modelBuilder.Entity<HocKy>()
+                .HasMany(e => e.ThucTaps)
+                .WithOptional(e => e.HocKy)
+                .HasForeignKey(e => e.ID_HocKy);
+
+            modelBuilder.Entity<LoaiTT>()
+                .HasMany(e => e.ThucTaps)
+                .WithOptional(e => e.LoaiTT)
+                .HasForeignKey(e => e.ID_LoaiTT);
+
+            modelBuilder.Entity<Nganh>()
+                .HasMany(e => e.Khoas)
+                .WithOptional(e => e.Nganh)
+                .HasForeignKey(e => e.ID_Nganh);
 
             modelBuilder.Entity<Quyen>()
                 .HasMany(e => e.Quyen_CV)
@@ -66,6 +105,26 @@ namespace QuanLyDeTai.Data.Entities
                 .Property(e => e.SDT)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<SinhVien>()
+                .HasMany(e => e.PhanCongGVs)
+                .WithOptional(e => e.SinhVien)
+                .HasForeignKey(e => e.ID_SinhVien);
+
+            modelBuilder.Entity<SinhVien>()
+                .HasMany(e => e.SinhVienTTs)
+                .WithOptional(e => e.SinhVien)
+                .HasForeignKey(e => e.ID_SinhVien);
+
+            modelBuilder.Entity<SinhVienTT>()
+                .HasMany(e => e.DeTaiSinhVienTTs)
+                .WithOptional(e => e.SinhVienTT)
+                .HasForeignKey(e => e.ID_SinhVienTT);
+
+            modelBuilder.Entity<ThucTap>()
+                .HasMany(e => e.DeTais)
+                .WithOptional(e => e.ThucTap)
+                .HasForeignKey(e => e.ID_ThucTap);
         }
     }
 }

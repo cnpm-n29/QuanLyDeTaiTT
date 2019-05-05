@@ -15,5 +15,7 @@ namespace QuanLyDeTai.Data.Entities
 
         [StringLength(50)]
         public string TenKhoa { get; set; }
+
+        public virtual Nganh Nganh { get; set; }
     }
 }

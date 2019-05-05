@@ -9,10 +9,21 @@ namespace QuanLyDeTai.Data.Entities
     [Table("SinhVienTT")]
     public partial class SinhVienTT
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SinhVienTT()
+        {
+            DeTaiSinhVienTTs = new HashSet<DeTaiSinhVienTT>();
+        }
+
         public long ID { get; set; }
 
         public long? ID_SinhVien { get; set; }
 
         public long? ID_TT { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeTaiSinhVienTT> DeTaiSinhVienTTs { get; set; }
+
+        public virtual SinhVien SinhVien { get; set; }
     }
 }

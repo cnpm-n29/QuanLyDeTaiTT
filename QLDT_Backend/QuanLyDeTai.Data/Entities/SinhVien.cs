@@ -9,6 +9,13 @@ namespace QuanLyDeTai.Data.Entities
     [Table("SinhVien")]
     public partial class SinhVien
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SinhVien()
+        {
+            PhanCongGVs = new HashSet<PhanCongGV>();
+            SinhVienTTs = new HashSet<SinhVienTT>();
+        }
+
         public long ID { get; set; }
 
         [StringLength(20)]
@@ -56,5 +63,11 @@ namespace QuanLyDeTai.Data.Entities
 
         [StringLength(500)]
         public string GhiChu { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhanCongGV> PhanCongGVs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SinhVienTT> SinhVienTTs { get; set; }
     }
 }

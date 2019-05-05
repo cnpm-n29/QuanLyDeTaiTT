@@ -13,6 +13,8 @@ namespace QuanLyDeTai.Data.Entities
         public GiangVien()
         {
             ChucVuGVs = new HashSet<ChucVuGV>();
+            DeTais = new HashSet<DeTai>();
+            PhanCongGVs = new HashSet<PhanCongGV>();
         }
 
         public long ID { get; set; }
@@ -69,5 +71,11 @@ namespace QuanLyDeTai.Data.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChucVuGV> ChucVuGVs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeTai> DeTais { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhanCongGV> PhanCongGVs { get; set; }
     }
 }

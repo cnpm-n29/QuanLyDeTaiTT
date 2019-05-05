@@ -51,11 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\DeTaiDAL.cs" />
+    <Compile Include="DAL\DeTaiSinhVienTTDAL.cs" />
     <Compile Include="DAL\GiangVienDAL.cs" />
     <Compile Include="DAL\HocKyDAL.cs" />
     <Compile Include="DAL\LoaiTTDAL.cs" />
+    <Compile Include="DAL\PhanCongGVDAL.cs" />
     <Compile Include="DAL\QuyenDAL.cs" />
     <Compile Include="DAL\SinhVienDAL.cs" />
+    <Compile Include="DAL\SinhVienTTDAL.cs" />
     <Compile Include="DAL\ThucTapDAL.cs" />
     <Compile Include="Entities\BoMon.cs" />
     <Compile Include="Entities\ChucVu.cs" />

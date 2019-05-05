@@ -59,6 +59,11 @@ namespace QuanLyDeTai.Service
             }
         }
 
+        public DeTai ChangeStatus(long id)
+        {
+            return DeTaiDAL.ChangeStatus(id);
+        }
+
         public IQueryable GetById(long id)
         {
             return DeTaiDAL.GetById(id);
@@ -69,7 +74,7 @@ namespace QuanLyDeTai.Service
             return DeTaiDAL.GetList(ID);
         }
 
-        public IEnumerable<DeTai> GetListByTTvaMaGV(long id_tt, long id_gv)
+        public IEnumerable<DeTai> GetListByTTvaMaGV(long? id_tt, long? id_gv)
         {
             return DeTaiDAL.GetListByTTvaMaGV(id_tt,id_gv);
         }

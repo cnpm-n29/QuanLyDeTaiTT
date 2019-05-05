@@ -62,10 +62,10 @@ function changeDropThucTap(IDTT) {
                     html += '<td>' + item.MoTa + '</td>';
                     if (item.TrangThai == true) {
 
-                        html += '<td align="center"><label class="switch " style="margin-bottom: 0px;"><input type="checkbox" class="primary" checked> <span class="slider round"></span></label ></td >';
+                        html += '<td align="center"><label class="switch " style="margin-bottom: 0px;"><input onclick="changeStatus(' + item.ID + ')" type="checkbox" class="primary" checked> <span class="slider round"></span></label ></td >';
                     }
                     else {
-                        html += '<td align="center"><label class="switch " style="margin-bottom: 0px;"><input type="checkbox" class="primary"> <span class="slider round"></span></label ></td >';
+                        html += '<td align="center"><label class="switch " style="margin-bottom: 0px;"><input onclick="changeStatus(' + item.ID + ')" type="checkbox" class="primary"> <span class="slider round"></span></label ></td >';
                     }
 
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
@@ -82,32 +82,32 @@ function changeDropThucTap(IDTT) {
 }  
 
 
-//Lay het gia tri cua loai thuctap
-function getListLoaiTT() {
-    $.ajax({
-        url: "/DeTai/listLoaiTT/",
-        type: "GET",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var html = '<select class="form-control" onchange = "changeDropThucTap(this.value)" id="LoaiTT">';
-            html += '<option disabled> -- Chọn loại thực tập -- </option>';
-            $.each(result, function (key, item) {
-                html += '<option value=' + item.ID + '>' + item.TenThucTap + '</option>';
+////Lay het gia tri cua loai thuctap
+//function getListLoaiTT() {
+//    $.ajax({
+//        url: "/DeTai/listLoaiTT/",
+//        type: "GET",
+//        async: false,
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
+//            var html = '<select class="form-control" onchange = "changeDropThucTap(this.value)" id="LoaiTT">';
+//            html += '<option disabled> -- Chọn loại thực tập -- </option>';
+//            $.each(result, function (key, item) {
+//                html += '<option value=' + item.ID + '>' + item.TenThucTap + '</option>';
 
 
-            });
-            html += '</select>'
-            $(".ddlLoaiTT").html(html);
-        },
+//            });
+//            html += '</select>'
+//            $(".ddlLoaiTT").html(html);
+//        },
 
-        error: function (errormessage) {
+//        error: function (errormessage) {
 
-        }
-    });
-    return false;
-}
+//        }
+//    });
+//    return false;
+//}
 
 function getListHocKy() {
     $.ajax({
@@ -128,7 +128,7 @@ function getListHocKy() {
         },
 
         error: function (errormessage) {
-
+            alert(errormessage.responseText);
         }
     });
     return false;

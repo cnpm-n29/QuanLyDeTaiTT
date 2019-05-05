@@ -8,9 +8,8 @@ namespace QuanLyDeTai.Data.Entities
 
     public partial class Quyen_CV
     {
-        
         public long ID { get; set; }
-        
+
         public long? ID_ChucVu { get; set; }
 
         public long? ID_Quyen { get; set; }

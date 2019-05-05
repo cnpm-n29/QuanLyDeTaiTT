@@ -1,4 +1,4 @@
-﻿@model QuanLyDeTai.Models.DeTaiModelView
+﻿
 @{
     ViewBag.Title = "Đề tài";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -208,7 +208,7 @@
                         <div class="col-sm-3">
                             <input type="checkbox" id="SuaTrangThai" class="kichhoat col-sm-3" />
                             <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
-                            @Html.ValidationMessageFor(model => model.deTaiModel.TrangThai, "", new { @class = "text-danger" })
+                           
                         </div>
                     </div>
 
@@ -269,7 +269,7 @@
                         <div class="col-sm-3">
                             <input type="checkbox" id="TrangThai" class="kichhoat col-sm-3" />
                             <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
-                            @Html.ValidationMessageFor(model => model.deTaiModel.TrangThai, "", new { @class = "text-danger" })
+                            
                         </div>
                     </div>
 

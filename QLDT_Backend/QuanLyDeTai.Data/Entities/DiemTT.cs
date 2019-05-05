@@ -22,5 +22,21 @@ namespace QuanLyDeTai.Data.Entities
         public float? DiemBaoCao { get; set; }
 
         public float? DiemTong { get; set; }
+
+        public long? CreateBy { get; set; }
+
+        public DateTime? CreateTime { get; set; }
+
+        public long? ModifyBy { get; set; }
+
+        public DateTime? ModifyTime { get; set; }
+
+        public bool? IsDeleted { get; set; }
+
+        public long? DeletedBy { get; set; }
+
+        public DateTime? DeletedTime { get; set; }
+
+        public virtual DeTaiSinhVienTT DeTaiSinhVienTT { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace QuanLyDeTai.Data.DAL
 
         public IQueryable GetById(long id)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = from d in context.DeTais
                        join t in context.ThucTaps on d.ID_ThucTap equals t.ID
@@ -29,8 +30,21 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
+        public DeTai ChangeStatus(long id)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.DeTais
+                .Where(i => i.ID == id)
+                .FirstOrDefault();
+            user.TrangThai = !user.TrangThai;
+            context.SaveChanges();
+            return user;
+        }
+
         public IEnumerable<DeTai> GetByTT(long id)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.DeTais
                 .Where(i => i.ID_ThucTap == id)
@@ -38,8 +52,9 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
-        public IEnumerable<DeTai> GetListByTTvaMaGV(long id_tt,long id_gv)
+        public IEnumerable<DeTai> GetListByTTvaMaGV(long? id_tt,long? id_gv)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.DeTais
                 .Where(i => i.ID_ThucTap == id_tt && i.ID_GiangVien==id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))

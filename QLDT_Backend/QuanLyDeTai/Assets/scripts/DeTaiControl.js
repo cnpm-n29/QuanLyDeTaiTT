@@ -185,3 +185,22 @@ function Search() {
         }
     }
 }
+
+//function for change status
+function changeStatus(id)
+{
+    $.ajax({
+        url: "/DeTai/ChangeStatus/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $("this").attr("checked", result.TrangThai);
+        },
+
+        error: function (errormessage) {
+
+        }
+    });
+    return false;
+}

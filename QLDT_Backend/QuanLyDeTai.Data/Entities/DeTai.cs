@@ -9,6 +9,12 @@ namespace QuanLyDeTai.Data.Entities
     [Table("DeTai")]
     public partial class DeTai
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DeTai()
+        {
+            DeTaiSinhVienTTs = new HashSet<DeTaiSinhVienTT>();
+        }
+
         public long ID { get; set; }
 
         public long? ID_GiangVien { get; set; }
@@ -21,8 +27,15 @@ namespace QuanLyDeTai.Data.Entities
         [StringLength(500)]
         public string MoTa { get; set; }
 
-        public bool TrangThai { get; set; }
+        public bool? TrangThai { get; set; }
 
         public bool? IsDeleted { get; set; }
+
+        public virtual GiangVien GiangVien { get; set; }
+
+        public virtual ThucTap ThucTap { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeTaiSinhVienTT> DeTaiSinhVienTTs { get; set; }
     }
 }

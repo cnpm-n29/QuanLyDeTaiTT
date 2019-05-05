@@ -14,6 +14,7 @@ namespace QuanLyDeTai.Data.DAL
 
         public LoaiTT GetById(long id)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             var user = context.LoaiTTs
                 .Where(i => i.ID == id)
                 .FirstOrDefault();
@@ -23,6 +24,7 @@ namespace QuanLyDeTai.Data.DAL
 
         public IEnumerable<LoaiTT> GetAll()
         {
+            context.Configuration.ProxyCreationEnabled = false;
             var user = context.LoaiTTs
                 .ToList();
             return user;

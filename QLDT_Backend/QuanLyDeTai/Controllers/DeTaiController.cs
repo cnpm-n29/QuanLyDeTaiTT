@@ -16,24 +16,12 @@ namespace QuanLyDeTai.Controllers
         // GET: DeTai
         public ActionResult Index()
         {
-            listHocKy1();
-        
-            long ID = long.Parse(Session["UserId"].ToString());
-            var listDeTai = deTaiService.GetList(ID);
-            var model = listDeTai.Select(t => new DeTaiModel
+            if (Session["Thêm, Sửa,Xóa đề tài"] != null)
             {
-                ID=t.ID,
-                ID_GiangVien=t.ID_GiangVien,
-                ID_ThucTap = t.ID_ThucTap,
-                TenDeTai=t.TenDeTai,
-                MoTa=t.MoTa,
-                TrangThai=t.TrangThai
-            });
-            var detaimodel = new DeTaiModelView
-            {
-                listDeTaiModels = model
-            };
-            return View(detaimodel);
+                //listHocKy1();
+                return View();
+            }
+            return Redirect("~/Error/Index");
         }
 
         
@@ -78,24 +66,26 @@ namespace QuanLyDeTai.Controllers
             return Json(deTaiService.Delete(id), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult listLoaiTT(long? id=null)
+        public JsonResult listLoaiTT()
         {
-            return Json(thucTapService.GetAllLoaiTT(), JsonRequestBehavior.AllowGet);
+            var result= thucTapService.GetAllLoaiTT();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public void listHocKy1(long? id = null)
-        {
-            ViewBag.ID_HocKy = new SelectList(thucTapService.GetAllHocKy(), "ID", "TenHocKy", id);
-        }
+        //public void listHocKy1(long? id = null)
+        //{
+        //    ViewBag.ID_HocKy = new SelectList(thucTapService.GetAllHocKy(), "ID", "TenHocKy", id);
+        //}
 
-        public void listLoaiTT1(long? id = null)
-        {
-            ViewBag.ID_LoaiTT = new SelectList(thucTapService.GetAllLoaiTT(), "ID", "TenThucTap", id);
-        }
+        //public void listLoaiTT1(long? id = null)
+        //{
+        //    ViewBag.ID_LoaiTT = new SelectList(thucTapService.GetAllLoaiTT(), "ID", "TenThucTap", id);
+        //}
 
-        public JsonResult listHocKy(long? id = null)
+        public JsonResult listHocKy()
         {
-            return Json(thucTapService.GetAllHocKy(), JsonRequestBehavior.AllowGet);
+            var result = thucTapService.GetAllHocKy();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult listDeTai()
@@ -120,6 +110,11 @@ namespace QuanLyDeTai.Controllers
         public JsonResult GetLoaiTTByHK(long? ID)
         {   
             return Json(thucTapService.GetByHocKy(ID), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ChangeStatus(long id)
+        {
+            return Json(deTaiService.ChangeStatus(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

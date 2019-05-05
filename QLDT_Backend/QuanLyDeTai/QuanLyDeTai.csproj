@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChotDeTaiController.cs" />
+    <Compile Include="Controllers\DeTaiSinhVienTTController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\DeTaiController.cs" />
@@ -141,7 +142,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DeTaiModel.cs" />
-    <Compile Include="Models\DeTaiModelView.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -166,6 +166,7 @@
     <Content Include="Assets\img\user5.png" />
     <Content Include="Assets\scripts\common.js" />
     <Content Include="Assets\scripts\DeTaiControl.js" />
+    <Content Include="Assets\scripts\DeTaiSinhVienTTControl.js" />
     <Content Include="Assets\scripts\DropDown.js" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.min.css" />
@@ -235,6 +236,7 @@
     <Content Include="Views\Home\SinhVien.cshtml" />
     <Content Include="Views\DeTai\Index.cshtml" />
     <Content Include="Views\ChotDeTai\Index.cshtml" />
+    <Content Include="Views\DeTaiSinhVienTT\ChonDeTai.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyDeTai.Data\QuanLyDeTai.Data.csproj">

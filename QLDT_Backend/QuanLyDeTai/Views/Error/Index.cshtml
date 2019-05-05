@@ -1,8 +1,82 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                ViewBag.Title = "Error";
+                Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Bạn không có quyền để truy cập vào trang này</h2>
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                @if (Session["Thêm, Sửa,Xóa đề tài"] != null)
+                {
+                    <li><a href="~/DeTai/Index" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                }
+
+                @if (Session["Xem danh sách hướng dẫn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
+                }
+                @if (Session["Chốt đề tài"] != null)
+                {
+                    <li><a href="~/ChotDeTai/Index" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách sinh viên"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách Giảng viên"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách thực tập"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
+                }
+                @if (Session["Phân Bộ Môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                }
+                @if (Session["Thêm, Sửa, Xóa điểm"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
+                }
+                @if (Session["Xem danh sách sinh viên bộ môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Xem danh sách sinh viên bộ môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+                @if (Session["Phân giáo viên hướng dẫn "] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading">
+                    <h4>Bạn không đủ quyền để truy cập</h4>
+                </div>
+               
+            </div>
+            <!-- END OVERVIEW -->
+           
+
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
 
