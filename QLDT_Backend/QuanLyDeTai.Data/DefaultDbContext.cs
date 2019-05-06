@@ -28,7 +28,6 @@ namespace QuanLyDeTai.Data.Entities
         public virtual DbSet<Quyen_CV> Quyen_CV { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
         public virtual DbSet<SinhVienTT> SinhVienTTs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThucTap> ThucTaps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

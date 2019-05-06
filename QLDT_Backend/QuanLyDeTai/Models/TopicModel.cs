@@ -6,7 +6,7 @@ using System.Web;
 
 namespace QuanLyDeTai.Models
 {
-    public class DeTaiModel
+    public class TopicModel
     {
         public long ID { get; set; }
 

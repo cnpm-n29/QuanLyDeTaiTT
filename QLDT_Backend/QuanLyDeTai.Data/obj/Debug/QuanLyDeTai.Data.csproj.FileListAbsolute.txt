@@ -12,3 +12,17 @@ C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.cspr
 C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CopyComplete
 C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.dll
 C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.pdb
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.dll.config
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.dll
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.pdb
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.dll
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Core.dll
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Core.pdb
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.xml
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csprojAssemblyReference.cache
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CoreCompileInputs.cache
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CopyComplete
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.dll
+C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.pdb

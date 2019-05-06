@@ -77,7 +77,6 @@
     <Compile Include="Entities\Quyen_CV.cs" />
     <Compile Include="Entities\SinhVien.cs" />
     <Compile Include="Entities\SinhVienTT.cs" />
-    <Compile Include="Entities\sysdiagram.cs" />
     <Compile Include="Entities\ThucTap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

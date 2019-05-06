@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace QuanLyDeTai.Controllers
 {
-    public class DeTaiController : BaseController
+    public class TopicController : BaseController
     {
         private DeTaiService deTaiService = new DeTaiService();
         private ThucTapService thucTapService  = new ThucTapService();
@@ -26,7 +26,7 @@ namespace QuanLyDeTai.Controllers
 
         
 
-        public JsonResult Add(DeTaiModel model)
+        public JsonResult Add(TopicModel model)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             model.ID_GiangVien = id_gv;
@@ -44,7 +44,7 @@ namespace QuanLyDeTai.Controllers
         }
 
 
-        public JsonResult Update(DeTaiModel model)
+        public JsonResult Update(TopicModel model)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             model.ID_GiangVien = id_gv;

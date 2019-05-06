@@ -7,7 +7,7 @@
 @section footer
 {
     <script src="~/Assets/scripts/DropDown.js"></script>
-    <script src="~/Assets/scripts/DeTaiControl.js"></script>
+    <script src="~/Assets/scripts/TopicControl.js"></script>
 }
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
@@ -16,7 +16,7 @@
             <ul class="nav">
                 @if (Session["Thêm, Sửa,Xóa đề tài"] != null)
                 {
-                    <li><a href="~/DeTai/Index" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                    <li><a href="~/Topic/Index" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
                 }
 
                 @if (Session["Xem danh sách hướng dẫn"] != null)

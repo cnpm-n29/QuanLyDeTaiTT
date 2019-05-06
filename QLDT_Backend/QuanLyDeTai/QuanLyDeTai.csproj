@@ -132,16 +132,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ChotDeTaiController.cs" />
-    <Compile Include="Controllers\DeTaiSinhVienTTController.cs" />
+    <Compile Include="Controllers\SaveTopicController.cs" />
+    <Compile Include="Controllers\TopicStudentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\DeTaiController.cs" />
+    <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DeTaiModel.cs" />
+    <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -165,8 +165,8 @@
     <Content Include="Assets\img\user4.png" />
     <Content Include="Assets\img\user5.png" />
     <Content Include="Assets\scripts\common.js" />
-    <Content Include="Assets\scripts\DeTaiControl.js" />
-    <Content Include="Assets\scripts\DeTaiSinhVienTTControl.js" />
+    <Content Include="Assets\scripts\TopicControl.js" />
+    <Content Include="Assets\scripts\TopicStudentControl.js" />
     <Content Include="Assets\scripts\DropDown.js" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.min.css" />
@@ -233,10 +233,10 @@
     <None Include="packages.config" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Home\SinhVien.cshtml" />
-    <Content Include="Views\DeTai\Index.cshtml" />
-    <Content Include="Views\ChotDeTai\Index.cshtml" />
-    <Content Include="Views\DeTaiSinhVienTT\ChonDeTai.cshtml" />
+    <Content Include="Views\Home\Student.cshtml" />
+    <Content Include="Views\Topic\Index.cshtml" />
+    <Content Include="Views\SaveTopic\Index.cshtml" />
+    <Content Include="Views\TopicStudent\ChooseTopic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyDeTai.Data\QuanLyDeTai.Data.csproj">

@@ -5,10 +5,138 @@ $(window).on('load', function () {
 changeDropHocKy($("#HocKy").val());
 });
 
+function phantrang() {
+
+    var table = '.mytable'
+    $('.pagination').html('')
+    var trnum = 0
+    var maxRows = 5
+    var totalRows = $(table + ' tbody tr').length
+    $(table + ' tr:gt(0)').each(function () {
+        trnum++
+        if (trnum > maxRows) {
+            $(this).hide()
+        }
+        if (trnum <= maxRows) {
+            $(this).show()
+        }
+    })
+    if (totalRows > maxRows) {
+        var pagenum = Math.ceil(totalRows / maxRows)
+
+        $('.pagination').append('<li class="page-item previous-all"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
+        for (var i = 1; i <= pagenum;) {
+
+            $('.pagination').append('<li class="page-item page  page-number-' + i + '" data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show()
+
+        }
+        var num = --i;
+        $('.pagination').append('<li class="page-item next"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+    }
+    $('.page-number-1').addClass('active')
+    $('.page-number-1').addClass('abc')
+    $('.previous-all').on('click', function () {
+        var pageNum = 1;
+        var trIndex = 0;
+        $('.pagination li').removeClass('active')
+        $('.pagination li').removeClass('abc')
+        $('.page-number-1').addClass('active')
+        $('.page-number-1').addClass('abc')
+        $(table + ' tr:gt(0)').each(function () {
+            trIndex++
+            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                $(this).hide()
+            } else {
+                $(this).show()
+            }
+        })
+    })
+    $('.previous').on('click', function () {
+        var pageNum = $('.abc').attr('data-page')
+
+        if (pageNum == 1) {
+        }
+        else {
+            pageNum = Number(pageNum)
+            pageNum = pageNum - 1;
+
+            var trIndex = 0;
+            $('.pagination li').removeClass('active')
+            $('.pagination li').removeClass('abc')
+            $('.page-number-' + pageNum).addClass('active')
+            $('.page-number-' + pageNum).addClass('abc')
+            $(table + ' tr:gt(0)').each(function () {
+                trIndex++
+                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                    $(this).hide()
+                } else {
+                    $(this).show()
+                }
+            })
+        }
+    })
+    $('.next').on('click', function () {
+        pageNum = $('.abc').attr('data-page')
+
+        if (pageNum == num) {
+        }
+        else {
+            pageNum = Number(pageNum)
+            pageNum = pageNum + 1;
+
+            var trIndex = 0;
+            $('.pagination li').removeClass('active')
+            $('.pagination li').removeClass('abc')
+            $('.page-number-' + pageNum).addClass('active')
+            $('.page-number-' + pageNum).addClass('abc')
+            $(table + ' tr:gt(0)').each(function () {
+                trIndex++
+                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                    $(this).hide()
+                } else {
+                    $(this).show()
+                }
+            })
+        }
+    })
+    $('.next-all').on('click', function () {
+        var pageNum = num;
+        var trIndex = 0;
+        $('.pagination li').removeClass('active')
+        $('.pagination li').removeClass('abc')
+        $('.page-number-' + pageNum).addClass('active')
+        $('.page-number-' + pageNum).addClass('abc')
+        $(table + ' tr:gt(0)').each(function () {
+            trIndex++
+            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                $(this).hide()
+            } else {
+                $(this).show()
+            }
+        })
+    })
+    $('.page').on('click', function () {
+        var pageNum = $(this).attr('data-page')
+        var trIndex = 0;
+        $('.pagination li').removeClass('active')
+        $('.pagination li').removeClass('abc')
+        $('.page-number-' + pageNum).addClass('active')
+        $('.page-number-' + pageNum).addClass('abc')
+        $(table + ' tr:gt(0)').each(function () {
+            trIndex++
+            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                $(this).hide()
+            } else {
+                $(this).show()
+            }
+        })
+    })
+}
+
 //thay doi dropdown hoc ky
 function changeDropHocKy(IDHK) {
     $.ajax({
-        url: "/DeTai/GetLoaiTTByHK/" + IDHK,
+        url: "/Topic/GetLoaiTTByHK/" + IDHK,
         type: "GET",
         async: false,
         contentType: "application/json;charset=UTF-8",
@@ -24,6 +152,7 @@ function changeDropHocKy(IDHK) {
             
             $(".ddlLoaiTT").html(html);
             changeDropThucTap($("#LoaiTT").val());
+            phantrang();
         },
 
         error: function (errormessage) {
@@ -40,7 +169,7 @@ function changeDropThucTap(IDTT) {
     var i = 1;
     $.ajax({
         async: false,
-        url: "/DeTai/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT,
+        url: "/Topic/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -73,6 +202,7 @@ function changeDropThucTap(IDTT) {
                     html += '</tr>';
                 });
                 $('.tbody').html(html);
+                phantrang();
             }
             },
                 error: function (errormessage) {
@@ -111,7 +241,7 @@ function changeDropThucTap(IDTT) {
 
 function getListHocKy() {
     $.ajax({
-        url: "/DeTai/listHocKy/",
+        url: "/Topic/listHocKy/",
         type: "GET",
         async: false,
         contentType: "application/json;charset=UTF-8",

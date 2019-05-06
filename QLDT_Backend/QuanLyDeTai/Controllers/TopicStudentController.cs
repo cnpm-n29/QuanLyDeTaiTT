@@ -8,18 +8,13 @@ using System.Web.Mvc;
 
 namespace QuanLyDeTai.Controllers
 {
-    public class DeTaiSinhVienTTController : BaseController
+    public class TopicStudentController : BaseController
     {
         private DeTaiService deTaiService = new DeTaiService();
         private SinhVienTTService sinhVienTTService = new SinhVienTTService();
         private PhanCongGVService phanCongGVService = new PhanCongGVService();
         // GET: DeTaiSinhVienTT
-        public ActionResult ChonDeTai()
-        {
-            return View();
-        }
-
-        public ActionResult ChotDeTai()
+        public ActionResult ChooseTopic()
         {
             return View();
         }

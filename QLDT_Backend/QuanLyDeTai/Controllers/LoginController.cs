@@ -49,7 +49,7 @@ namespace QuanLyDeTai.Controllers
                     Session["UserId"] = login.ID;
                     Session["Username"] = login.MaSV;
                     Session["Fullname"] = login.Ho + " " + login.Ten;
-                    return Redirect("/Home/SinhVien");
+                    return Redirect("/Home/Student");
                 }
             }
             else

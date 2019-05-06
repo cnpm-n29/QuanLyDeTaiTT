@@ -13,7 +13,7 @@ namespace QuanLyDeTai.Controllers
             return View();
         }
 
-        public ActionResult SinhVien()
+        public ActionResult Student()
         {
             return View();
         }

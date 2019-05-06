@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QuanLyDeTai.Controllers
 {
-    public class ChotDeTaiController : Controller
+    public class SaveTopicController : Controller
     {
         // GET: ChotDeTai
         public ActionResult Index()

@@ -8,7 +8,7 @@ $(window).on('load', function () {
 //Lay het gia tri cua loai thuctap
 function getListLoaiTT() {
     $.ajax({
-        url: "/DeTaiSinhVienTT/listLoaiTT/",
+        url: "/TopicStudent/listLoaiTT/",
         type: "GET",
         async: false,
         contentType: "application/json;charset=UTF-8",
@@ -35,7 +35,7 @@ function changeDropThucTap(Id) {
     var i = 1;
     $.ajax({
         async: false,
-        url: "/DeTaiSinhVienTT/GetByThucTap?IDTT=" + Id,
+        url: "/TopicStudent/GetByThucTap?IDTT=" + Id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -55,8 +55,7 @@ function changeDropThucTap(Id) {
                     html += '<td align="center">' + (i++) + '</td>';
                     html += '<td>' + item.TenDeTai + '</td>';
                     html += '<td>' + item.MoTa + '</td>';
-                    html += '<td align="center"><input onclick="check()" type="checkbox" id="chondetai(' + item.ID+')"></td >';
-
+                    html += '<td align="center"><input onclick="check(' + item.ID +')" type="checkbox" id="chondetai(' + item.ID+')"></td >';
                     html += ' <td align="center"><a data-toggle="modal" data-target="#chitietdt"><i style="color:#009933" class="fa fa-address-card"></i></a> </td>';
 
                     html += '</tr>';
@@ -70,10 +69,32 @@ function changeDropThucTap(Id) {
     });
 } 
 
-function check()
+function check(ID)
 {
-
-    var html = '<button onclick=""  style = "float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary" ><i class="fa fa-save"></i> Lưu lại</button >'
+    var i = 1;
+    $.ajax({
+        url: "/Topic/GetbyID/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '<table class="table table-bordered" cellspacing="0" cellpadding="5"><th class="center-header" scope="col" style="width:60%;">Tên đề tài</th><th class="center-header" scope="col">Độ ưu tiên</th><th class="center-header" scope="col">Chi tiết</th>';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.TenDeTai + '</td>';
+                html += '<td>' + (i++) + '</td>';
+                html += '<td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
+                html += '<tr>';
+            });
+            html += '</table><button onclick=""  style = "float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary" ><i class="fa fa-save"></i> Lưu lại</button >'
+            $('.editsave').html(html);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    var html = '<table class="table table-bordered" cellspacing="0" cellpadding="5"><th class="center-header" scope="col" style="width:60%;">Tên đề tài</th><th class="center-header" scope="col">Độ ưu tiên</th><th class="center-header" scope="col">Chi tiết</th>';
+    
     $('.editsave').html(html);
     //var totalSeen = $("#chondetai:input[checked='checked']").length;
     //var isStatus = $('#gender_male_checkbox').prop('checked');
@@ -94,7 +115,7 @@ function Add() {
         DoUuTien: totalSeen + 1
     };
     $.ajax({
-        url: "/DeTaiSinhVienTT/Add",
+        url: "/TopicStudent/Add",
         data: JSON.stringify(detaitt),
         type: "POST",
         contentType: "application/json;charset=utf-8",

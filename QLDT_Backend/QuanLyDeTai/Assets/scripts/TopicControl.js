@@ -12,7 +12,7 @@ function Add() {
         TrangThai: $('#TrangThai').is(":checked")
     };
     $.ajax({
-        url: "/DeTai/Add",
+        url: "/Topic/Add",
         data: JSON.stringify(detai),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -29,12 +29,12 @@ function Add() {
 }
 
 
-//Function for getting the Data Based upon Employee ID  
+//Function for getting the Data Based upon ID  
 function getbyID(ID) {
     $('#SuaTenDeTai').css('border-color', 'lightgrey');
     $('#SuaMoTa').css('border-color', 'lightgrey');
     $.ajax({
-        url: "/DeTai/GetbyID/" + ID,
+        url: "/Topic/GetbyID/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -71,7 +71,7 @@ function Update() {
         TrangThai: $('#SuaTrangThai').is(":checked")
     };
     $.ajax({
-        url: "/DeTai/Update",
+        url: "/Topic/Update",
         data: JSON.stringify(detai),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -92,7 +92,7 @@ function Delele(ID) {
     var ans = confirm("Bạn muốn xóa đề tài này?");
     if (ans) {
         $.ajax({
-            url: "/DeTai/Delete/" + ID,
+            url: "/Topic/Delete/" + ID,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
@@ -173,14 +173,19 @@ function Search() {
     filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+    if (filter == "") {
+        changeDropHocKy($("#HocKy").val());
+    }
+    else {
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
@@ -190,7 +195,7 @@ function Search() {
 function changeStatus(id)
 {
     $.ajax({
-        url: "/DeTai/ChangeStatus/" + id,
+        url: "/Topic/ChangeStatus/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
