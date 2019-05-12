@@ -10,21 +10,21 @@ namespace QuanLyDeTai.Models
     {
         public long ID { get; set; }
 
-        public long? ID_GiangVien { get; set; }
+        public long? TeacherID { get; set; }
 
-        public long? ID_ThucTap { get; set; }
+        public long? PracticeTypeID { get; set; }
 
-        public long? ID_HocKy { get; set; }
+        public long? SemesterID { get; set; }
 
-        public long? ID_LoaiTT { get; set; }
-
-        [StringLength(500)]
-        public string TenDeTai { get; set; }
+        public long? PracticeID { get; set; }
 
         [StringLength(500)]
-        public string MoTa { get; set; }
+        public string TopicName { get; set; }
 
-        public bool TrangThai { get; set; }
+        [StringLength(500)]
+        public string Description { get; set; }
+
+        public bool Status { get; set; }
         
     }
 }

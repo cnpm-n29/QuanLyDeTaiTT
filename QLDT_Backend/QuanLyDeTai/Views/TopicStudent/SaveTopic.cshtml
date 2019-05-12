@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "Chốt đề tài";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/SaveTopic.js"></script>
+}
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                @if (Session["Thêm, Sửa,Xóa đề tài"] != null)
+                {
+                    <li><a href="~/Topic/Index" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                }
+
+                @if (Session["Xem danh sách hướng dẫn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
+                }
+                @if (Session["Chốt đề tài"] != null)
+                {
+                    <li><a href="~/ChotDeTai/Index" class="active"><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách sinh viên"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Thêm, Sửa , Xóa Danh sách Giảng viên"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+
+
+                @if (Session["Thêm, Sửa , Xóa Danh sách thực tập"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
+                }
+                @if (Session["Phân Bộ Môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                }
+                @if (Session["Thêm, Sửa, Xóa điểm"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
+                }
+                @if (Session["Xem danh sách sinh viên bộ môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Xem danh sách sinh viên bộ môn"] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+                @if (Session["Phân giáo viên hướng dẫn "] != null)
+                {
+                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-4">
+                    <h4>CHỐT ĐỀ TÀI THỰC TẬP</h4>
+                </div>
+                <div class="col-md-8" style="margin-top: 10px">
+                    <div class="input-group" style="max-width: 255px;float: right;" id="adv-search">
+                        <input type="text" class="form-control"
+                               placeholder="Search ..." />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary">
+                                <span class="fa fa-search"
+                                      aria-hidden="true"></span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                <div class="ddlHocKy col-sm-8" style="padding-left:20px">
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4" style="padding-left:20px">
+                                <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                <div class="ddlLoaiTT col-sm-9" style="padding-left:20px">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5"
+                               style="border-collapse:collapse;">
+                            <tr>
+                                <th class="center-header" scope="col">STT</th>
+                                <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
+                                <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
+                                <th class="center-header" scope="col" style="width:30%;">Tên đề tài</th>
+                                <th class="center-header" scope="col" style="width:10%;">Mô tả</th>
+                                <th class="center-header" scope="col">Độ ưu tiên</th>
+                                <th class="center-header" scope="col">Trạng thái</th>
+                            </tr>
+                            <tr>
+                                <td align="center">1</td>
+                                <td align="center">155D4802010033</td>
+                                <td>Lê Thị Huyền</td>
+                                <td>Hình thành ý tưởng thiết kế vận hành và triển khai trang web quản lý đề tài thực tập</td>
+                                <td>ASP.NET</td>
+                                <td align="center">
+                                    1
+                                </td>
+                                <td align="center">
+                                    <div class="anil_nepal">
+
+                                        <label class="switch " style="margin-bottom: 0px;">
+                                            <input type="checkbox" class="primary">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td align="center">2</td>
+                                <td align="center">155D4802010033</td>
+                                <td>Lê Thị Huyền</td>
+                                <td>Hình thành ý tưởng thiết kế vận hành và triển khai trang web quản lý đề tài thực tập</td>
+                                <td>ASP.NET</td>
+                                <td align="center">
+                                    2
+                                </td>
+                                <td align="center">
+                                    <label class="switch " style="margin-bottom: 0px;">
+                                        <input type="checkbox" class="primary">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td align="center">3</td>
+                                <td align="center">155D4802010033</td>
+                                <td>Lê Thị Huyền</td>
+                                <td>Hình thành ý tưởng thiết kế vận hành và triển khai trang web quản lý đề tài thực tập</td>
+                                <td>ASP.NET</td>
+                                <td align="center">
+                                    3
+                                </td>
+                                <td align="center">
+                                    <label class="switch " style="margin-bottom: 0px;">
+                                        <input type="checkbox" class="primary">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+
+
+                            </tr>
+
+                        </table>
+                        <div class="row">
+
+                            <div class="col-sm-5">
+                                <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                <div style="float: left;margin: 0px 5px;" class="form-group">
+                                    <select name="state" id="maxRows" class="form-control" style="width:80px;">
+                                        <option value="5" selected>5</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+
+                                </div>
+                                <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                            </div>
+                            <div class="pagination-container col-sm-7">
+                                <nav style="float:right;">
+                                    <ul class="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END RECENT PURCHASES -->
+
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+
+
+

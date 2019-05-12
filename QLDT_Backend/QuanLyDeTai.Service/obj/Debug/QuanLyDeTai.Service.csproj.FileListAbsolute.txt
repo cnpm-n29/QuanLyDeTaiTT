@@ -12,17 +12,3 @@ C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Servic
 C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CopyComplete
 C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.dll
 C:\Users\Thuy\source\repos\CNPM\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.pdb
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Service.dll
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Service.pdb
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Core.dll
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.dll
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\EntityFramework.dll
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Core.pdb
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.pdb
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.dll.config
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\EntityFramework.xml
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csprojAssemblyReference.cache
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CoreCompileInputs.cache
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CopyComplete
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.dll
-C:\Users\Huyen Le\Documents\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.pdb

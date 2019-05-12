@@ -1,15 +1,19 @@
-﻿//Add Data Function   
+﻿$(window).on('load', function () {
+    getListHocKy();
+    changeDropHocKy($("#HocKy").val());
+});
+//Add Data Function
 function Add() {
     var res = validate();
     if (res == false) {
         return false;
     }
     var detai = {
-        ID_LoaiTT: $('.drpLoaiTT .LTT').val(),
-        ID_HocKy: $('.drpHocKy .HK').val(),
-        TenDeTai: $('#TenDeTai').val(),
-        MoTa: $('#MoTa').val(),
-        TrangThai: $('#TrangThai').is(":checked")
+        PracticeID: $('.drpLoaiTT .LTT').val(),
+        SemesterID: $('.drpHocKy .HK').val(),
+        TopicName: $('#TenDeTai').val(),
+        Description: $('#MoTa').val(),
+        Status: $('#TrangThai').is(":checked")
     };
     $.ajax({
         url: "/Topic/Add",
@@ -41,11 +45,11 @@ function getbyID(ID) {
         success: function (result) {
             $.each(result, function (key, item) {
                 $('#ID').val(item.ID);
-                $('.SuaHocKy .HK').val(item.ID_HocKy);
-                $('.SuaLoaiTT .LTT').val(item.ID_LoaiTT);
-                $('#SuaTenDeTai').val(item.TenDeTai);
-                $('#SuaMoTa').val(item.MoTa);
-                $("#SuaTrangThai").attr("checked", item.TrangThai);
+                $('.SuaHocKy .HK').val(item.PracticeID);
+                $('.SuaLoaiTT .LTT').val(item.SemesterID);
+                $('#SuaTenDeTai').val(item.TopicName);
+                $('#SuaMoTa').val(item.Description);
+                $("#SuaTrangThai").attr("checked", item.Status);
             });
             $('#suadetai').modal('show');
         },
@@ -64,11 +68,11 @@ function Update() {
     }
     var detai = {
         ID: $('#ID').val(),
-        ID_LoaiTT: $('.SuaLoaiTT .LTT').val(),
-        ID_HocKy: $('.SuaHocKy .HK').val(),
-        TenDeTai: $('#SuaTenDeTai').val(),
-        MoTa: $('#SuaMoTa').val(),
-        TrangThai: $('#SuaTrangThai').is(":checked")
+        PracticeID: $('.SuaLoaiTT .LTT').val(),
+        SemesterID: $('.SuaHocKy .HK').val(),
+        TopicName: $('#SuaTenDeTai').val(),
+        Description: $('#SuaMoTa').val(),
+        Status: $('#SuaTrangThai').is(":checked")
     };
     $.ajax({
         url: "/Topic/Update",
@@ -200,7 +204,7 @@ function changeStatus(id)
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            $("this").attr("checked", result.TrangThai);
+            $("this").attr("checked", result.Status);
         },
 
         error: function (errormessage) {

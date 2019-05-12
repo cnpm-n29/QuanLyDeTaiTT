@@ -13,13 +13,14 @@ namespace QuanLyDeTai.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            Session.RemoveAll();
             return View();
         }
 
         public ActionResult LoginByCredential(LoginModel model)
         {
-            SinhVienService sinhVienService = new SinhVienService();
-            GiangVienService giangVienService = new GiangVienService();
+            StudentService sinhVienService = new StudentService();
+            TeacherService giangVienService = new TeacherService();
             if (ModelState.IsValid)
             {
                 var login = sinhVienService.LoginByCredential(model.Username,model.Password);
@@ -34,13 +35,14 @@ namespace QuanLyDeTai.Controllers
                     {
                         //List<String> list = giangVienService.XetQuyen(lg.ID);
                         IQueryable list = giangVienService.XetQuyen(lg.ID);
+                        Session["Quyen"] = "";
                         foreach (string item in list)
                         {
-                            Session[item] = item;
+                            Session["Quyen"] += " "+item;
                         }
                         Session["UserId"] = lg.ID;
                         Session["Username"] = lg.MaGV;
-                        Session["Fullname"] = lg.Ho + " " + lg.Ten;
+                        Session["Fullname"] = lg.FirstName + " " + lg.LastName;
                         return Redirect("/Home/Index");
                     }
                 }
@@ -48,7 +50,7 @@ namespace QuanLyDeTai.Controllers
                 {
                     Session["UserId"] = login.ID;
                     Session["Username"] = login.MaSV;
-                    Session["Fullname"] = login.Ho + " " + login.Ten;
+                    Session["Fullname"] = login.FirstName + " " + login.LastName;
                     return Redirect("/Home/Student");
                 }
             }

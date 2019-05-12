@@ -11,12 +11,12 @@ namespace QuanLyDeTai.Controllers
 {
     public class TopicController : BaseController
     {
-        private DeTaiService deTaiService = new DeTaiService();
-        private ThucTapService thucTapService  = new ThucTapService();
+        private TopicService topicService = new TopicService();
+        private PracticeService practiceService  = new PracticeService();
         // GET: DeTai
         public ActionResult Index()
         {
-            if (Session["Thêm, Sửa,Xóa đề tài"] != null)
+            if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
             {
                 //listHocKy1();
                 return View();
@@ -29,46 +29,46 @@ namespace QuanLyDeTai.Controllers
         public JsonResult Add(TopicModel model)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
-            model.ID_GiangVien = id_gv;
-            var tt = thucTapService.GetByLoaiTTvaHocKy(model.ID_LoaiTT, model.ID_HocKy);
-            model.ID_ThucTap = tt.ID;
-            var m = new DeTai
+            model.TeacherID = id_gv;
+            var tt = practiceService.GetByLoaiTTvaHocKy(model.PracticeID, model.SemesterID);
+            model.PracticeTypeID = tt.ID;
+            var m = new Topic
             {
-                ID_GiangVien = model.ID_GiangVien,
-                ID_ThucTap = model.ID_ThucTap,
-                TenDeTai = model.TenDeTai,
-                MoTa = model.MoTa,
-                TrangThai = model.TrangThai
+                TeacherID = model.TeacherID,
+                PracticeTypeID = model.PracticeTypeID,
+                TopicName = model.TopicName,
+                Description = model.Description,
+                Status = model.Status
             };
-            return Json(deTaiService.Create(m), JsonRequestBehavior.AllowGet);
+            return Json(topicService.Create(m), JsonRequestBehavior.AllowGet);
         }
 
 
-        public JsonResult Update(TopicModel model)
+        public JsonResult Update(Models.TopicModel model)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
-            model.ID_GiangVien = id_gv;
-            var tt = thucTapService.GetByLoaiTTvaHocKy(model.ID_LoaiTT, model.ID_HocKy);
-            model.ID_ThucTap = tt.ID;
-            var m = new DeTai
+            model.TeacherID = id_gv;
+            var tt = practiceService.GetByLoaiTTvaHocKy(model.PracticeID, model.SemesterID);
+            model.PracticeTypeID = tt.ID;
+            var m = new Topic
             {
                 ID=model.ID,
-                ID_ThucTap = model.ID_ThucTap,
-                TenDeTai = model.TenDeTai,
-                MoTa = model.MoTa,
-                TrangThai = model.TrangThai
+                PracticeTypeID = model.PracticeTypeID,
+                TopicName = model.TopicName,
+                Description = model.Description,
+                Status = model.Status
             };
-            return Json(deTaiService.Update(m), JsonRequestBehavior.AllowGet);
+            return Json(topicService.Update(m), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(long id)
         {
-            return Json(deTaiService.Delete(id), JsonRequestBehavior.AllowGet);
+            return Json(topicService.Delete(id), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult listLoaiTT()
         {
-            var result= thucTapService.GetAllLoaiTT();
+            var result= practiceService.GetAllLoaiTT();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -84,37 +84,37 @@ namespace QuanLyDeTai.Controllers
 
         public JsonResult listHocKy()
         {
-            var result = thucTapService.GetAllHocKy();
+            var result = practiceService.GetAllHocKy();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult listDeTai()
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
-            return Json(deTaiService.GetList(id_gv), JsonRequestBehavior.AllowGet);
+            return Json(topicService.GetList(id_gv), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetbyID(int ID)
         {
-            return Json(deTaiService.GetById(ID), JsonRequestBehavior.AllowGet);
+            return Json(topicService.GetById(ID), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetByKHvaLoaiTT(long IDHK,long IDTT)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
-            var thuctap = thucTapService.GetByLoaiTTvaHocKy(IDTT, IDHK);
-            var rs = deTaiService.GetListByTTvaMaGV(thuctap.ID, id_gv);
-            return Json(deTaiService.GetListByTTvaMaGV(thuctap.ID,id_gv), JsonRequestBehavior.AllowGet);
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var rs = topicService.GetListByTTvaMaGV(thuctap.ID, id_gv);
+            return Json(topicService.GetListByTTvaMaGV(thuctap.ID,id_gv), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetLoaiTTByHK(long? ID)
         {   
-            return Json(thucTapService.GetByHocKy(ID), JsonRequestBehavior.AllowGet);
+            return Json(practiceService.GetByHocKy(ID), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ChangeStatus(long id)
         {
-            return Json(deTaiService.ChangeStatus(id), JsonRequestBehavior.AllowGet);
+            return Json(topicService.ChangeStatus(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

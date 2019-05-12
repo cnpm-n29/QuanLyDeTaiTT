@@ -487,6 +487,134 @@ $.fn.clickToggle = function( f1, f2 ) {
 
 
 
+//phan trang
+function phantrang() {
+
+    var table = '.mytable'
+    $('.pagination').html('')
+    var trnum = 0
+    var maxRows = 5
+    var totalRows = $(table + ' tbody tr').length
+    $(table + ' tr:gt(0)').each(function () {
+        trnum++
+        if (trnum > maxRows) {
+            $(this).hide()
+        }
+        if (trnum <= maxRows) {
+            $(this).show()
+        }
+    })
+    if (totalRows > maxRows) {
+        var pagenum = Math.ceil(totalRows / maxRows)
+
+        $('.pagination').append('<li class="page-item previous-all"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
+        for (var i = 1; i <= pagenum;) {
+
+            $('.pagination').append('<li class="page-item page  page-number-' + i + '" data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show()
+
+        }
+        var num = --i;
+        $('.pagination').append('<li class="page-item next"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+    }
+    $('.page-number-1').addClass('active')
+    $('.page-number-1').addClass('abc')
+    $('.previous-all').on('click', function () {
+        var pageNum = 1;
+        var trIndex = 0;
+        $('.pagination li').removeClass('active')
+        $('.pagination li').removeClass('abc')
+        $('.page-number-1').addClass('active')
+        $('.page-number-1').addClass('abc')
+        $(table + ' tr:gt(0)').each(function () {
+            trIndex++
+            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                $(this).hide()
+            } else {
+                $(this).show()
+            }
+        })
+    })
+    $('.previous').on('click', function () {
+        var pageNum = $('.abc').attr('data-page')
+
+        if (pageNum == 1) {
+        }
+        else {
+            pageNum = Number(pageNum)
+            pageNum = pageNum - 1;
+
+            var trIndex = 0;
+            $('.pagination li').removeClass('active')
+            $('.pagination li').removeClass('abc')
+            $('.page-number-' + pageNum).addClass('active')
+            $('.page-number-' + pageNum).addClass('abc')
+            $(table + ' tr:gt(0)').each(function () {
+                trIndex++
+                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                    $(this).hide()
+                } else {
+                    $(this).show()
+                }
+            })
+        }
+    })
+    $('.next').on('click', function () {
+        pageNum = $('.abc').attr('data-page')
+
+        if (pageNum == num) {
+        }
+        else {
+            pageNum = Number(pageNum)
+            pageNum = pageNum + 1;
+
+            var trIndex = 0;
+            $('.pagination li').removeClass('active')
+            $('.pagination li').removeClass('abc')
+            $('.page-number-' + pageNum).addClass('active')
+            $('.page-number-' + pageNum).addClass('abc')
+            $(table + ' tr:gt(0)').each(function () {
+                trIndex++
+                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                    $(this).hide()
+                } else {
+                    $(this).show()
+                }
+            })
+        }
+    })
+    $('.next-all').on('click', function () {
+        var pageNum = num;
+        var trIndex = 0;
+        $('.pagination li').removeClass('active')
+        $('.pagination li').removeClass('abc')
+        $('.page-number-' + pageNum).addClass('active')
+        $('.page-number-' + pageNum).addClass('abc')
+        $(table + ' tr:gt(0)').each(function () {
+            trIndex++
+            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                $(this).hide()
+            } else {
+                $(this).show()
+            }
+        })
+    })
+    $('.page').on('click', function () {
+        var pageNum = $(this).attr('data-page')
+        var trIndex = 0;
+        $('.pagination li').removeClass('active')
+        $('.pagination li').removeClass('abc')
+        $('.page-number-' + pageNum).addClass('active')
+        $('.page-number-' + pageNum).addClass('abc')
+        $(table + ' tr:gt(0)').each(function () {
+            trIndex++
+            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                $(this).hide()
+            } else {
+                $(this).show()
+            }
+        })
+    })
+}
 
 
 
