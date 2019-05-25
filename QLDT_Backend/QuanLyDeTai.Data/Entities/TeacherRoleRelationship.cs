@@ -15,6 +15,16 @@ namespace QuanLyDeTai.Data.Entities
 
         public long? RoleID { get; set; }
 
+        public long? CreateBy { get; set; }
+
+        public DateTime? CreateTime { get; set; }
+
+        public bool? IsDeleted { get; set; }
+
+        public long? DeletedBy { get; set; }
+
+        public DateTime? DeletedTime { get; set; }
+
         public virtual Role Role { get; set; }
 
         public virtual Teacher Teacher { get; set; }

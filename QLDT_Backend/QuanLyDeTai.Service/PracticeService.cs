@@ -34,5 +34,22 @@ namespace QuanLyDeTai.Service
         {
             return practiceTypeDAL.GetByHocKy( id_hocky);
         }
+
+        public bool Create(PracticeType model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return false;
+                }
+                var create = practiceTypeDAL.Create(model);
+                return create;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

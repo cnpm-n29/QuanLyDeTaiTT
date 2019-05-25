@@ -1,0 +1,327 @@
+﻿
+@{
+    ViewBag.Title = "ListStudent";
+}
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/ListStudentControl.js"></script>
+}
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
+                {
+                    <li><a href="~/Topic/Index" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                }
+
+                @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
+                {
+                    <li><a href="~/Student/ListStudentTeacher" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
+                {
+                    <li><a href="~/TopicStudent/SaveTopic" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
+                {
+                    <li><a href="~/Student/ListStudent" class="active"><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
+                {
+                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+
+
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
+                {
+                    <li><a href="~/StudentPractice/Index" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
+                {
+                    <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa điểm"))
+                {
+                    <li><a href="#" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                {
+                    <li><a href="~/Student/ListStudentSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
+                {
+                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
+                {
+                    <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-5">
+                    <h4>DANH SÁCH SINH VIÊN</h4>
+                </div>
+                <div class="col-md-7" style="margin-top: 10px">
+                    <div class="input-group" style="max-width: 300px;float: right;" id="adv-search">
+                        <input id="myInput" onkeyup="Search()" type="text" class="form-control"
+                               placeholder="Search ..." />
+                        <div class="input-group-btn" style="width: 20%;">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button"
+                                            class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         role="menu">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label for="filter">
+                                                    Tìm kiếm
+                                                    theo
+                                                </label> <select class="form-control" id="choosen">
+                                                    <option value="0" selected>Mã sinh viên</option>
+                                                    <option value="1">Tên sinh viên </option>
+                                                </select>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary">
+                                    <span class="fa fa-search"
+                                          aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-8" style="padding: 0px;">
+                                <label style="float: left;margin: 5px 10px 25px 0px ">Khóa học </label>
+                                <div class="ddlKhoaHoc col-sm-7" style="padding-left:20px"></div>
+                            </div>
+                            <div class="col-sm-2" style="padding: 0px;">
+                                <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <a style="color:white" href="~/Student/Export">
+                                    <i class="fa fa-download"></i> Tải bản mẫu</a>
+                                </button>
+                            </div>
+                            <div class="col-sm-2" style="padding: 0px;">
+                                <button data-toggle="modal"
+                                        data-target="#themdssv" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <i class="fa fa-plus"></i> Thêm mới
+                                </button>
+                            </div>
+                        </div>
+                                <table class="mytable table table-bordered" cellspacing="0" cellpadding="5"
+                                       style="border-collapse:collapse;">
+                                    <tr>
+                                        <th class="center-header" scope="col">STT</th>
+                                        <th class="center-header" scope="col" style="width:15%;">Mã SV</th>
+                                        <th class="center-header" scope="col" style="width:15%;">Họ tên</th>
+                                        <th class="center-header" scope="col">Ngày sinh</th>
+                                        <th class="center-header" scope="col">Giới tính</th>
+                                        <th class="center-header" scope="col">Email</th>
+                                        <th class="center-header" scope="col">SĐT</th>
+                                        <th class="center-header" scope="col">Địa chỉ</th>
+                                        <th class="center-header" scope="col">Ghi chú</th>
+                                        <th class="center-header" scope="col">Thao tác</th>
+                                    </tr>
+                                    <tbody class="tbody"></tbody>
+                                </table>
+                                <div class="row">
+
+                                    <div class="col-sm-5">
+                                        <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                        <div style="float: left;margin: 0px 5px;" class="form-group">
+                                            <select name="state" id="maxRows" class="form-control" style="width:80px;">
+                                                <option value="10" selected>10</option>
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+
+                                        </div>
+                                        <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                                    </div>
+                                    <div class="pagination-container col-sm-7">
+                                        <nav style="float:right;">
+                                            <ul class="pagination"></ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <!-- END RECENT PURCHASES -->
+
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+</div>
+    <!-- END MAIN -->
+    <!-- Modal sua sv -->
+    <div class="modal fade" id="suasvthuctap" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">CHỈNH SỬA THÔNG TIN SINH VIÊN</h4>
+                </div>
+                <form style="margin:20px 40px">
+                    <div class="modal-body">
+                        <input type="hidden" id="ID" />
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Kỳ học</label>
+                            <div class="col-sm-5">
+                                <div class="ddlKhoaHoc2 SuaHocKy"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Mã SV</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="SuaMasv" />
+                                <p id="errorMasv" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Họ</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="SuaHo" />
+
+                                <p id="errorHo" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Tên</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="SuaTen" />
+
+                                <p id="errorTen" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Ngày sinh</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" id="SuaNs" />
+
+                                <p id="errorNs" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">SDT</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="SuaSdt" />
+
+                                <p id="errorSdt" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="SuaEmail" />
+
+                                <p id="errorEmail" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Địa</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="SuaDc" />
+
+                                <p id="errorDc" class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Trạng thái</label>
+                            <div class="col-sm-3">
+                                <input type="radio" name="SuaGt" value="True" class="SuaGt col-sm-3" />
+                                <p id="suatrangthai" class="col-sm-3">Nữ</p>
+                                <input type="radio" name="SuaGt" value="False" class="SuaGt col-sm-3" />
+                                <p id="suatrangthai" class="col-sm-3">Nam</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                    <div class="modal-footer">
+                        <button type="submit" onclick="Update()" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
+                        
+                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal sua sv-->
+    <!-- Modal them sv -->
+    <div class="modal fade" id="themdssv" role="dialog" style="margin-top: 7%">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">THÊM DANH SÁCH SINH VIÊN</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- edit form column -->
+                    @using (Html.BeginForm("Upload", "Student", FormMethod.Post, new { enctype = "multipart/form-data", @style = "max-width: 80%;margin: auto" }))
+                    {
+                    <div class="create form-group row">
+
+                        <label class="col-sm-3" style="float: left;margin: 5px 0px 10px 0px ">Khóa học </label>
+                        <div class="ddlKhoaHoc1 col-sm-5" ></div>
+
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group row">
+                        <label class="col-sm-3" for="">Chọn file</label>
+                        <input id="file" type="file" name="UploadedFile" class="" />
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Save</button>
+                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                    </div>
+                      }
+
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <!-- /Modal them sv -->
+
+    <a href="~/Student/Export">Ok</a>
+

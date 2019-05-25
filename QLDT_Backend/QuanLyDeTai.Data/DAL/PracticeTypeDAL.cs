@@ -44,6 +44,29 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
+        public bool Create(PracticeType model)
+        {
+            try
+            {
+                //Initialization empty item
+                var item = new PracticeType();
+
+                //Set value for item with value from model
+                item.PracticeID = model.PracticeID;
+                item.SemesterID = model.SemesterID;
+
+                //Add item to entity
+                context.PracticeTypes.Add(item);
+                //Save to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
     }
 }

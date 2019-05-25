@@ -11,6 +11,45 @@ namespace QuanLyDeTai.Data.DAL
     public class StudentDAL
     {
         private DefaultDbContent context = new DefaultDbContent();
+        
+        public IEnumerable<Student> GetByFacultyID(long facultyID)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = context.Students
+                 .Where(i => i.FacultyID == facultyID && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                 .ToList();
+            return user; 
+        }
+
+        public IEnumerable<Student> getListByFacultyIdSort(long facultyid, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = context.Students
+                 .Where(i => i.FacultyID == facultyid && i.MaSV.Contains(masv) &&( i.FirstName.Contains(studentname) || i.LastName.Contains(studentname)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                 .OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList();
+
+            return user ;
+        }
+
+        public int getListByFacultyIdCount(long facultyid,string masv,string studentname)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = context.Students
+                 .Where(i => i.FacultyID == facultyid && i.MaSV.Contains(masv) &&( i.FirstName.Contains(studentname) || i.LastName.Contains(studentname)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                 .ToList().Count();
+
+            return user;
+        }
+
+        public IEnumerable<Student> GetByFacultyIDandSubjectId(long facultyID,long? SubjectID)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from i in context.Students
+                       join j in context.StudentSubjectRelationships on i.ID equals j.StudentID
+                       where i.FacultyID == facultyID &&j.SubjectID==SubjectID&& (i.IsDeleted == false || i.IsDeleted.Equals(null)&& (j.IsDeleted == false || j.IsDeleted.Equals(null)))
+                       select i;
+            return user.ToList();
+        }
 
         public Student GetByMasv(string Masv)
         {
@@ -19,6 +58,60 @@ namespace QuanLyDeTai.Data.DAL
                 .Where(i => i.MaSV == Masv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
                 .FirstOrDefault();
             return user;
+        }
+
+        public Student GetById(long id)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.Students
+                .Where(i => i.ID == id && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .FirstOrDefault();
+            return user;
+        }
+
+        public IEnumerable<Student> getListBySubjectIdAndFacultyIdSort(long? id,long facultyid, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from i in context.Students
+                       join j in context.StudentSubjectRelationships on i.ID equals j.StudentID
+                       where j.SubjectID == id && i.FacultyID == facultyid && i.MaSV.Contains(masv) && (i.FirstName.Contains(studentname) || i.LastName.Contains(studentname)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)) && (j.IsDeleted == false || j.IsDeleted.Equals(null))
+                       select i;
+                
+            return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList(); ;
+        }
+
+        public int getListBySubjectIdAndFacultyIdCount(long? id, long facultyid, string masv, string studentname)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from i in context.Students
+                       join j in context.StudentSubjectRelationships on i.ID equals j.StudentID
+                       where j.SubjectID == id && i.FacultyID == facultyid && i.MaSV.Contains(masv) && (i.FirstName.Contains(studentname) || i.LastName.Contains(studentname)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)) && (j.IsDeleted == false || j.IsDeleted.Equals(null))
+                       select i;
+
+            return user.ToList().Count();
+        }
+
+        public IEnumerable<Student> getListByTeacherIdAndFacultyIdSort(long? id, long facultyid, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from i in context.Students
+                       join j in context.StudentTeacherRelationships on i.ID equals j.StudentID
+                       where j.TeacherID == id && i.FacultyID == facultyid && i.MaSV.Contains(masv) && (i.FirstName.Contains(studentname) || i.LastName.Contains(studentname)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)) && (j.IsDeleted == false || j.IsDeleted.Equals(null))
+                       select i;
+
+            return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList(); ;
+        }
+
+        public int getListByTeacherIdAndFacultyIdCount(long? id, long facultyid, string masv, string studentname)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from i in context.Students
+                       join j in context.StudentTeacherRelationships on i.ID equals j.StudentID
+                       where j.TeacherID == id && i.FacultyID == facultyid && i.MaSV.Contains(masv) && (i.FirstName.Contains(studentname) || i.LastName.Contains(studentname)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)) && (j.IsDeleted == false || j.IsDeleted.Equals(null))
+                       select i;
+
+            return user.ToList().Count();
         }
 
         public bool Update(Student model)
@@ -38,10 +131,10 @@ namespace QuanLyDeTai.Data.DAL
                 item.Email = model.Email;
                 item.Phone = model.Phone;
                 item.PasswordSalt = PasswordHash.GeneratePasswordSalt();
-                item.Password = PasswordHash.EncryptionPasswordWithSalt(model.Password, PasswordHash.GeneratePasswordSalt());
+                item.Password = PasswordHash.EncryptionPasswordWithSalt(model.MaSV, PasswordHash.GeneratePasswordSalt());
                 item.ModifiedBy = model.ModifiedBy;
                 item.ModifiedTime = DateTime.Now;
-
+                item.FacultyID = model.FacultyID;
                 //Save change to database
                 context.SaveChanges();
                 return true;
@@ -69,9 +162,10 @@ namespace QuanLyDeTai.Data.DAL
                 item.Email = model.Email;
                 item.Phone = model.Phone;
                 item.PasswordSalt = PasswordHash.GeneratePasswordSalt();
-                item.Password = PasswordHash.EncryptionPasswordWithSalt(model.Password, PasswordHash.GeneratePasswordSalt());
+                item.Password = PasswordHash.EncryptionPasswordWithSalt(model.MaSV, PasswordHash.GeneratePasswordSalt());
                 item.CreateBy = model.ModifiedBy;
                 item.CreateTime = DateTime.Now;
+                item.FacultyID = model.FacultyID;
 
                 //Add item to entity
                 context.Students.Add(item);

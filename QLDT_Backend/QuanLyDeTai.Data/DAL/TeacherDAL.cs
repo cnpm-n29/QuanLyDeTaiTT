@@ -15,15 +15,35 @@ namespace QuanLyDeTai.Data.DAL
 
         public Teacher GetByMagv(string magv)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.Teachers
                 .Where(i => i.MaGV == magv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
                 .FirstOrDefault();
             return user;
         }
-        
-        
-        
+
+        public IEnumerable<Teacher> getListBySubjectId(long? id)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = context.Teachers
+                .Where(i=>i.SubjectID==id && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .ToList();
+            return user;
+        }
+
+        public IEnumerable<Teacher> getListBySubjectIdSort(long? id,string magv,string teachername, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = context.Teachers
+                .Where(i => i.SubjectID == id && i.MaGV.Contains(magv) && (i.FirstName.Contains(teachername) || i.LastName.Contains(teachername)) && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .OrderBy(i => i.LastName)
+                .Skip(pageNumber * pageSize).Take(pageSize)
+                .ToList();
+            return user;
+        }
+
+
         public bool Update(Teacher model)
         {
             try

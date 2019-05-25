@@ -74,9 +74,18 @@ namespace QuanLyDeTai.Service
             return topicDAL.GetList(ID);
         }
 
-        public IEnumerable<Topic> GetListByTTvaMaGV(long? id_tt, long? id_gv)
+        public IEnumerable<Topic> GetListByTTvaMaGV(long? id_tt, long? id_gv,string search, int pageNumber, int pageSize)
         {
-            return topicDAL.GetListByTTvaMaGV(id_tt,id_gv);
+            
+            return topicDAL.GetListByTTvaMaGV(id_tt,id_gv,search,pageNumber,pageSize);
+
         }
+
+        public int getCount(long? id_tt, long? id_gv, string search)
+        {
+            return topicDAL.getCount(id_tt, id_gv,search);
+        }
+
+
     }
 }

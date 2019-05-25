@@ -11,9 +11,9 @@ namespace QuanLyDeTai.Service
 {
     public class TeacherService
     {
+        private TeacherDAL teacherDAL = new TeacherDAL();
         public Teacher LoginByCredential(string magv, string password)
         {
-            TeacherDAL teacherDAL = new TeacherDAL();
 
             if (string.IsNullOrEmpty(magv) || string.IsNullOrEmpty(password))
             {
@@ -38,28 +38,32 @@ namespace QuanLyDeTai.Service
             }
         }
 
+        public Teacher GetByMagv(string magv)
+        {
+            return teacherDAL.GetByMagv(magv);
+        }
+
+
         public IQueryable XetQuyen(long id)
         {
-            //List<string> listQuyen = new List<string>();
-            //ChucVuGVDAL chucVuGVDAL = new ChucVuGVDAL();
-            //Quyen_CVDAL Quyen_CVDAL = new Quyen_CVDAL();
-            //QuyenDAL quyen = new QuyenDAL();
-            //List<ChucVuGV> chucVus = chucVuGVDAL.GetChucVu(id);
-
-            //foreach (ChucVuGV chucVu in chucVus)
-            //{
-            //    List<Quyen_CV> quyen_CVs = Quyen_CVDAL.GetChucVu(chucVu.ID_ChucVu);
-            //    foreach (Quyen_CV quyen_CV in quyen_CVs)
-            //    {
-            //        var q = quyen.GetById(quyen_CV.ID_Quyen);
-            //        listQuyen.Add(q.Quyen1);
-            //    }
-            //}
             FunctionDAL function = new FunctionDAL();
             IQueryable list = function.GetById(id); 
             return list;
         }
 
+        public IEnumerable<Teacher> getListBySubjectId(long? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return teacherDAL.getListBySubjectId(id);
+        }
+
+        public IEnumerable<Teacher> getListBySubjectIdSort(long? id, string magv, string teachername, int pageNumber, int pageSize)
+        {
+            return teacherDAL.getListBySubjectIdSort(id,magv,teachername,pageNumber,pageSize);
+        }
 
     }
 }

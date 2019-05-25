@@ -16,8 +16,8 @@ namespace QuanLyDeTai.Data.DAL
         {
             context.Configuration.ProxyCreationEnabled = false;
             var user = from s in context.StudentPracticeRelationships
-                       join c in context.PracticeTypes on s.ID_TT equals c.ID
-                       where s.ID_SinhVien == idsv && c.PracticeID==idltt
+                       join c in context.PracticeTypes on s.PracticeTypeID equals c.ID
+                       where s.StudentID == idsv && c.PracticeID==idltt
                        select s;
             return user.FirstOrDefault();
         }
@@ -27,9 +27,55 @@ namespace QuanLyDeTai.Data.DAL
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.StudentPracticeRelationships
-                .Where(i => i.ID_SinhVien == idsv && i.ID_TT==idktt)
+                .Where(i => i.StudentID == idsv && i.PracticeTypeID==idktt)
                 .FirstOrDefault();
             return user;
+        }
+
+        public IEnumerable<Student> getListByPracticeTypeIdSort(long practiceTypeId,string masv,string studentname, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       where c.PracticeTypeID == practiceTypeId && s.MaSV.Contains(masv) && (s.FirstName.Contains(studentname) || s.LastName.Contains(studentname)) && (s.IsDeleted == false || s.IsDeleted.Equals(null))
+                       select s;
+
+            return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList(); ;
+        }
+
+        public int getListByPracticeTypeIdCount(long practiceTypeId, string masv, string studentname)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       where c.PracticeTypeID == practiceTypeId && s.MaSV.Contains(masv) && (s.FirstName.Contains(studentname) || s.LastName.Contains(studentname)) && (s.IsDeleted == false || s.IsDeleted.Equals(null))
+                       select s;
+
+
+            return user.ToList().Count();
+        }
+
+        public bool Create(StudentPracticeRelationship model)
+        {
+            try
+            {
+                //Initialization empty item
+                var item = new StudentPracticeRelationship();
+
+                //Set value for item with value from model
+                item.StudentID = model.StudentID;
+                item.PracticeTypeID = model.PracticeTypeID;
+
+                //Add item to entity
+                context.StudentPracticeRelationships.Add(item);
+                //Save to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

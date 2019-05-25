@@ -9,6 +9,12 @@ namespace QuanLyDeTai.Data.Entities
     [Table("Faculty")]
     public partial class Faculty
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Faculty()
+        {
+            Students = new HashSet<Student>();
+        }
+
         public long ID { get; set; }
 
         public long? BranchID { get; set; }
@@ -17,5 +23,8 @@ namespace QuanLyDeTai.Data.Entities
         public string FacultyName { get; set; }
 
         public virtual Branch Branch { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

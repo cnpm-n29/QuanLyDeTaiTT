@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
 
 namespace QuanLyDeTai.Controllers
 {
@@ -44,7 +46,7 @@ namespace QuanLyDeTai.Controllers
         }
 
 
-        public JsonResult Update(Models.TopicModel model)
+        public JsonResult Update(TopicModel model)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             model.TeacherID = id_gv;
@@ -65,12 +67,7 @@ namespace QuanLyDeTai.Controllers
         {
             return Json(topicService.Delete(id), JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult listLoaiTT()
-        {
-            var result= practiceService.GetAllLoaiTT();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
 
         //public void listHocKy1(long? id = null)
         //{
@@ -81,12 +78,7 @@ namespace QuanLyDeTai.Controllers
         //{
         //    ViewBag.ID_LoaiTT = new SelectList(thucTapService.GetAllLoaiTT(), "ID", "TenThucTap", id);
         //}
-
-        public JsonResult listHocKy()
-        {
-            var result = practiceService.GetAllHocKy();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
 
         public JsonResult listDeTai()
         {
@@ -99,12 +91,23 @@ namespace QuanLyDeTai.Controllers
             return Json(topicService.GetById(ID), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetByKHvaLoaiTT(long IDHK,long IDTT)
+        //public JsonResult GetByKHvaLoaiTT(long IDHK,long IDTT)
+        //{
+        //    long id_gv = long.Parse(Session["UserId"].ToString());
+        //    var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+        //    var rs = topicService.GetListByTTvaMaGV(thuctap.ID, id_gv);
+        //    return Json(topicService.GetListByTTvaMaGV(thuctap.ID,id_gv), JsonRequestBehavior.AllowGet);
+        //}
+
+        public JsonResult GetByKHvaLoaiTT(long IDHK, long IDTT,string search, int pageNumber=0, int pageSize=10)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
-            var rs = topicService.GetListByTTvaMaGV(thuctap.ID, id_gv);
-            return Json(topicService.GetListByTTvaMaGV(thuctap.ID,id_gv), JsonRequestBehavior.AllowGet);
+            var total = topicService.getCount(thuctap.ID,id_gv,search);
+            var list = topicService.GetListByTTvaMaGV(thuctap.ID, id_gv,search,pageNumber,pageSize);    
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { TotalRecords = total, List = list }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetLoaiTTByHK(long? ID)

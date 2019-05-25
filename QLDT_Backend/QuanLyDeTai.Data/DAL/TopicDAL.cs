@@ -52,13 +52,30 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
-        public IEnumerable<Topic> GetListByTTvaMaGV(long? id_tt,long? id_gv)
+        public IEnumerable<Topic> GetListByTTvaMaGV(long? id_tt,long? id_gv,string search,int pageNumber,int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.Topics
-                .Where(i => i.PracticeTypeID == id_tt && i.TeacherID==id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
-                .ToList();
+                .Where(i => i.PracticeTypeID == id_tt &&i.TopicName.Contains(search)&& i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .OrderBy(i => i.ID)
+                .Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            return user;
+            //context.Configuration.ProxyCreationEnabled = false;
+            ////Get from database
+            //var user = context.Topics
+            //    .Where(i => i.PracticeTypeID == id_tt && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            //    .ToList();
+            //return user;
+        }
+
+        public int getCount(long? id_tt, long? id_gv,string search)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.Topics
+                .Where(i => i.PracticeTypeID == id_tt && i.TopicName.Contains(search) && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .Count();
             return user;
         }
 

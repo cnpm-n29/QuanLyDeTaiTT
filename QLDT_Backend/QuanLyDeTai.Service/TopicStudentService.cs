@@ -22,8 +22,27 @@ namespace QuanLyDeTai.Service
             return topicStudentDAL.GetListByTopicId(tpid);
         }
 
+        public int getCount(long tpid)
+        {
+            return topicStudentDAL.getCount(tpid);
+        }
 
-        public bool Update(TopicStudent model)
+        public TopicStudent ChangeStatus(long id)
+        {
+            return topicStudentDAL.ChangeStatus(id);
+        }
+
+        public TopicStudent CheckTopicUser(long id)
+        {
+            return topicStudentDAL.CheckTopicUser(id);
+        }
+
+        public Topic getTopicChoose(long id)
+        {
+            return topicStudentDAL.getTopicChoose(id);
+        }
+
+            public bool Update(TopicStudent model)
         {
             try
             {

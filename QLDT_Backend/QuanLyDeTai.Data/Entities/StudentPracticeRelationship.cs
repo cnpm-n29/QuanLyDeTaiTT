@@ -17,9 +17,9 @@ namespace QuanLyDeTai.Data.Entities
 
         public long ID { get; set; }
 
-        public long? ID_SinhVien { get; set; }
+        public long? StudentID { get; set; }
 
-        public long? ID_TT { get; set; }
+        public long? PracticeTypeID { get; set; }
 
         public virtual Student Student { get; set; }
 

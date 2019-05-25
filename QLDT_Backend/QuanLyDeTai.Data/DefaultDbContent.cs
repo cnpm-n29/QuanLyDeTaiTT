@@ -23,6 +23,7 @@ namespace QuanLyDeTai.Data.Entities
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentPracticeRelationship> StudentPracticeRelationships { get; set; }
+        public virtual DbSet<StudentSubjectRelationship> StudentSubjectRelationships { get; set; }
         public virtual DbSet<StudentTeacherRelationship> StudentTeacherRelationships { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
@@ -37,11 +38,6 @@ namespace QuanLyDeTai.Data.Entities
                 .Property(e => e.Phone)
                 .IsFixedLength()
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Student>()
-                .HasMany(e => e.StudentPracticeRelationships)
-                .WithOptional(e => e.Student)
-                .HasForeignKey(e => e.ID_SinhVien);
 
             modelBuilder.Entity<StudentPracticeRelationship>()
                 .HasMany(e => e.TopicStudents)

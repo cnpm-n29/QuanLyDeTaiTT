@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "Thông tin chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section footer
+{
+    <script src="~/Assets/scripts/InstructorInfo.js"></script>
+}
+
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                <li><a href="~/StudentTeacher/InstructorInfo" class="active"><i class="fa fa-address-card"></i> <span>Thông tin chi tiết</span></a></li>
+                <li><a href="~/TopicStudent/ChooseTopic" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                <li><a href="#" class=""><i class="fa fa-list-alt"></i> <span>Kết quả thực tập</span></a></li>
+
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                    <h4>THÔNG TIN CHI TIẾT</h4>
+                </div>
+
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody class="tbody">
+                            <tr>
+                                <td colspan="1" style="border-top: 0px">
+                                    <label style="width:100%;text-align:  center" class="text-primary">
+                                        <h4>SINH VIÊN</h4>
+                                    </label>
+                                    <form class="well form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                       class="col-md-3 control-label">MSSV</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled id="mssv"
+                                                               name="mssv" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Họ
+                                                    tên
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled id="stname"
+                                                               name="name" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Ngày
+                                                    sinh
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="stbirthday" name="birthday" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Địa chỉ
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="staddress" name="address" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                       class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="stemail" name="email" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                       class="col-md-3 control-label">SDT</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="stphone" name="phone" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </td>
+                                <td colspan="1" style="border-top: 0px">
+                                    <label style="width:100%;text-align:  center" class="text-primary">
+                                        <h4>GIẢNG VIÊN</h4>
+                                    </label>
+                                    <form class="well form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Họ
+                                                    tên
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="tcname" name="name" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Bộ
+                                                    môn
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="ctsubject" name="bomon" class="form-control"
+                                                               type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Ngày
+                                                    sinh
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="ctbirthday" name="birthday" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;" class="col-md-3 control-label">
+                                                    Địa chỉ
+                                                </label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="ctaddress" name="address" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                       class="col-md-3 control-label">Email</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="ctemail" name="email" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="text-align: left;"
+                                                       class="col-md-3 control-label">SDT</label>
+                                                <div class="col-md-9 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input disabled
+                                                               id="ctphone" name="phone" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- END RECENT PURCHASES -->
+
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+<!-- END MAIN -->

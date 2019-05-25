@@ -50,13 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\FacultyDAL.cs" />
     <Compile Include="DAL\FunctionDAL.cs" />
     <Compile Include="DAL\PracticeDAL.cs" />
     <Compile Include="DAL\PracticeTypeDAL.cs" />
+    <Compile Include="DAL\ScoreDAL.cs" />
     <Compile Include="DAL\SemesterDAL.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="DAL\StudentPracticeDAL.cs" />
+    <Compile Include="DAL\StudentSubjectDAL.cs" />
     <Compile Include="DAL\StudentTeacherDAL.cs" />
+    <Compile Include="DAL\SubjectDAL.cs" />
     <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\TopicDAL.cs" />
     <Compile Include="DAL\TopicStudentDAL.cs" />
@@ -72,6 +76,7 @@
     <Compile Include="Entities\Semester.cs" />
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\StudentPracticeRelationship.cs" />
+    <Compile Include="Entities\StudentSubjectRelationship.cs" />
     <Compile Include="Entities\StudentTeacherRelationship.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\sysdiagram.cs" />

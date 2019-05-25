@@ -12,6 +12,7 @@ namespace QuanLyDeTai.Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Subject()
         {
+            StudentSubjectRelationships = new HashSet<StudentSubjectRelationship>();
             Teachers = new HashSet<Teacher>();
         }
 
@@ -19,6 +20,9 @@ namespace QuanLyDeTai.Data.Entities
 
         [StringLength(100)]
         public string SubjectName { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentSubjectRelationship> StudentSubjectRelationships { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Teacher> Teachers { get; set; }

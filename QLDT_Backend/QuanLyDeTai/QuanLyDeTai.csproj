@@ -51,10 +51,21 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -132,6 +143,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\ScoreController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentPracticeController.cs" />
+    <Compile Include="Controllers\StudentSubjectController.cs" />
+    <Compile Include="Controllers\StudentTeacherController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TopicStudentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -140,6 +158,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentExcelModel.cs" />
+    <Compile Include="Models\StudentModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\TopicStudentModel.cs" />
@@ -166,7 +187,16 @@
     <Content Include="Assets\img\user5.png" />
     <Content Include="Assets\scripts\common.js" />
     <Content Include="Assets\scripts\DropDown.js" />
+    <Content Include="Assets\scripts\InstructorInfo.js" />
+    <Content Include="Assets\scripts\ListStudentControl.js" />
+    <Content Include="Assets\scripts\ListStudentSubjectControl.js" />
+    <Content Include="Assets\scripts\ListStudentTeacherControl.js" />
+    <Content Include="Assets\scripts\ListTeacherSubjectControl.js" />
     <Content Include="Assets\scripts\SaveTopic.js" />
+    <Content Include="Assets\scripts\StudentPracticeControl.js" />
+    <Content Include="Assets\scripts\StudentScoreControl.js" />
+    <Content Include="Assets\scripts\StudentSubjectControl.js" />
+    <Content Include="Assets\scripts\StudentTeacherControl.js" />
     <Content Include="Assets\scripts\TopicControl.js" />
     <Content Include="Assets\scripts\ChooseTopicControl.js" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-theme.css" />
@@ -192,9 +222,12 @@
     <Content Include="Assets\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\vendor\linearicons\fonts\Linearicons-Free.svg" />
     <Content Include="Assets\vendor\linearicons\style.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -206,6 +239,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\files\" />
+    <Folder Include="Views\List\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\fonts\CWB0XYA8bzo0kSThX0UTuA.woff2" />
@@ -238,6 +273,15 @@
     <Content Include="Views\TopicStudent\ChooseTopic.cshtml" />
     <Content Include="Views\Topic\Index.cshtml" />
     <Content Include="Views\TopicStudent\SaveTopic.cshtml" />
+    <Content Include="Views\StudentSubject\Index.cshtml" />
+    <Content Include="Views\StudentTeacher\AssignedTeacher.cshtml" />
+    <Content Include="Views\StudentTeacher\InstructorInfo.cshtml" />
+    <Content Include="Views\Teacher\ListTeacherSubject.cshtml" />
+    <Content Include="Views\Student\ListStudentSubject.cshtml" />
+    <Content Include="Views\Student\ListStudent.cshtml" />
+    <Content Include="Views\StudentPractice\Index.cshtml" />
+    <Content Include="Views\Student\ListStudentTeacher.cshtml" />
+    <Content Include="Views\Score\StudentScore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyDeTai.Data\QuanLyDeTai.Data.csproj">
@@ -267,7 +311,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51435</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51435/</IISUrl>
+          <IISUrl>http://localhost:51438/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

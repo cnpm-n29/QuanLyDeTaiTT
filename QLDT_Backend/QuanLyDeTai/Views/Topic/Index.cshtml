@@ -1,4 +1,6 @@
-﻿
+﻿<!-- Thêm thư viện -->
+
+<!-- Kết thúc-->
 @{
     ViewBag.Title = "Đề tài";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,12 +18,12 @@
             <ul class="nav">
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
                 {
-                    <li><a href="~/Topic/Index" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                    <li><a href="~/Topic/Index" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
                 }
 
                 @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
+                    <li><a href="~/Student/ListStudentTeacher" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
                 {
@@ -29,21 +31,21 @@
                 }
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                    <li><a href="~/Student/ListStudent" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
                 }
 
 
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
+                    <li><a href="~/StudentPractice/Index" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                    <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa điểm"))
                 {
@@ -51,15 +53,15 @@
                 }
                 @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                    <li><a href="~/Student/ListStudentSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
                 }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
                 {
-                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                    <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
                 }
             </ul>
         </nav>
@@ -79,7 +81,7 @@
                 </div>
                 <div class="col-md-9" style="margin-top: 10px">
                     <div class="input-group" style="max-width: 255px;float: right;" id="adv-search">
-                        <input type="text" class="form-control" placeholder="Search ..."  id="myInput" onkeyup="Search()"/>
+                        <input type="text" class="form-control" placeholder="Search ..." id="myInput" onkeyup="Search()" />
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-primary" onclick="Search()">
                                 <span class="fa fa-search"
@@ -100,14 +102,14 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label style="float: left;margin: 5px 0px ">Học kỳ </label>
-                                <div class="ddlHocKy col-sm-8" style="padding-left:20px">
+                                <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
 
                                 </div>
 
                             </div>
                             <div class="col-sm-4" style="padding-left:20px">
                                 <label style="float: left;margin: 5px 0px ">Thực tập </label>
-                                <div class="ddlLoaiTT col-sm-9" style="padding-left:20px">
+                                <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
                                 </div>
 
                             </div>
@@ -137,8 +139,7 @@
                                 <p style="float: left;margin-top: 5px">Hiển thị </p>
                                 <div style="float: left;margin: 0px 5px;" class="form-group">
                                     <select name="state" id="maxRows" class="form-control" style="width:80px;">
-                                        <option value="5" selected>5</option>
-                                        <option value="10">10</option>
+                                        <option value="10" selected>10</option>
                                         <option value="20">20</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
@@ -207,18 +208,18 @@
                         <label class="col-sm-3 control-label">Trạng thái</label>
                         <div class="col-sm-3">
                             <input type="checkbox" id="SuaTrangThai" class="kichhoat col-sm-3" />
-                            <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
-                           
+                            <p id="suatrangthai" class="col-sm-9">Chưa kích hoạt</p>
+
                         </div>
                     </div>
 
                 </div>
             </form>
-                <div class="modal-footer">
-                    <button onclick="Update()" type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
-                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
-                </div>
-            
+            <div class="modal-footer">
+                <button onclick="Update()" type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+            </div>
+
         </div>
 
     </div>
@@ -260,7 +261,7 @@
                         <label class="col-sm-3 control-label">Mô tả</label>
                         <div class="col-sm-9">
                             <textarea id="MoTa" class="form-control" rows="10"></textarea>
-                           
+
                             <p id="errorMoTa" class="text-danger"></p>
                         </div>
                     </div>
@@ -269,19 +270,18 @@
                         <div class="col-sm-3">
                             <input type="checkbox" id="TrangThai" class="kichhoat col-sm-3" />
                             <p id="trangthai" class="col-sm-9">Chưa kích hoạt</p>
-                            
+
                         </div>
                     </div>
 
                 </div>
             </form>
-                <div class="modal-footer">
-                    <button onclick="Add()" type="submit" class="btn btn-primary btn-primary"> <i class="fa fa-save"></i> Thêm mới</button>
-                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
-                </div>
-            
+            <div class="modal-footer">
+                <button onclick="Add()" type="submit" class="btn btn-primary btn-primary"> <i class="fa fa-save"></i> Thêm mới</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+            </div>
+
         </div>
     </div>
 </div>
 <!-- /Modal them detai -->
-

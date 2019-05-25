@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacultyService.cs" />
+    <Compile Include="ScoreService.cs" />
+    <Compile Include="StudentSubjectService.cs" />
+    <Compile Include="SubjectService.cs" />
     <Compile Include="TopicService.cs" />
     <Compile Include="TopicStudentService.cs" />
     <Compile Include="TeacherService.cs" />

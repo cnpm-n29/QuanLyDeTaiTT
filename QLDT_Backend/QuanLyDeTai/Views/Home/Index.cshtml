@@ -14,7 +14,7 @@
 
                 @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
+                    <li><a href="~/Student/ListStudentTeacher" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
                 {
@@ -22,21 +22,21 @@
                 }
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                    <li><a href="~/Student/ListStudent" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
                 }
 
 
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
+                    <li><a href="~/StudentPractice/Index" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                    <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa điểm"))
                 {
@@ -44,15 +44,15 @@
                 }
                 @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
+                    <li><a href="~/Student/ListStudentSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
                 }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
                 {
-                    <li><a href="#" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
+                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
                 {
-                    <li><a href="#" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                    <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
                 }
             </ul>
         </nav>

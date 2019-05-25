@@ -60,5 +60,10 @@ namespace QuanLyDeTai.Controllers
             }
             return View("Index");
         }
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return View("Index");
+        }
     }
 }
