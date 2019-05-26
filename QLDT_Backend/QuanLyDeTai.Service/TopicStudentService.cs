@@ -17,6 +17,11 @@ namespace QuanLyDeTai.Service
             return topicStudentDAL.GetById(id);
         }
 
+        public TopicStudent GetByStudentPracticeId(long id)
+        {
+            return topicStudentDAL.GetByStudentPracticeId(id);
+        }
+
         public IQueryable GetListByTopicId(long tpid)
         {
             return topicStudentDAL.GetListByTopicId(tpid);

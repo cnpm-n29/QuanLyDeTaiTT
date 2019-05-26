@@ -1,11 +1,9 @@
 ﻿
-    $(window).on('load', function () {
-        getListHocKy();
-        getListHocKy1();
-        changeDropHocKy1($(".drpHocKy #HocKy").val());
-        getListHocKy2();
-        getListLoaiTT2();
-        changeDropHocKy($(".HocKy #HocKy").val());
+$(window).on('load', function () {
+    getListHocKy();
+    getListHocKy1();
+    changeDropHocKy1($(".drpHocKy #HocKy").val());
+    changeDropHocKy($(".HocKy #HocKy").val());
 
 });
 
@@ -65,65 +63,14 @@ function changeDropHocKy1(IDHK) {
 }
 
 
-function getListLoaiTT2() {
-    $.ajax({
-        url: "/List/listLoaiTT/",
-        type: "GET",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var html = '<select class="LTT form-control" id="LoaiTT">';
-            html += '<option disabled> -- Chọn loại thực tập -- </option>';
-            $.each(result, function (key, item) {
-                html += '<option value=' + item.ID + '>' + item.PracticeName + '</option>';
-            });
-            html += '</select>';
-            $(".CreateLoaiTT").html(html);
-        },
-
-        error: function (errormessage) {
-
-        }
-    });
-    return false;
-}
-
-//combobox loai hoc ky 
-
-function getListHocKy2() {
-    $.ajax({
-        url: "/List/listHocKy/",
-        type: "GET",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-
-            var html = '<select id="HocKy" class="HK form-control">';
-            html += '<option disabled > -- Chọn loại học kỳ -- </option>';
-            $.each(result, function (key, item) {
-                html += '<option value=' + item.ID + '>' + item.SemesterName + '</option>';
-            });
-            html += '</select>';
-            $(".CreateHocKy").html(html);
-        },
-
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-    return false;
-}
-
 //Thay doi dropdown cua thuc tap
-function changeDropThucTap(IDTT,masv="",studentname="", PgNumber = 0, PgSize = $("#maxRows").val()) {
+function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
     var IDHK = $(".HocKy #HocKy").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
     $.ajax({
         async: false,
-        url: "/StudentPractice/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + masv + "&studentname=" + studentname + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        url: "/Score/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + masv + "&studentname=" + studentname + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -143,20 +90,11 @@ function changeDropThucTap(IDTT,masv="",studentname="", PgNumber = 0, PgSize = $
                     html += '<td align="center">' + (i++) + '</td>';
                     html += '<td>' + item.Masv + '</td>';
                     html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
-                    html += '<td>' + item.Birthday + '</td>';
-                    if (item.Sex == true) {
-                        html += '<td>Nữ</td>';
-                    }
-                    else {
-                        html += '<td>Nam</td>';
-                    }
-                    html += '<td>' + item.Email + '</td>';
-                    html += '<td>' + item.Phone + '</td>';
-                    html += '<td>' + item.Address + '</td>';
-                    if (item.Note == null) {
-                        item.Note = "";
-                    }
-                    html += '<td>' + item.Note + '</td>';
+                    html += '<td>' + item.TopicName + '</td>';
+                    html += '<td>' + item.CompanyScore + '</td>';
+                    html += '<td>' + item.TeacherScore + '</td>';
+                    html += '<td>' + item.ReportScore + '</td>';
+                    html += '<td>' + item.TotalScore + '</td>';
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
                     html += '</tr>';
                 });
@@ -183,7 +121,7 @@ function changeDropThucTap(IDTT,masv="",studentname="", PgNumber = 0, PgSize = $
             alert(errormessage.responseText);
         }
     });
-}  
+}
 
 // function button paganition
 function Page(pageNum) {
@@ -246,35 +184,11 @@ function Next() {
 }
 
 $('#maxRows').on('change', function () {
-    changeDropThucTap($(".LTT #LoaiTT").val(),"","", 0, $("#maxRows").val());
+    changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
 })
 
 
-function AddPracticeType() {
-    var practice = {
-        PracticeID: $('.CreateLoaiTT #LoaiTT').val(),
-        SemesterID: $('.CreateHocKy #HocKy').val()
-    }
-    $.ajax({
-        url: "/StudentPractice/AddPractice",
-        data: JSON.stringify(practice),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            if (result == false) {
-                alert("Lỗi thêm mới");
-                return;
-            }
-            getListHocKy();
-            getListLoaiTT();
-            changeDropHocKy($(".drpHocKy #HocKy").val());
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
+
 
 function Search() {
     var input, filter, table, tr, td, i, txtValue;
@@ -296,7 +210,7 @@ function Search() {
             i = (i * PgNumber) + 1;
             $.ajax({
                 async: false,
-                url: "/StudentPractice/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + input.value + "&studentname=" + studentname + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+                url: "/Score/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + input.value + "&studentname=" + studentname + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
                 type: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
@@ -316,20 +230,11 @@ function Search() {
                             html += '<td align="center">' + (i++) + '</td>';
                             html += '<td>' + item.Masv + '</td>';
                             html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
-                            html += '<td>' + item.Birthday + '</td>';
-                            if (item.Sex == true) {
-                                html += '<td>Nữ</td>';
-                            }
-                            else {
-                                html += '<td>Nam</td>';
-                            }
-                            html += '<td>' + item.Email + '</td>';
-                            html += '<td>' + item.Phone + '</td>';
-                            html += '<td>' + item.Address + '</td>';
-                            if (item.Note == null) {
-                                item.Note = "";
-                            }
-                            html += '<td>' + item.Note + '</td>';
+                            html += '<td>' + item.TopicName + '</td>';
+                            html += '<td>' + item.CompanyScore + '</td>';
+                            html += '<td>' + item.TeacherScore + '</td>';
+                            html += '<td>' + item.ReportScore + '</td>';
+                            html += '<td>' + item.TotalScore + '</td>';
                             html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
                             html += '</tr>';
                         });
@@ -360,7 +265,7 @@ function Search() {
     }
     else {
         if (filter == "") {
-            changeDropThucTap($(".LTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
+            changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
         }
         else {
             var IDTT = $(".LoaiTT #LoaiTT").val();
@@ -372,7 +277,7 @@ function Search() {
             i = (i * PgNumber) + 1;
             $.ajax({
                 async: false,
-                url: "/StudentPractice/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + masv + "&studentname=" + input.value + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+                url: "/Score/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + masv + "&studentname=" + input.value + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
                 type: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
@@ -392,20 +297,11 @@ function Search() {
                             html += '<td align="center">' + (i++) + '</td>';
                             html += '<td>' + item.Masv + '</td>';
                             html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
-                            html += '<td>' + item.Birthday + '</td>';
-                            if (item.Sex == true) {
-                                html += '<td>Nữ</td>';
-                            }
-                            else {
-                                html += '<td>Nam</td>';
-                            }
-                            html += '<td>' + item.Email + '</td>';
-                            html += '<td>' + item.Phone + '</td>';
-                            html += '<td>' + item.Address + '</td>';
-                            if (item.Note == null) {
-                                item.Note = "";
-                            }
-                            html += '<td>' + item.Note + '</td>';
+                            html += '<td>' + item.TopicName + '</td>';
+                            html += '<td>' + item.CompanyScore + '</td>';
+                            html += '<td>' + item.TeacherScore + '</td>';
+                            html += '<td>' + item.ReportScore + '</td>';
+                            html += '<td>' + item.TotalScore + '</td>';
                             html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
                             html += '</tr>';
                         });

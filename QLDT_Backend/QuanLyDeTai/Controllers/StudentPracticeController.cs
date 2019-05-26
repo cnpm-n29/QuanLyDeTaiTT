@@ -93,13 +93,13 @@ namespace QuanLyDeTai.Controllers
                             for (int rowIterator = 5; rowIterator <= noOfRows; rowIterator++)
                             {
                                 var student = new StudentPracticeRelationship();
-                                if (workSheet.Cells[rowIterator, 5].Value == null)
+                                if (workSheet.Cells[rowIterator, 4].Value == null)
                                 {
                                     masv = "";
                                 }
                                 else
                                 {
-                                    masv = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    masv = workSheet.Cells[rowIterator, 4].Value.ToString();
                                     student.StudentID = studentService.GetByMasv(masv).ID;
                                     student.PracticeTypeID = practiceTypeId;
                                     studentPracticeService.Create(student);
@@ -112,6 +112,7 @@ namespace QuanLyDeTai.Controllers
             catch (Exception ex)
             {
                 ViewBag.error = "Thêm mới dữ liệu không thành công";
+                return View("Index");
             }
             return View("Index");
         }
@@ -164,7 +165,7 @@ namespace QuanLyDeTai.Controllers
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
             // File name của Excel này là ExcelDemo
-            Response.AddHeader("Content-Disposition", "attachment; filename=ExcelDemo.xlsx");
+            Response.AddHeader("Content-Disposition", "attachment; filename=StudentPracticeDemo.xlsx");
             // Lưu file excel của chúng ta như 1 mảng byte để trả về response
             Response.BinaryWrite(buffer.ToArray());
             // Send tất cả ouput bytes về phía clients
@@ -177,60 +178,87 @@ namespace QuanLyDeTai.Controllers
         private void BindingFormatForExcel(ExcelWorksheet worksheet, List<StudentModel> listItems)
         {
             // Set default width cho tất cả column
-            worksheet.DefaultColWidth = 10;
+            worksheet.DefaultColWidth = 5;
+            worksheet.Cells[4, 6].AutoFitColumns(5);
+            //gộp hàng
+            worksheet.Cells["A1:T1"].Merge = true;
+            worksheet.Cells["A2:T2"].Merge = true;
+            worksheet.Cells["A3:B3"].Merge = true;
+            worksheet.Cells["C3:D3"].Merge = true;
+            //căn giữa
+            worksheet.Cells["A1:T2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            //thiếp lập font và cỡ chữ
+            worksheet.Cells["A1:T2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
+            worksheet.Cells[1, 1].Value = "DANH SÁCH SINH VIÊN THỰC TẬP";
+            worksheet.Cells[2, 1].Value = "Thực tập cơ sở ngành KS CNTT(118)_01_TT";
+            worksheet.Cells["A3:T3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
+            worksheet.Cells[3, 1].Value = "Thời gian học :";
+            worksheet.Cells[3, 2].Value = "17/12/2018 - 06/01/2019";
             // Tự động xuống hàng khi text quá dài
-            worksheet.Cells.Style.WrapText = true;
+            //worksheet.Cells.Style.WrapText = true;
             // Tạo header
-            worksheet.Cells[1, 1].Value = "STT";
-            worksheet.Cells[1, 2].Value = "Mã SV";
-            worksheet.Cells[1, 3].Value = "Họ";
-            worksheet.Cells[1, 4].Value = "Tên";
-            worksheet.Cells[1, 5].Value = "Ngày sinh";
-            worksheet.Cells[1, 6].Value = "Giới tính";
-            worksheet.Cells[1, 7].Value = "Số điện thoại";
-            worksheet.Cells[1, 8].Value = "Email";
-            worksheet.Cells[1, 9].Value = "Địa chỉ";
-            worksheet.Cells[1, 10].Value = "Ghi chú";
-
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Họ tên";
+            worksheet.Cells[4, 3].Value = "Ngày sinh";
+            worksheet.Cells[4, 4].Value = "Mã SV";
+            worksheet.Cells[4, 5].Value = "Lớp BC";
+            worksheet.Cells[4, 6].Value = "T1";
+            worksheet.Cells[4, 7].Value = "T2";
+            worksheet.Cells[4, 8].Value = "T3";
+            worksheet.Cells[4, 9].Value = "T4";
+            worksheet.Cells[4, 10].Value = "T5";
+            worksheet.Cells[4, 11].Value = "T6";
+            worksheet.Cells[4, 12].Value = "T7";
+            worksheet.Cells[4, 13].Value = "T8";
+            worksheet.Cells[4, 14].Value = "T9";
+            worksheet.Cells[4, 15].Value = "T10";
+            worksheet.Cells[4, 16].Value = "T11";
+            worksheet.Cells[4, 17].Value = "T12";
+            worksheet.Cells[4, 18].Value = "T13";
+            worksheet.Cells[4, 19].Value = "T14";
+            worksheet.Cells[4, 20].Value = "T15";
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A1:J1"])
+            using (var range = worksheet.Cells["A3:T4"])
             {
 
                 // Canh giữa cho các text
                 range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // Set Font cho text  trong Range hiện tại
-                range.Style.Font.SetFromFont(new Font("Arial", 10));
+                range.Style.Font.SetFromFont(new Font("Times New Roman", 10));
                 range.Style.Font.Bold = true;
                 // Set Border
                 range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
             }
-
             // Đỗ dữ liệu từ list vào 
             for (int i = 0; i < listItems.Count; i++)
             {
                 var student = listItems[i];
-                worksheet.Cells[i + 2, 1].Value = (i + 1).ToString();
-                worksheet.Cells[i + 2, 2].Value = student.Masv;
-                worksheet.Cells[i + 2, 3].Value = student.FirstName;
-                worksheet.Cells[i + 2, 4].Value = student.LastName;
-                worksheet.Cells[i + 2, 5].Value = student.Birthday;
-                if (student.Sex == true)
-                {
-                    worksheet.Cells[i + 2, 6].Value = "Nữ";
-                }
-                else
-                {
-                    worksheet.Cells[i + 2, 6].Value = "Nam";
-                }
-                worksheet.Cells[i + 2, 7].Value = student.Phone;
-                worksheet.Cells[i + 2, 8].Value = student.Email;
-                worksheet.Cells[i + 2, 9].Value = student.Address;
-                worksheet.Cells[i + 2, 10].Value = student.Note;
+                worksheet.Cells[i + 5, 1].Value = (i + 1).ToString();
+                worksheet.Cells[i + 5, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells[i + 5, 2].Value = student.FirstName+" "+student.LastName;
+                worksheet.Cells[i + 5, 3].Value = student.Birthday;
+                worksheet.Cells[i + 5, 4].Value = student.Masv;
+                worksheet.Cells[i + 5, 5].Value = "K56K4D480201";
+                worksheet.Cells[i + 5, 6].Value = "";
+                worksheet.Cells[i + 5, 7].Value = "";
+                worksheet.Cells[i + 5, 8].Value = "";
+                worksheet.Cells[i + 5, 9].Value = "";
+                worksheet.Cells[i + 5, 10].Value = "";
+                worksheet.Cells[i + 5, 11].Value = "";
+                worksheet.Cells[i + 5, 12].Value = "";
+                worksheet.Cells[i + 5, 13].Value = "";
+                worksheet.Cells[i + 5, 14].Value = "";
+                worksheet.Cells[i + 5, 15].Value = "";
+                worksheet.Cells[i + 5, 16].Value = "";
+                worksheet.Cells[i + 5, 17].Value = "";
+                worksheet.Cells[i + 5, 18].Value = "";
+                worksheet.Cells[i + 5, 19].Value = "";
+                worksheet.Cells[i + 5, 20].Value = "";
 
 
             }
-            // fix lại width của column với minimum width là 15
-            worksheet.Cells[1, 1, listItems.Count + 5, 4].AutoFitColumns(15);
+            // fix lại width của column 
+            worksheet.Cells.AutoFitColumns();
         }
     }
 }

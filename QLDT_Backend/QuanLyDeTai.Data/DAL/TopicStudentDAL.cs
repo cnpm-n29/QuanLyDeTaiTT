@@ -20,6 +20,17 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
+
+        public TopicStudent GetByStudentPracticeId(long id)
+        {
+            //Get from database
+            var user = context.TopicStudents
+                .Where(i => i.StudentPracticeID == id && i.Status==true)
+                .FirstOrDefault();
+            return user;
+        }
+
+
         public TopicStudent CheckTopicUser(long id)
         {
             //Get from database
