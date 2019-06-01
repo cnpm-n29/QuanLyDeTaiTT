@@ -26,6 +26,11 @@ namespace QuanLyDeTai.Service
             return scoreDAL.getListByPracticeTypeIdCount(practiceTypeId, masv, studentname);
         }
 
+        public IEnumerable<Object> getListByPracticeTypeIdAll(long practiceTypeId)
+        {
+            return scoreDAL.getListByPracticeTypeIdAll(practiceTypeId);
+        }
+
         public bool Create(Score model)
         {
             try
@@ -41,6 +46,41 @@ namespace QuanLyDeTai.Service
             {
                 return false;
             }
+        }
+
+        public bool Update(Score model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return false;
+                }
+                var update = scoreDAL.Update(model);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(long id, long person)
+        {
+            try
+            {
+                var update = scoreDAL.Delete(id, person);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Object GetById(long id)
+        {
+            return scoreDAL.GetById(id);
         }
     }
 }

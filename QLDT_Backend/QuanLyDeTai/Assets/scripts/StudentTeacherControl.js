@@ -333,6 +333,7 @@ function DeleteInDatabase(IDSV) {
 }
 
 function Save() {
+
     var IDGV = $("#GiangVien").val();
     table = document.getElementById("TableTeacher");
     tr = table.getElementsByTagName("tr");
@@ -351,20 +352,25 @@ function Save() {
                 list.push(StudentID);
             }
         }
-        $.ajax({
-            url: "/StudentTeacher/Add",
-            data: JSON.stringify({ 'list': list, 'IDGV': IDGV }),
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                changeDropGiangVien(IDGV);
-            },
-            error: function (errormessage) {
-                alert(errormessage.responseText);
-            }
-        });
+        if (list.length == 0) {
+            changeDropBoMon(IDBM);
+        }
+        else {
+            $.ajax({
+                url: "/StudentTeacher/Add",
+                data: JSON.stringify({ 'list': list, 'IDGV': IDGV }),
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    changeDropGiangVien(IDGV);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
     }
 
 }

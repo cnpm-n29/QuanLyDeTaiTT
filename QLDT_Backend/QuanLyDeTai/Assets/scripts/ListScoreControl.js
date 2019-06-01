@@ -188,6 +188,128 @@ $('#maxRows').on('change', function () {
 })
 
 
+//Function for getting the Data Based upon ID  
+function getbyID(ID) {
+    $('#diemCongty').css('border-color', 'lightgrey');
+    $('#diemGVHD').css('border-color', 'lightgrey');
+    $('#diemBaoCao').css('border-color', 'lightgrey');
+    $('#diemTong').css('border-color', 'lightgrey');
+    $.ajax({
+        url: "/Score/GetbyID/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#ID').val(result.ID);
+            $('#masv').val(result.Masv);
+            $('#name').val(result.FirstName + " " + result.LastName);
+            $('#topicname').val(result.TopicName);
+            $('#diemCongty').val(result.CompanyScore);
+            $('#diemGVHD').val(result.TeacherScore);
+            $('#diemBaoCao').val(result.ReportScore);
+            $('#diemTong').val(result.TotalScore);
+            $('#suadiem').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+//function for updating employee's record  
+function Update() {
+    var res = validateUpdate();
+    if (res == false) {
+        return false;
+    }
+
+    var sv = {
+        ID: $('#ID').val(),
+        CompanyScore: $('#diemCongty').val(),
+        TeacherScore: $('#diemGVHD').val(),
+        ReportScore: $('#diemBaoCao').val(),
+        TotalScore: $('#diemTong').val()
+    };
+    $.ajax({
+        url: "/Score/Update",
+        data: JSON.stringify(sv),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
+            $('#suadiem').modal('hide');
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+//function for deleting employee's record  
+function Delele(ID) {
+    var ans = confirm("Bạn muốn xóa sinh viên này?");
+    if (ans) {
+        $.ajax({
+            url: "/Score/Delete/" + ID,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}
+
+
+function validateUpdate() {
+    var isValid = true;
+    if ($('#diemCongty').val().trim() == "") {
+        $('#diemCongty').css('border-color', 'Red');
+        $('#errorDiemCT').text('* Chưa nhập điểm công ty');
+        isValid = false;
+    }
+    else {
+        $('#diemCongty').css('border-color', 'lightgrey');
+        $('#errorDiemCT').text('');
+    }
+    if ($('#diemGVHD').val().trim() == "") {
+        $('#diemGVHD').css('border-color', 'Red');
+        $('#errorDiemGV').text('* Chưa nhập điểm giáo viên ');
+        isValid = false;
+    }
+    else {
+        $('#diemGVHD').css('border-color', 'lightgrey');
+        $('#errorDiemGV').text('');
+    }
+    if ($('#diemBaoCao').val().trim() == "") {
+        $('#diemBaoCao').css('border-color', 'Red');
+        $('#errorDiemBC').text('* Chưa nhập điểm báo cáo');
+        isValid = false;
+    }
+    else {
+        $('#diemBaoCao').css('border-color', 'lightgrey');
+        $('#errorDiemBC').text('');
+    }
+
+    if ($('#diemTong').val().trim() == "") {
+        $('#diemTong').css('border-color', 'Red');
+        $('#errorDiemT').text('* Chưa nhập email');
+        isValid = false;
+    }
+    else {
+        $('#diemTong').css('border-color', 'lightgrey');
+        $('#errorDiemT').text('');
+    }
+
+    return isValid;
+}
 
 
 function Search() {
@@ -331,3 +453,23 @@ function Search() {
         }
     }
 }
+
+//function for updating employee's record  
+//function ExportExcel() {
+//    var IDHK = $(".HocKy #HocKy").val();
+//    var IDTT = $(".LoaiTT #LoaiTT").val();
+//    $.ajax({
+//        async: false,
+//        url: "/Score/CreateExcelFileExport?IDHK=" + IDHK + "&IDTT=" + IDTT ,
+//        type: "GET",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
+            
+
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}

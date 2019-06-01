@@ -351,20 +351,25 @@ function Save() {
                 list.push(StudentID);
             }
         }
-        $.ajax({
-            url: "/StudentSubject/Add",
-            data: JSON.stringify({ 'list': list, 'IDBM': IDBM }),
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                changeDropBoMon(IDBM);
-            },
-            error: function (errormessage) {
-                alert(errormessage.responseText);
-            }
-        });
+        if (list.length == 0) {
+            changeDropBoMon(IDBM);
+        }
+        else {
+            $.ajax({
+                url: "/StudentSubject/Add",
+                data: JSON.stringify({ 'list': list, 'IDBM': IDBM }),
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    changeDropBoMon(IDBM);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
     }
 
 }

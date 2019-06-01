@@ -78,7 +78,7 @@
                 <div class="col-md-7" style="margin-top: 10px">
                     <div class="input-group" style="max-width: 300px;float: right;" id="adv-search">
                         <input id="myInput" type="text" class="form-control"
-                               placeholder="Search ..." onkeyup="Search()"/>
+                               placeholder="Search ..." onkeyup="Search()" />
                         <div class="input-group-btn" style="width: 20%;">
                             <div class="btn-group" role="group">
                                 <div class="dropdown dropdown-lg">
@@ -120,6 +120,24 @@
                 </div>
                 <div class="panel-body">
                     <div>
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <label style="float: left;margin: 5px 0px ">Bộ môn </label>
+                                <select style="float: right;width: 75%;" class="form-control">
+                                    <option disabled value="thuctap"> -- Chọn bộ môn -- </option>
+                                    <option value="1">Hệ thống và mạng máy tính</option>
+                                    <option value="2">Khoa học máy tính và CN Phần mềm</option>
+
+                                </select>
+                            </div>
+                            <div class="col-sm-6" style="padding: 0px;">
+                                <button data-toggle="modal"
+                                        data-target="#themdssv" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <i class="fa fa-plus"></i> Thêm mới
+                                </button>
+                            </div>
+                        </div>
                         <table class="mytable table table-bordered" cellspacing="0" cellpadding="5"
                                style="border-collapse:collapse;">
                             <tr>
@@ -168,3 +186,46 @@
     <!-- END MAIN CONTENT -->
 </div>
 <!-- END MAIN -->
+<!-- Modal them gv -->
+<div class="modal fade" id="themdssv" role="dialog" style="margin-top: 7%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">THÊM DANH SÁCH GIẢNG VIÊN</h4>
+            </div>
+            <div class="modal-body">
+                <!-- edit form column -->
+                <form style="max-width: 80%;margin: auto">
+                    <div class="row">
+                        <div class="form-group col-sm-8 row">
+                            <label class="col-sm-4 control-label" style="margin-top: 15px;margin-right: 20px">Bộ môn</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" style="margin:10px 0px" onchange="" id="">
+                                    <option value="1">Hệ thống và mạng máy tính</option>
+                                    <option value="2">Khoa học máy tính và CN Phần mềm</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4 row">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3" for="">Chọn file</label>
+                        <input id="file" type="file" name="sortpic" class="" />
+                    </div>
+                </form>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Modal them gv -->

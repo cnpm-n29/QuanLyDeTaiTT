@@ -1,5 +1,6 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using QuanLyDeTai.Data.Entities;
 using QuanLyDeTai.Models;
 using QuanLyDeTai.Service;
 using System;
@@ -50,6 +51,26 @@ namespace QuanLyDeTai.Controllers
           
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return Json(new { TotalRecords = total, List = list }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetbyID(int ID)
+        {
+            var score = scoreService.GetById(ID);
+            return Json(score, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Update(ScoreModel model)
+        {
+            model.ModifyBy = long.Parse(Session["UserId"].ToString());
+            
+            bool status = scoreService.Update(model.ToModel());
+
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Delete(long id)
+        {
+            return Json(studentService.Delete(id, long.Parse(Session["UserId"].ToString())), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Upload(long PracticeID, long SemesterID)
@@ -116,7 +137,7 @@ namespace QuanLyDeTai.Controllers
                                     }
                                     else
                                     {
-                                        score.TotalScore = Convert.ToInt32(workSheet.Cells[rowIterator, 8].Value.ToString());
+                                        score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value.ToString());
                                     }
                                     masv = workSheet.Cells[rowIterator, 2].Value.ToString();
                                     var studentpracticeid = studentPracticeService.GetBySinhVienvaKieuTT(studentService.GetByMasv(masv).ID, practiceTypeId);
@@ -196,7 +217,7 @@ namespace QuanLyDeTai.Controllers
             // Send tất cả ouput bytes về phía clients
             Response.Flush();
             Response.End();
-            // Redirect về luôn trang index <img draggable="false" class="emoji" alt="😀" src="https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/1f600.svg">
+            // Redirect về luôn trang index 
             return RedirectToAction("ListScore");
         }
 
@@ -262,5 +283,104 @@ namespace QuanLyDeTai.Controllers
             worksheet.Cells.AutoFitColumns();
         }
 
+        //public JsonResult CreateExcelFileExport(long IDHK, long IDTT)
+        //{
+        //    var practice = practiceService.GetByIdPractice(IDTT);
+        //    var semester = practiceService.GetByIdSemester(IDHK);
+        //    var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+        //    var score = scoreService.getListByPracticeTypeIdAll(thuctap.ID);
+        //    Stream stream = null;
+        //    using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+        //    {
+        //        // Tạo author cho file Excel
+        //        excelPackage.Workbook.Properties.Author = "Hanker";
+        //        // Tạo title cho file Excel
+        //        excelPackage.Workbook.Properties.Title = "EPP test background";
+        //        // Add Sheet vào file Excel
+        //        excelPackage.Workbook.Worksheets.Add("First Sheet");
+        //        // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+        //        var worksheet = excelPackage.Workbook.Worksheets[1];
+        //        // Đổ data vào Excel file
+        //        //workSheet.Cells[1, 1].LoadFromCollection(resultsList, false);
+        //        // Set default width cho tất cả column
+        //        worksheet.DefaultColWidth = 5;
+        //        worksheet.Cells[4, 6].AutoFitColumns(5);
+        //        //gộp hàng
+        //        worksheet.Cells["A1:H1"].Merge = true;
+        //        worksheet.Cells["A2:H2"].Merge = true;
+        //        worksheet.Cells["A3:B3"].Merge = true;
+        //        worksheet.Cells["C3:D3"].Merge = true;
+        //        //căn giữa
+        //        worksheet.Cells["A1:H2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+        //        //thiếp lập font và cỡ chữ
+        //        worksheet.Cells["A1:H2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
+        //        worksheet.Cells[1, 1].Value = "DANH SÁCH ĐIỂM THỰC TẬP";
+        //        worksheet.Cells[2, 1].Value = practice.PracticeName+" ngành KS học kỳ "+semester.SemesterName;
+        //        worksheet.Cells["A3:H3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
+
+        //        // Tự động xuống hàng khi text quá dài
+        //        //worksheet.Cells.Style.WrapText = true;
+        //        // Tạo header
+        //        worksheet.Cells[4, 1].Value = "STT";
+        //        worksheet.Cells[4, 2].Value = "Mã SV";
+        //        worksheet.Cells[4, 3].Value = "Họ tên";
+        //        worksheet.Cells[4, 4].Value = "Tên đề tài";
+        //        worksheet.Cells[4, 5].Value = "Điểm công ty";
+        //        worksheet.Cells[4, 6].Value = "Điểm hướng dẫn";
+        //        worksheet.Cells[4, 7].Value = "Điểm báo cáo";
+        //        worksheet.Cells[4, 8].Value = "Điểm tổng";
+        //        // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+        //        using (var range = worksheet.Cells["A3:H4"])
+        //        {
+
+        //            // Canh giữa cho các text
+        //            range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+        //            // Set Font cho text  trong Range hiện tại
+        //            range.Style.Font.SetFromFont(new Font("Times New Roman", 10));
+        //            range.Style.Font.Bold = true;
+        //            // Set Border
+        //            range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+        //        }
+        //        int i = 0;
+        //        if (score == null)
+        //        {
+        //            worksheet.Cells[4, 1].Value = "STT";
+        //            worksheet.Cells[4, 2].Value = "Mã SV";
+        //            worksheet.Cells[4, 3].Value = "Họ tên";
+        //            worksheet.Cells[4, 4].Value = "Tên đề tài";
+        //            worksheet.Cells[4, 5].Value = "Điểm công ty";
+        //            worksheet.Cells[4, 6].Value = "Điểm hướng dẫn";
+        //            worksheet.Cells[4, 7].Value = "Điểm báo cáo";
+        //            worksheet.Cells[4, 8].Value = "Điểm tổng";
+        //        }
+        //        // Đỗ dữ liệu từ list vào 
+        //        foreach (Score item in score)
+        //        {
+        //            string s = item.ToString();
+                    
+        //        }
+                
+        //        // fix lại width của column 
+        //        worksheet.Cells.AutoFitColumns();
+        //        excelPackage.Save();
+                
+        //    }
+        //    // Tạo buffer memory strean để hứng file excel
+        //    var buffer = stream as MemoryStream;
+        //    // Đây là content Type dành cho file excel, còn rất nhiều content-type khác nhưng cái này mình thấy okay nhất
+        //    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        //    // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
+        //    // File name của Excel này là ExcelDemo
+        //    Response.AddHeader("Content-Disposition", "attachment; filename=Score.xlsx");
+        //    // Lưu file excel của chúng ta như 1 mảng byte để trả về response
+        //    Response.BinaryWrite(buffer.ToArray());
+        //    // Send tất cả ouput bytes về phía clients
+        //    Response.Flush();
+        //    Response.End();
+        //    // Redirect về luôn trang index 
+        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //}
+
+        
     }
 }

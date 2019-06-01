@@ -68,13 +68,14 @@ namespace QuanLyDeTai.Data.DAL
                            StudentID = s.MaSV,
                            Order = d.Order,
                            Status = d.Status,
+                           CreateTime=d.CreateTime,
                            FirstName = s.FirstName,
                            LastName = s.LastName,
                            Birthday = s.Birthday,
                            Email = s.Email,
                            Phone = s.Phone
                        };
-            return user;
+            return user.OrderBy(i=>i.CreateTime);
         }
 
         public int getCount(long tpid)

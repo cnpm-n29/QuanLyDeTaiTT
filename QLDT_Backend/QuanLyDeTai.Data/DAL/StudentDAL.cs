@@ -17,6 +17,7 @@ namespace QuanLyDeTai.Data.DAL
             context.Configuration.ProxyCreationEnabled = false;
             var user = context.Students
                  .Where(i => i.FacultyID == facultyID && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                 .OrderBy(i=>i.LastName)
                  .ToList();
             return user; 
         }
@@ -48,7 +49,7 @@ namespace QuanLyDeTai.Data.DAL
                        join j in context.StudentSubjectRelationships on i.ID equals j.StudentID
                        where i.FacultyID == facultyID &&j.SubjectID==SubjectID&& (i.IsDeleted == false || i.IsDeleted.Equals(null)&& (j.IsDeleted == false || j.IsDeleted.Equals(null)))
                        select i;
-            return user.ToList();
+            return user.OrderBy(i=>i.LastName).ToList();
         }
 
         public Student GetByMasv(string Masv)

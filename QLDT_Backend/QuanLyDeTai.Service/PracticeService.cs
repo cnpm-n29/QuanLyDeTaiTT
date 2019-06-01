@@ -14,6 +14,15 @@ namespace QuanLyDeTai.Service
         SemesterDAL semesterDAL = new SemesterDAL();
         PracticeDAL practiceDAL = new PracticeDAL();
 
+        public Practice GetByIdPractice(long id)
+        {
+            return practiceDAL.GetById(id);
+        }
+
+        public Semester GetByIdSemester(long id)
+        {
+            return semesterDAL.GetById(id);
+        }
 
         public IEnumerable<Practice> GetAllLoaiTT()
         {

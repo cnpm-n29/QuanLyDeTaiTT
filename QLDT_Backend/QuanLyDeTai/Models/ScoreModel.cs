@@ -8,6 +8,22 @@ namespace QuanLyDeTai.Models
 {
     public class ScoreModel
     {
+        public ScoreModel()
+        {
+        }
+        public ScoreModel(Score m)
+        {
+            ID = m.ID;
+            TopicStudentID = m.TopicStudentID;
+            PracticeTypeID = m.PracticeTypeID;
+            CompanyScore = Convert.ToSingle(m.CompanyScore);
+            TeacherScore = Convert.ToSingle(m.TeacherScore);
+            ReportScore = Convert.ToSingle(m.ReportScore);
+            TotalScore = Convert.ToSingle(m.TotalScore);
+            CreateBy = CreateBy;
+            ModifyBy = ModifyBy;
+
+        }
         public long ID { get; set; }
 
         public long? TopicStudentID { get; set; }
@@ -48,6 +64,7 @@ namespace QuanLyDeTai.Models
         {
             var st = new Score
             {
+                ID=ID,
                 TopicStudentID=TopicStudentID,
                 PracticeTypeID=PracticeTypeID,
                 CompanyScore=Convert.ToSingle(CompanyScore),
