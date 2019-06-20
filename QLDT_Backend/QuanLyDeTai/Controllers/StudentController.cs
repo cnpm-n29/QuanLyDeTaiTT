@@ -258,7 +258,7 @@ namespace QuanLyDeTai.Controllers
                             }
                             else
                             {
-                                student.Birthday = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                student.Birthday = workSheet.Cells[rowIterator, 5].Value.ToString().Trim();
                             }
                             if (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ")
                             {
@@ -306,9 +306,22 @@ namespace QuanLyDeTai.Controllers
                             }
                             student.FacultyId = Convert.ToInt32(FacultyId);
                             student.CreateBy= long.Parse(Session["UserId"].ToString());
-                            bool status=studentService.Create(student.ToModel());
-                            
-                            suppleirList.Add(student);
+                            bool state;
+                            try
+                            {
+                                var st = student.ToModel();
+                                state = true;
+                            }
+                            catch
+                            {
+                                state = false;
+                            }
+                            if (state)
+                            {
+                                bool status = studentService.Create(student.ToModel());
+
+                                suppleirList.Add(student);
+                            }
                         }
 
 

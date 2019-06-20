@@ -16,7 +16,7 @@ namespace QuanLyDeTai.Data.DAL
             context.Configuration.ProxyCreationEnabled = false;
             var user = from s in context.Topics
                        join c in context.TopicStudents on s.ID equals c.TopicID
-                       join x in context.StudentPracticeRelationships on c.StudentPracticeID equals x.PracticeTypeID
+                       join x in context.StudentPracticeRelationships on c.StudentPracticeID equals x.ID
                        join a in context.PracticeTypes on x.PracticeTypeID equals a.ID
                        join y in context.Scores on c.ID equals y.TopicStudentID
                        where  a.PracticeID == idltt &&x.StudentID==idsv && (y.IsDeleted == false || y.IsDeleted.Equals(null))

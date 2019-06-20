@@ -30,6 +30,7 @@ namespace QuanLyDeTai.Models
 
         public Student ToModel()
         {
+            
             var st = new Student
             {
                 ID = ID,

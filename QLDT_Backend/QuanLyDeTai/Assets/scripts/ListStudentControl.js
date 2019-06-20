@@ -74,7 +74,7 @@ function changeDropKhoaHoc(facultyId,masv="",studentname="",PgNumber = 0, PgSize
 
 // function button paganition
 function Page(pageNum) {
-    changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+    changeDropKhoaHoc($("#KhoaHoc").val(),"","", pageNum - 1, $("#maxRows").val());
     $('.pagination li').removeClass('active')
     $('.pagination li').removeClass('abc')
     $('.page-number-' + pageNum).addClass('active')
@@ -84,7 +84,7 @@ function Page(pageNum) {
 
 function Previous_all() {
     var pageNum = 1;
-    changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+    changeDropKhoaHoc($("#KhoaHoc").val(),"","", pageNum - 1, $("#maxRows").val());
     $('.pagination li').removeClass('active')
     $('.pagination li').removeClass('abc')
     $('.page-number-1').addClass('active')
@@ -99,7 +99,7 @@ function Previous() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum - 1;
-        changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+        changeDropKhoaHoc($("#KhoaHoc").val(),"","", pageNum - 1, $("#maxRows").val());
         $('.pagination li').removeClass('active')
         $('.pagination li').removeClass('abc')
         $('.page-number-' + pageNum).addClass('active')
@@ -109,7 +109,7 @@ function Previous() {
 
 function Next_all() {
     var pageNum = num;
-    changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+    changeDropKhoaHoc($("#KhoaHoc").val(),"","", pageNum - 1, $("#maxRows").val());
     $('.pagination li').removeClass('active')
     $('.pagination li').removeClass('abc')
     $('.page-number-' + num).addClass('active')
@@ -124,7 +124,7 @@ function Next() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum + 1;
-        changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+        changeDropKhoaHoc($("#KhoaHoc").val(),"","", pageNum - 1, $("#maxRows").val());
         $('.pagination li').removeClass('active')
         $('.pagination li').removeClass('abc')
         $('.page-number-' + pageNum).addClass('active')
@@ -133,7 +133,7 @@ function Next() {
 }
 
 $('#maxRows').on('change', function () {
-    changeDropThucTap($("#LoaiTT").val(), 0, $("#maxRows").val());
+    changeDropKhoaHoc($("#KhoaHoc").val(),"","", 0, $("#maxRows").val());
 })
 
 

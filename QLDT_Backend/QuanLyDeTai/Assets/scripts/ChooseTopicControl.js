@@ -17,13 +17,16 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
         success: function (result) {
             var html = '';
             if (result.List == "") {
+                $('.mytable').show();
                 html += '<tr>';
                 html += '<td colspan="5">Không có dữ liệu</td>';
 
                 html += '</tr>';
                 $('.tbody').html(html);
+                $('.tableTopic').html("");
             }
             else if (result.Detai != null) {
+                $('.mytable').hide();
                 html = '<tr>';
                 html += '<th class="center-header" scope = "col"> STT</th>';
                 html += '<th class="center-header" scope="col" style="width:40%;">Tên đề tài</th>';
@@ -36,30 +39,46 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
                 html += '<td>' + result.Detai.Description + '</td>';
                     
                 html += '</tr>';
-                $('.mytable').html(html);
+                $('.tableTopic').html(html);
             }
             else if (result.Error == "Đã chọn đề tài, chờ giáo viên hướng dẫn chốt") {
+                $('.mytable').show();
+                $('.tableTopic').html("");
                 html += '<tr>';
                 html += '<td colspan="5">Đã chọn đề tài, chờ giáo viên hướng dẫn chốt</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
             }
             else if (result.Error == "Chưa được phân giảng viên") {
+                $('.mytable').show();
+                $('.tableTopic').html("");
                 html += '<tr>';
                 html += '<td colspan="5">Chưa được phân giảng viên</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
             }
             else if (result.Error == "Chưa được phân thực tập") {
+                $('.mytable').show();
+                $('.tableTopic').html("");
                 html += '<tr>';
                 html += '<td colspan="5">Chưa được phân thực tập</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
             }
+            else if (result.List == null) {
+                $('.mytable').show();
+                html += '<tr>';
+                html += '<td colspan="5">Không có dữ liệu</td>';
+
+                html += '</tr>';
+                $('.tbody').html(html);
+                $('.tableTopic').html("");
+            }
 
             else {
                 $.each(result.List, function (key, item) {
-
+                    $('.mytable').show();
+                    $('.tableTopic').html("");
                     html += '<tr>';
                     html += '<td align="center">' + (i++) + '</td>';
                     html += '<td>' + item.TopicName + '</td>';
