@@ -189,6 +189,31 @@ function changeDropHocKy(IDHK) {
     return false;
 }
 
+function getListLinhVuc() {
+    $.ajax({
+        url: "/StudentField/GetList/",
+        type: "GET",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var html = '<select id="LinhVuc" class="form-control">';
+            html += '<option disabled > -- Chọn loại lĩnh vực -- </option>';
+            $.each(result, function (key, item) {
+                html += '<option value=' + item.ID + '>' + item.FieldName + '</option>';
+            });
+            html += '</select>'
+            $(".ddlLinhvuc").html(html);
+        },
+
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
 
 
 

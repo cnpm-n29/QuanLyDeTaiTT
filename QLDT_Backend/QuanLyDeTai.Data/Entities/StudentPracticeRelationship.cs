@@ -21,6 +21,20 @@ namespace QuanLyDeTai.Data.Entities
 
         public long? PracticeTypeID { get; set; }
 
+        public long? CreateBy { get; set; }
+
+        public DateTime? CreateTime { get; set; }
+
+        public long? ModifyBy { get; set; }
+
+        public DateTime? ModifyTime { get; set; }
+
+        public bool? IsDeleted { get; set; }
+
+        public long? DeletedBy { get; set; }
+
+        public DateTime? DeletedTime { get; set; }
+
         public virtual Student Student { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

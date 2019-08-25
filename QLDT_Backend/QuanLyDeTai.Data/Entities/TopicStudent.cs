@@ -25,6 +25,8 @@ namespace QuanLyDeTai.Data.Entities
 
         public bool? Status { get; set; }
 
+        public int? Progress { get; set; }
+
         public long? CreateBy { get; set; }
 
         public DateTime? CreateTime { get; set; }

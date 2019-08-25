@@ -13,6 +13,7 @@ namespace QuanLyDeTai.Data.DAL
 
         public TopicStudent GetById(long id)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.TopicStudents
                 .Where(i => i.ID == id)
@@ -103,6 +104,27 @@ namespace QuanLyDeTai.Data.DAL
             return user.Count();
         }
 
+        public bool Plus(long id, int progress)
+        {
+            try
+            {
+                //Get item user with Id from database
+                var item = context.TopicStudents.Where(i => i.ID == id).FirstOrDefault();
+
+                //Set value item with value from model
+                item.Progress = progress;
+                
+
+                //Save change to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public TopicStudent ChangeStatus(long id)
         {
             context.Configuration.ProxyCreationEnabled = false;
@@ -158,6 +180,7 @@ namespace QuanLyDeTai.Data.DAL
                 item.Order = model.Order;
                 item.CreateBy = model.CreateBy;
                 item.CreateTime = DateTime.Now;
+                item.Progress = 0;
 
                 //Add item to entity
                 context.TopicStudents.Add(item);
@@ -190,6 +213,30 @@ namespace QuanLyDeTai.Data.DAL
             {
                 return false;
             }
+        }
+
+        public IQueryable GetListByTTvaMaGV(long? id_tt, long? id_gv, string search)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join b in context.TopicStudents on d.ID equals b.TopicID
+                       join x in context.StudentPracticeRelationships on b.StudentPracticeID equals x.ID
+                       join a in context.Students on x.StudentID equals a.ID
+
+                       where d.PracticeTypeID == id_tt && b.Status == true && d.TopicName.Contains(search) && d.TeacherID == id_gv && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                       && (x.IsDeleted == false || x.IsDeleted.Equals(null)) && (a.IsDeleted == false || a.IsDeleted.Equals(null))
+                       select new
+                       {
+                           b.ID,
+                           d.TopicName,
+                           d.Status,
+                           a.MaSV,
+                           a.FirstName,
+                           a.LastName,
+                           b.Progress
+                       };
+            return user;
         }
     }
 }

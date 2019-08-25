@@ -8,39 +8,68 @@
     <script src="~/Assets/scripts/DropDown.js"></script>
     <script src="~/Assets/scripts/StudentPracticeControl.js"></script>
 }
-
+   
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
-                {
-                    <li><a href="~/Topic/Index" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
-                }
-
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
-                {
-                    <li><a href="~/Student/ListStudentTeacher" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
-                {
-                    <li><a href="~/TopicStudent/SaveTopic" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
-                {
-                    <li><a href="~/Student/ListStudent" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
-                {
-                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
-                }
+                <li>
+                    <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse ">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
+                            {
+                                <li><a href="~/Topic/Index" class=""><span>Đề tài thực tập</span></a></li>
+                            }
 
 
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
-                {
-                    <li><a href="~/StudentPractice/Index" class="active"><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
-                }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
+                            {
+                                <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
+                            {
+                                <li><a href="~/TopicStudent/SaveTopic" class=""><span>Chốt đề tài</span></a></li>
+                            }
+                            <li><a href="~/TopicStudent/MonitorProgress" class=""><span>Giám sát tiến độ</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#subPages2" data-toggle="collapse" class="collapsed active"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages2" class="collapse in">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
+                            {
+                                <li><a href="~/Student/ListStudent" class="" ><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
+                            {
+                                <li><a href="~/StudentPractice/Index"class="active" style="background-color:#337ab7"><span>Danh sách thực tập</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa thông báo"))
+                            {
+                                <li><a href="~/Notification/Index" class=""><span>Danh sách thông báo</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                            {
+                                <li><a href="~/Student/ListStudentSubject" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+
+
                 @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
                 {
                     <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
@@ -49,14 +78,7 @@
                 {
                     <li><a href="~/Score/ListScore" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
                 }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
-                {
-                    <li><a href="~/Student/ListStudentSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
-                {
-                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
-                }
+
                 @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
                 {
                     <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
@@ -150,20 +172,21 @@
                                 </button>
                             </div>
                         </div>
-                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5"
-                               style="border-collapse:collapse;">
-                            <tr>
-                                <th class="center-header" scope="col">STT</th>
-                                <th class="center-header" scope="col" style="width:15%;">Mã SV</th>
-                                <th class="center-header" scope="col" style="width:15%;">Họ tên</th>
-                                <th class="center-header" scope="col">Ngày sinh</th>
-                                <th class="center-header" scope="col">Giới tính</th>
-                                <th class="center-header" scope="col">Email</th>
-                                <th class="center-header" scope="col">SĐT</th>
-                                <th class="center-header" scope="col">Địa chỉ</th>
-                                <th class="center-header" scope="col">Ghi chú</th>
-                                <th class="center-header" scope="col">Thao tác</th>
-                            </tr>
+                        <table id="myTable" class="table table-bordered" cellspacing="0" cellpadding="5" id=""
+                               style="border-collapse:collapse;margin-top:10px">
+                            <thead>
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:15%;">Mã SV</th>
+                                    <th class="center-header" scope="col" style="width:15%;">Họ tên</th>
+                                    <th class="center-header" scope="col">Ngày sinh</th>
+                                    <th class="center-header" scope="col">Giới tính</th>
+                                    <th class="center-header" scope="col">Email</th>
+                                    <th class="center-header" scope="col">SĐT</th>
+                                    <th class="center-header" scope="col">Địa chỉ</th>
+                                    <th class="center-header" scope="col">Ghi chú</th>
+                                    <th class="center-header" scope="col">Thao tác</th>
+                                </tr></thead>
                             <tbody class="tbody"></tbody>
                         </table>
                         <div class="row">
@@ -199,7 +222,7 @@
 </div>
 <!-- END MAIN -->
 <!-- Modal sua sv thuc tap -->
-<div class="modal fade" id="suasvthuctap" role="dialog">
+<div class="modal fade" id="suasvthuctap" role="dialog" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -211,46 +234,34 @@
                 <form style="max-width: 70%;margin: auto">
                     <input type="hidden" id="ID" />
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label">Kỳ học</label>
+                        <label class="col-sm-4 control-label">Kỳ học</label>
                         <div class="col-sm-5">
                             <div class="ddlHocKy SuaHocKy"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label">Thực tập</label>
+                        <label class="col-sm-4 control-label">Thực tập</label>
                         <div class="col-sm-5">
                             <div class="ddlLoaiTT SuaLoaiTT"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 control-label">Mã sinh viên</label>
-                        <div class="col-sm-7">
-                            <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                        <label class="col-sm-4 control-label">Mã sinh viên</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" style="margin:5px 0px" id="suamasv" disabled/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 control-label">Họ tên sinh viên</label>
-                        <div class="col-sm-7">
-                            <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 control-label">Email</label>
-                        <div class="col-sm-7">
-                            <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 control-label">SDT</label>
-                        <div class="col-sm-7">
-                            <text type="text" class="form-control" style="margin:5px 0px" id="mota"></text>
+                        <label class="col-sm-4 control-label">Họ tên sinh viên</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" style="margin:5px 0px" id="suahoten" disabled/>
                         </div>
                     </div>
                 </form>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
-                    <button type="submit" class="btn btn-primary"> <i class="fa fa-edit"></i> Sửa và đóng</button>
+                    <button onclick="Update()" type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
+
                     <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
                 </div>
 

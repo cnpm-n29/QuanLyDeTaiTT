@@ -15,6 +15,7 @@ namespace QuanLyDeTai.Controllers
     {
         private TopicService topicService = new TopicService();
         private PracticeService practiceService  = new PracticeService();
+        private TeacherService teacherService = new TeacherService();
         // GET: DeTai
         public ActionResult Index()
         {
@@ -38,6 +39,7 @@ namespace QuanLyDeTai.Controllers
             {
                 TeacherID = model.TeacherID,
                 PracticeTypeID = model.PracticeTypeID,
+                FieldID=model.FieldID,
                 TopicName = model.TopicName,
                 Description = model.Description,
                 Status = model.Status
@@ -56,6 +58,7 @@ namespace QuanLyDeTai.Controllers
             {
                 ID=model.ID,
                 PracticeTypeID = model.PracticeTypeID,
+                FieldID = model.FieldID,
                 TopicName = model.TopicName,
                 Description = model.Description,
                 Status = model.Status
@@ -104,10 +107,35 @@ namespace QuanLyDeTai.Controllers
             long id_gv = long.Parse(Session["UserId"].ToString());
             var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
             var total = topicService.getCount(thuctap.ID,id_gv,search);
-            var list = topicService.GetListByTTvaMaGV(thuctap.ID, id_gv,search,pageNumber,pageSize);    
+            var list = topicService.GetListByTTvaMaGV1(thuctap.ID, id_gv,search,pageNumber,pageSize);    
 
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return Json(new { TotalRecords = total, List = list }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetList(long IDHK, long IDTT, string search, int pageNumber = 0, int pageSize = 10)
+        {
+            var tc = teacherService.GetByMagv(Session["Username"].ToString());
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            
+            var i = 0;
+            if (Session["Quyen"].ToString().Contains("Xem danh sách đề tài"))
+            {
+                var listtc = topicService.GetListByTTAndSubjectId(thuctap.ID, tc.ID, tc.SubjectID, search, pageNumber, pageSize);
+                foreach (var j in listtc)
+                {
+                    i++;
+                }
+                return Json(new { TotalRecords = i, List = listtc }, JsonRequestBehavior.AllowGet);
+            }
+            var listtcc = topicService.GetListByTT(thuctap.ID, tc.ID, search, pageNumber, pageSize);
+            foreach (var j in listtcc)
+            {
+                i++;
+            }
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { TotalRecords = i, List = listtcc }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetLoaiTTByHK(long? ID)

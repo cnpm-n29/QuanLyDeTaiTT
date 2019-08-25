@@ -57,6 +57,14 @@ namespace QuanLyDeTai.Models
 
         public long? FacultyId { get; set; }
 
+        public string FieldName { get; set; }
+
+        public string FullName { get; set; }
+
+        public string ClassBC { get; set; }
+
+        public string Error { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -90,6 +98,8 @@ namespace QuanLyDeTai.Models
         public DateTime? DeletedTime { get; set; }
 
         public string Note { get; set; }
+
+        public long? StudentPracticeID { get; set; }
     }
 
 }

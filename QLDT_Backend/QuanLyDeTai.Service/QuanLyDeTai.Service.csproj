@@ -42,7 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FacultyService.cs" />
+    <Compile Include="FieldService.cs" />
+    <Compile Include="NotificationService.cs" />
     <Compile Include="ScoreService.cs" />
+    <Compile Include="StudentFieldService.cs" />
+    <Compile Include="StudentNotificationService.cs" />
     <Compile Include="StudentSubjectService.cs" />
     <Compile Include="SubjectService.cs" />
     <Compile Include="TopicService.cs" />

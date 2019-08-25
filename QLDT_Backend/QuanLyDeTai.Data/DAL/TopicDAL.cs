@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace QuanLyDeTai.Data.DAL
 {
@@ -25,7 +26,8 @@ namespace QuanLyDeTai.Data.DAL
                            Description = d.Description,
                            Status = d.Status,
                            SemesterID = t.SemesterID,
-                           PracticeID = t.PracticeID
+                           PracticeID = t.PracticeID,
+                           FieldID=d.FieldID
                        };
             return user;
         }
@@ -52,11 +54,77 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
+        public IQueryable GetListByTT(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
+                       join x in context.Teachers on d.TeacherID equals x.ID
+                       join a in context.Fields on d.FieldID equals a.ID
+                       where d.PracticeTypeID == id_tt && d.TeacherID != id_gv && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       select new
+                       {
+                           d.ID,
+                           d.TopicName,
+                           d.Description,
+                           d.Status,
+                           x.FirstName,
+                           x.LastName,
+                           a.FieldName
+                       };
+            return user.OrderBy(a => a.FieldName).Skip(pageNumber * pageSize).Take(pageSize);
+        }
+
+        public IQueryable GetListByTTAndSubjectId(long? id_tt,long? id_gv, long? id_bm, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
+                       join x in context.Teachers on d.TeacherID equals x.ID
+                       join a in context.Fields on d.FieldID equals a.ID
+                       where d.PracticeTypeID == id_tt &&d.TeacherID!=id_gv && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && x.SubjectID == id_bm && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                        select new
+                        {
+                            d.ID,
+                            d.TopicName,
+                            d.Description,
+                            d.Status,
+                            x.FirstName,
+                            x.LastName,
+                            a.FieldName
+                        };
+            return user.OrderBy(a=>a.FieldName).Skip(pageNumber * pageSize).Take(pageSize);
+        }
+
+        public IQueryable GetListByTTvaMaGV1(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.Topics
+                .Include(i => i.Field)
+                .Where(i => i.PracticeTypeID == id_tt && i.TopicName.Contains(search) && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .OrderBy(i => i.Field.FieldName)
+                .Skip(pageNumber * pageSize).Take(pageSize)
+                .Select(i => new { i.ID, i.TopicName, i.Description, i.Status, i.Field.FieldName });
+            return user;
+            //context.Configuration.ProxyCreationEnabled = false;
+            ////Get from database
+            //var user = context.Topics
+            //    .Where(i => i.PracticeTypeID == id_tt && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            //    .ToList();
+            //return user;
+        }
+
         public IEnumerable<Topic> GetListByTTvaMaGV(long? id_tt,long? id_gv,string search,int pageNumber,int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.Topics
+                //.Include(i => i.Field)
                 .Where(i => i.PracticeTypeID == id_tt &&i.TopicName.Contains(search)&& i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
                 .OrderBy(i => i.ID)
                 .Skip(pageNumber * pageSize).Take(pageSize).ToList();
@@ -68,6 +136,8 @@ namespace QuanLyDeTai.Data.DAL
             //    .ToList();
             //return user;
         }
+
+
 
         public int getCount(long? id_tt, long? id_gv,string search)
         {
@@ -98,6 +168,7 @@ namespace QuanLyDeTai.Data.DAL
                 //Set value item with value from model
 
                 item.PracticeTypeID = model.PracticeTypeID;
+                item.FieldID = model.FieldID;
                 item.TopicName = model.TopicName;
                 item.Description = model.Description;
                 item.Status = model.Status;
@@ -123,6 +194,7 @@ namespace QuanLyDeTai.Data.DAL
                 //Set value for item with value from model
                 item.TeacherID = model.TeacherID;
                 item.PracticeTypeID = model.PracticeTypeID;
+                item.FieldID = model.FieldID;
                 item.TopicName = model.TopicName;
                 item.Description = model.Description;
                 item.Status = model.Status;

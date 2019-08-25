@@ -2,6 +2,13 @@
 $(window).on('load', function () {
     getListLoaiTT();
     changeDropThucTap($("#LoaiTT").val());
+
+    $('#myTable').DataTable({
+        "order": [[3, "desc"]],
+        "paging": false,
+        "info": false,
+        "searching": false
+    });
 });
 
 //Thay doi dropdown cua thuc tap

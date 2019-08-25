@@ -2,7 +2,26 @@
     getListKhoaHoc();
     getListGiangVien();
     changeDropKhoaHoc($("#KhoaHoc").val())
+    var lastChecked = null;
 
+    var $chkboxes = $('.checkbox');
+    $chkboxes.click(function (event) {
+        if (!lastChecked) {
+            lastChecked = this;
+            return;
+        }
+
+        if (event.shiftKey) {
+            var start = $chkboxes.index(this);
+            var end = $chkboxes.index(lastChecked);
+
+            $chkboxes.slice(Math.min(start, end), Math.max(start, end) + 1).attr('checked', lastChecked.checked);
+
+        }
+
+        lastChecked = this;
+    });
+    
 });
 
 //Thay doi dropdown cua thuc tap

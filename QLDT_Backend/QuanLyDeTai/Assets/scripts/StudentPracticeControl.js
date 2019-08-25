@@ -6,7 +6,7 @@
         getListHocKy2();
         getListLoaiTT2();
         changeDropHocKy($(".HocKy #HocKy").val());
-
+        
 });
 
 //combobox loai hoc ky 
@@ -141,7 +141,7 @@ function changeDropThucTap(IDTT,masv="",studentname="", PgNumber = 0, PgSize = $
                 $.each(result.List, function (key, item) {
                     html += '<tr>';
                     html += '<td align="center">' + (i++) + '</td>';
-                    html += '<td>' + item.Masv + '</td>';
+                    html += '<td>' + item.MaSV + '</td>';
                     html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
                     html += '<td>' + item.Birthday + '</td>';
                     if (item.Sex == true) {
@@ -314,7 +314,7 @@ function Search() {
                         $.each(result.List, function (key, item) {
                             html += '<tr>';
                             html += '<td align="center">' + (i++) + '</td>';
-                            html += '<td>' + item.Masv + '</td>';
+                            html += '<td>' + item.MaSV + '</td>';
                             html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
                             html += '<td>' + item.Birthday + '</td>';
                             if (item.Sex == true) {
@@ -390,7 +390,7 @@ function Search() {
                         $.each(result.List, function (key, item) {
                             html += '<tr>';
                             html += '<td align="center">' + (i++) + '</td>';
-                            html += '<td>' + item.Masv + '</td>';
+                            html += '<td>' + item.MaSV + '</td>';
                             html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
                             html += '<td>' + item.Birthday + '</td>';
                             if (item.Sex == true) {
@@ -433,5 +433,68 @@ function Search() {
                 }
             });
         }
+    }
+}
+
+function getbyID(ID) {
+    $.ajax({
+        url: "/StudentPractice/GetbyID/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+                $('#ID').val(result.ID);
+                $('.SuaHocKy #HocKy').val(result.SemesterID);
+            $('.SuaLoaiTT #LoaiTT').val(result.PracticeID);
+            $('#suahoten').val(result.FirstName + " " + result.LastName);
+            $('#suamasv').val(result.MaSV);
+
+            $('#suasvthuctap').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+//function for updating employee's record  
+function Update() {
+    var Masv = $('#suamasv').val();
+    var PracticeID = $('.SuaLoaiTT #LoaiTT').val();
+    var SemesterID = $('.SuaHocKy #HocKy').val();
+    var ID = $('#ID').val();
+    $.ajax({
+        url: "/StudentPractice/Update?SemesterID=" + SemesterID + "&PracticeID=" + PracticeID + "&ID=" + ID + "&Masv=" + Masv,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                changeDropHocKy($("#HocKy").val());
+                $('#suasvthuctap').modal('hide');
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+}
+
+
+function Delele(ID) {
+    var ans = confirm("Bạn muốn xóa sinh viên thực tập này?");
+    if (ans) {
+        $.ajax({
+            url: "/StudentPractice/Delete/" + ID,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                changeDropHocKy($("#HocKy").val());
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
     }
 }

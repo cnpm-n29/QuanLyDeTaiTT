@@ -21,6 +21,8 @@ namespace QuanLyDeTai.Controllers
         private TeacherService teacherService = new TeacherService();
         private StudentService studentService = new StudentService();
         private FacultyService facultyService = new FacultyService();
+        private StudentFieldService studentFieldService = new StudentFieldService();
+        private FieldService fieldService = new FieldService();
         // GET: Student
         public ActionResult ListStudentSubject()
         {
@@ -78,9 +80,23 @@ namespace QuanLyDeTai.Controllers
             var list = new List<StudentModel>();
             foreach (var i in listtc)
             {
+                var listField = fieldService.GetByStudentId(i.ID);
+                var field = "";
+                for (var j=0;j<listField.Count();j++)
+                {
+                    if (j == listField.Count() - 1)
+                    {
+                        field += listField[j];
+                    }
+                    else
+                    {
+                        field += listField[j] + ",";
+                    }
+                }
                 var student = new StudentModel
                 {
                     Masv = i.MaSV,
+                    FieldName=field,
                     FirstName = i.FirstName,
                     LastName = i.LastName,
                     Birthday = i.Birthday.Value.Day + "/" + i.Birthday.Value.Month + "/" + i.Birthday.Value.Year,

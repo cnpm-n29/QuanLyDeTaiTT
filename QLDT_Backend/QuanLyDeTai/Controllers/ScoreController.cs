@@ -98,18 +98,22 @@ namespace QuanLyDeTai.Controllers
                             var noOfColumns = workSheet.Dimension.End.Column;
                             var noOfRows = workSheet.Dimension.End.Row;// Here is where my issue is
                             var masv = "";
+                            var dem = 0;
+                            var resultsList = new List<ScoreModel>();
                             for (int rowIterator = 5; rowIterator <= noOfRows; rowIterator++)
                             {
                                 var score = new ScoreModel();
+                                dem = 0;
                                 if (workSheet.Cells[rowIterator, 2].Value == null)
                                 {
                                     masv = "";
-                                }
-                                else
-                                {
+                                    score.MaSV = "";
+                                    score.FullName = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    score.TopicName = workSheet.Cells[rowIterator, 4].Value.ToString();
                                     if (workSheet.Cells[rowIterator, 5].Value == null)
                                     {
                                         score.CompanyScore = null;
+                                        dem++;
                                     }
                                     else
                                     {
@@ -118,6 +122,7 @@ namespace QuanLyDeTai.Controllers
                                     if (workSheet.Cells[rowIterator, 6].Value == null)
                                     {
                                         score.TeacherScore = null;
+                                        dem++;
                                     }
                                     else
                                     {
@@ -126,6 +131,7 @@ namespace QuanLyDeTai.Controllers
                                     if (workSheet.Cells[rowIterator, 7].Value == null)
                                     {
                                         score.ReportScore = null;
+                                        dem++;
                                     }
                                     else
                                     {
@@ -134,22 +140,100 @@ namespace QuanLyDeTai.Controllers
                                     if (workSheet.Cells[rowIterator, 8].Value == null)
                                     {
                                         score.TotalScore = null;
+                                        dem++;
                                     }
                                     else
                                     {
                                         score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value.ToString());
                                     }
-                                    masv = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                    var studentpracticeid = studentPracticeService.GetBySinhVienvaKieuTT(studentService.GetByMasv(masv).ID, practiceTypeId);
-                                    var topicstudent = topicStudentService.GetByStudentPracticeId(studentpracticeid.ID);
-                                    score.PracticeTypeID = practiceTypeId;
-                                    score.TopicStudentID = topicstudent.ID;
-                                    score.CreateBy = long.Parse(Session["UserId"].ToString());
-                                    var sc = score.ToModel();
-                                    scoreService.Create(score.ToModel());
+                                    if (dem == 0)
+                                    {
+                                        score.Error = "Mã sv không được để trống";
+                                    }
+                                    else
+                                    {
+                                        score.Error = "Mã sv không được để trống, Các điểm số không được để trống";
+                                    }
+                                    resultsList.Add(score);
                                 }
+                                else
+                                {
+                                    score.MaSV = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    score.FullName = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    score.TopicName = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 5].Value == null)
+                                    {
+                                        score.CompanyScore = null;
+                                        dem++;
+                                    }
+                                    else
+                                    {
+                                        score.CompanyScore = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value.ToString());
+                                    }
+                                    if (workSheet.Cells[rowIterator, 6].Value == null)
+                                    {
+                                        score.TeacherScore = null;
+                                        dem++;
+                                    }
+                                    else
+                                    {
+                                        score.TeacherScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
+                                    }
+                                    if (workSheet.Cells[rowIterator, 7].Value == null)
+                                    {
+                                        score.ReportScore = null;
+                                        dem++;
+                                    }
+                                    else
+                                    {
+                                        score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
+                                    }
+                                    if (workSheet.Cells[rowIterator, 8].Value == null)
+                                    {
+                                        score.TotalScore = null;
+                                        dem++;
+                                    }
+                                    else
+                                    {
+                                        score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value.ToString());
+                                    }
+                                    if (dem != 0)
+                                    {
+                                        
+                                        score.Error = "Các điểm số không được để trống";
+                                    }
+                                    else
+                                    {
+                                        masv = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                        var studentGetDatabase = studentService.GetByMasv(masv);
+                                        if (studentGetDatabase == null)
+                                        {
+                                            score.Error = "Không tìm thấy sinh viên này";
+                                        }
+                                        else
+                                        {
+                                            var studentpracticeid = studentPracticeService.GetBySinhVienvaKieuTT(studentService.GetByMasv(masv).ID, practiceTypeId);
+                                            if (studentpracticeid == null)
+                                            {
+                                                score.Error = "Sinh viên chưa thực tập trong kì này";
+                                            }
+                                            else
+                                            {
+                                                var topicstudent = topicStudentService.GetByStudentPracticeId(studentpracticeid.ID);
+                                                score.PracticeTypeID = practiceTypeId;
+                                                score.TopicStudentID = topicstudent.ID;
+                                                score.CreateBy = long.Parse(Session["UserId"].ToString());
+                                                var sc = score.ToModel();
+                                                scoreService.Create(score.ToModel());
+                                            }
+                                        }
+                                    }
+                                    resultsList.Add(score);
+                                }
+
                                 
                             }
+                            ExportError(resultsList);
                         }
                     }
                 }
@@ -283,104 +367,111 @@ namespace QuanLyDeTai.Controllers
             worksheet.Cells.AutoFitColumns();
         }
 
-        //public JsonResult CreateExcelFileExport(long IDHK, long IDTT)
-        //{
-        //    var practice = practiceService.GetByIdPractice(IDTT);
-        //    var semester = practiceService.GetByIdSemester(IDHK);
-        //    var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
-        //    var score = scoreService.getListByPracticeTypeIdAll(thuctap.ID);
-        //    Stream stream = null;
-        //    using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
-        //    {
-        //        // Tạo author cho file Excel
-        //        excelPackage.Workbook.Properties.Author = "Hanker";
-        //        // Tạo title cho file Excel
-        //        excelPackage.Workbook.Properties.Title = "EPP test background";
-        //        // Add Sheet vào file Excel
-        //        excelPackage.Workbook.Worksheets.Add("First Sheet");
-        //        // Lấy Sheet bạn vừa mới tạo ra để thao tác 
-        //        var worksheet = excelPackage.Workbook.Worksheets[1];
-        //        // Đổ data vào Excel file
-        //        //workSheet.Cells[1, 1].LoadFromCollection(resultsList, false);
-        //        // Set default width cho tất cả column
-        //        worksheet.DefaultColWidth = 5;
-        //        worksheet.Cells[4, 6].AutoFitColumns(5);
-        //        //gộp hàng
-        //        worksheet.Cells["A1:H1"].Merge = true;
-        //        worksheet.Cells["A2:H2"].Merge = true;
-        //        worksheet.Cells["A3:B3"].Merge = true;
-        //        worksheet.Cells["C3:D3"].Merge = true;
-        //        //căn giữa
-        //        worksheet.Cells["A1:H2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-        //        //thiếp lập font và cỡ chữ
-        //        worksheet.Cells["A1:H2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
-        //        worksheet.Cells[1, 1].Value = "DANH SÁCH ĐIỂM THỰC TẬP";
-        //        worksheet.Cells[2, 1].Value = practice.PracticeName+" ngành KS học kỳ "+semester.SemesterName;
-        //        worksheet.Cells["A3:H3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
 
-        //        // Tự động xuống hàng khi text quá dài
-        //        //worksheet.Cells.Style.WrapText = true;
-        //        // Tạo header
-        //        worksheet.Cells[4, 1].Value = "STT";
-        //        worksheet.Cells[4, 2].Value = "Mã SV";
-        //        worksheet.Cells[4, 3].Value = "Họ tên";
-        //        worksheet.Cells[4, 4].Value = "Tên đề tài";
-        //        worksheet.Cells[4, 5].Value = "Điểm công ty";
-        //        worksheet.Cells[4, 6].Value = "Điểm hướng dẫn";
-        //        worksheet.Cells[4, 7].Value = "Điểm báo cáo";
-        //        worksheet.Cells[4, 8].Value = "Điểm tổng";
-        //        // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-        //        using (var range = worksheet.Cells["A3:H4"])
-        //        {
+        private Stream CreateExcelFileError(List<ScoreModel> resultsList, Stream stream = null)
+        {
 
-        //            // Canh giữa cho các text
-        //            range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-        //            // Set Font cho text  trong Range hiện tại
-        //            range.Style.Font.SetFromFont(new Font("Times New Roman", 10));
-        //            range.Style.Font.Bold = true;
-        //            // Set Border
-        //            range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
-        //        }
-        //        int i = 0;
-        //        if (score == null)
-        //        {
-        //            worksheet.Cells[4, 1].Value = "STT";
-        //            worksheet.Cells[4, 2].Value = "Mã SV";
-        //            worksheet.Cells[4, 3].Value = "Họ tên";
-        //            worksheet.Cells[4, 4].Value = "Tên đề tài";
-        //            worksheet.Cells[4, 5].Value = "Điểm công ty";
-        //            worksheet.Cells[4, 6].Value = "Điểm hướng dẫn";
-        //            worksheet.Cells[4, 7].Value = "Điểm báo cáo";
-        //            worksheet.Cells[4, 8].Value = "Điểm tổng";
-        //        }
-        //        // Đỗ dữ liệu từ list vào 
-        //        foreach (Score item in score)
-        //        {
-        //            string s = item.ToString();
-                    
-        //        }
-                
-        //        // fix lại width của column 
-        //        worksheet.Cells.AutoFitColumns();
-        //        excelPackage.Save();
-                
-        //    }
-        //    // Tạo buffer memory strean để hứng file excel
-        //    var buffer = stream as MemoryStream;
-        //    // Đây là content Type dành cho file excel, còn rất nhiều content-type khác nhưng cái này mình thấy okay nhất
-        //    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        //    // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
-        //    // File name của Excel này là ExcelDemo
-        //    Response.AddHeader("Content-Disposition", "attachment; filename=Score.xlsx");
-        //    // Lưu file excel của chúng ta như 1 mảng byte để trả về response
-        //    Response.BinaryWrite(buffer.ToArray());
-        //    // Send tất cả ouput bytes về phía clients
-        //    Response.Flush();
-        //    Response.End();
-        //    // Redirect về luôn trang index 
-        //    return Json(true, JsonRequestBehavior.AllowGet);
-        //}
+            using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+            {
+                // Tạo author cho file Excel
+                excelPackage.Workbook.Properties.Author = "Hanker";
+                // Tạo title cho file Excel
+                excelPackage.Workbook.Properties.Title = "EPP test background";
+                // Add Sheet vào file Excel
+                excelPackage.Workbook.Worksheets.Add("First Sheet");
+                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
+                var workSheet = excelPackage.Workbook.Worksheets[1];
+                // Đổ data vào Excel file
+                //workSheet.Cells[1, 1].LoadFromCollection(resultsList, false);
+                BindingFormatForExcelError(workSheet, resultsList);
+                excelPackage.Save();
+                return excelPackage.Stream;
+            }
+        }
 
-        
+        [HttpGet]
+        public ActionResult ExportError(List<ScoreModel> listItems)
+        {
+            // Gọi lại hàm để tạo file excel
+            var stream = CreateExcelFileError(listItems);
+            // Tạo buffer memory strean để hứng file excel
+            var buffer = stream as MemoryStream;
+            // Đây là content Type dành cho file excel, còn rất nhiều content-type khác nhưng cái này mình thấy okay nhất
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
+            // File name của Excel này là ExcelDemo
+            Response.AddHeader("Content-Disposition", "attachment; filename=Error.xlsx");
+            // Lưu file excel của chúng ta như 1 mảng byte để trả về response
+            Response.BinaryWrite(buffer.ToArray());
+            // Send tất cả ouput bytes về phía clients
+            Response.Flush();
+            Response.End();
+            // Redirect về luôn trang index 
+            return RedirectToAction("ListScore");
+        }
+
+        private void BindingFormatForExcelError(ExcelWorksheet worksheet, List<ScoreModel> listItems)
+        {
+            // Set default width cho tất cả column
+            worksheet.DefaultColWidth = 5;
+            worksheet.Cells[4, 6].AutoFitColumns(5);
+            //gộp hàng
+            worksheet.Cells["A1:H1"].Merge = true;
+            worksheet.Cells["A2:H2"].Merge = true;
+            worksheet.Cells["A3:B3"].Merge = true;
+            worksheet.Cells["C3:D3"].Merge = true;
+            //căn giữa
+            worksheet.Cells["A1:H2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            //thiếp lập font và cỡ chữ
+            worksheet.Cells["A1:H2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
+            worksheet.Cells[1, 1].Value = "DANH SÁCH ĐIỂM THỰC TẬP";
+            worksheet.Cells[2, 1].Value = "Thực tập cơ sở ngành KS CNTT(118)_01_TT";
+            worksheet.Cells["A3:H3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
+            worksheet.Cells[3, 1].Value = "Thời gian học :";
+            worksheet.Cells[3, 3].Value = "17/12/2018 - 06/01/2019";
+            // Tự động xuống hàng khi text quá dài
+            //worksheet.Cells.Style.WrapText = true;
+            // Tạo header
+            worksheet.Cells[4, 1].Value = "STT";
+            worksheet.Cells[4, 2].Value = "Mã SV";
+            worksheet.Cells[4, 3].Value = "Họ tên";
+            worksheet.Cells[4, 4].Value = "Tên đề tài";
+            worksheet.Cells[4, 5].Value = "Điểm công ty";
+            worksheet.Cells[4, 6].Value = "Điểm hướng dẫn";
+            worksheet.Cells[4, 7].Value = "Điểm báo cáo";
+            worksheet.Cells[4, 8].Value = "Điểm tổng";
+            worksheet.Cells[4, 8].Value = "Lỗi";
+            // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
+            using (var range = worksheet.Cells["A3:H4"])
+            {
+
+                // Canh giữa cho các text
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // Set Font cho text  trong Range hiện tại
+                range.Style.Font.SetFromFont(new Font("Times New Roman", 10));
+                range.Style.Font.Bold = true;
+                // Set Border
+                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+            }
+            // Đỗ dữ liệu từ list vào 
+            for (int i = 0; i < listItems.Count; i++)
+            {
+                var student = listItems[i];
+                worksheet.Cells[i + 5, 1].Value = (i + 1).ToString();
+                worksheet.Cells[i + 5, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells[i + 5, 2].Value = student.MaSV;
+                worksheet.Cells[i + 5, 3].Value = student.FirstName + " " + student.LastName;
+                worksheet.Cells[i + 5, 4].Value = student.TopicName;
+                worksheet.Cells[i + 5, 5].Value = student.CompanyScore;
+                worksheet.Cells[i + 5, 6].Value = student.TeacherScore;
+                worksheet.Cells[i + 5, 7].Value = student.ReportScore;
+                worksheet.Cells[i + 5, 8].Value = student.TotalScore;
+
+                worksheet.Cells[i + 5, 9].Value = student.Error;
+            }
+            // fix lại width của column 
+            worksheet.Cells.AutoFitColumns();
+        }
+
     }
 }

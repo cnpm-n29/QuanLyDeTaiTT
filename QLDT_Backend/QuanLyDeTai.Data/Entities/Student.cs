@@ -14,6 +14,8 @@ namespace QuanLyDeTai.Data.Entities
         {
             StudentTeacherRelationships = new HashSet<StudentTeacherRelationship>();
             StudentPracticeRelationships = new HashSet<StudentPracticeRelationship>();
+            StudentFieldRelationships = new HashSet<StudentFieldRelationship>();
+            StudentNotificationRelationships = new HashSet<StudentNotificationRelationship>();
             StudentSubjectRelationships = new HashSet<StudentSubjectRelationship>();
         }
 
@@ -74,6 +76,12 @@ namespace QuanLyDeTai.Data.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentPracticeRelationship> StudentPracticeRelationships { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentFieldRelationship> StudentFieldRelationships { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentNotificationRelationship> StudentNotificationRelationships { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentSubjectRelationship> StudentSubjectRelationships { get; set; }

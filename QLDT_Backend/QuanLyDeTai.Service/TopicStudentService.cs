@@ -42,12 +42,34 @@ namespace QuanLyDeTai.Service
             return topicStudentDAL.CheckTopicUser(id);
         }
 
+        public IQueryable GetListByTTvaMaGV(long? id_tt, long? id_gv, string search)
+        {
+            return topicStudentDAL.GetListByTTvaMaGV(id_tt,id_gv,search);
+        }
+
         public Topic getTopicChoose(long id)
         {
             return topicStudentDAL.getTopicChoose(id);
         }
 
-            public bool Update(TopicStudent model)
+        public bool Plus(long id, int progress)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return false;
+                }
+                var update = topicStudentDAL.Plus(id,progress);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Update(TopicStudent model)
         {
             try
             {

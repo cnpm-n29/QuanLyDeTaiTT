@@ -145,5 +145,10 @@ namespace QuanLyDeTai.Service
         {
             return studentDAL.GetById(id);
         }
+
+        public IEnumerable<Student> getListByTeacherIdAndPracticeId(long id, long practiceid)
+        {
+            return studentDAL.getListByTeacherIdAndPracticeId(id,practiceid);
+        }
     }
 }

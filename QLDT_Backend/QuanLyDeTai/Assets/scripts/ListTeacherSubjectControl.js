@@ -1,5 +1,6 @@
 ﻿$(window).on('load', function () {
     getListTeacher();
+   
 });
 
 //Lay danh sach giang vien trong bo mon

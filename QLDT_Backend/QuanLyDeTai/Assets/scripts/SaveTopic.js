@@ -1,6 +1,7 @@
 ﻿$(window).on('load', function () {
     getListHocKy();
     changeDropHocKy($("#HocKy").val());
+
 });
 
 var html = "";

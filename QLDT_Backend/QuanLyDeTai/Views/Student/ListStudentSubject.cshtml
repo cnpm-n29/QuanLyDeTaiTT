@@ -13,33 +13,62 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
-                {
-                    <li><a href="~/Topic/Index" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
-                }
-
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
-                {
-                    <li><a href="~/Student/ListStudentTeacher" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
-                {
-                    <li><a href="~/TopicStudent/SaveTopic" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
-                {
-                    <li><a href="~/Student/ListStudent" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
-                {
-                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
-                }
+                <li>
+                    <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse ">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
+                            {
+                                <li><a href="~/Topic/Index" class=""><span>Đề tài thực tập</span></a></li>
+                            }
 
 
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
-                {
-                    <li><a href="~/StudentPractice/Index" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
-                }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
+                            {
+                                <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
+                            {
+                                <li><a href="~/TopicStudent/SaveTopic" class=""><span>Chốt đề tài</span></a></li>
+                            }
+                            <li><a href="~/TopicStudent/MonitorProgress" class=""><span>Giám sát tiến độ</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#subPages2" data-toggle="collapse" class="collapsed active"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages2" class="collapse in">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
+                            {
+                                <li><a href="~/Student/ListStudent" class="active"><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
+                            {
+                                <li><a href="~/StudentPractice/Index" class=""><span>Danh sách thực tập</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa thông báo"))
+                            {
+                                <li><a href="~/Notification/Index" class=""><span>Danh sách thông báo</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                            {
+                                <li><a href="~/Student/ListStudentSubject" class="" style="background-color:#337ab7"><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+
+
                 @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
                 {
                     <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
@@ -48,14 +77,7 @@
                 {
                     <li><a href="~/Score/ListScore" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
                 }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
-                {
-                    <li><a href="~/Student/ListStudentSubject" class="active"><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
-                {
-                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
-                }
+
                 @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
                 {
                     <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
@@ -124,19 +146,21 @@
                         <label style="float: left;margin: 5px 10px 25px 0px ">Khóa học </label>
                         <div class="ddlKhoaHoc col-sm-3" style="padding-left:20px">
                         </div>
-                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5"
+                        <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5"
                                style="border-collapse:collapse;">
-                            <tr>
-                                <th class="center-header" scope="col">STT</th>
-                                <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
-                                <th class="center-header" scope="col" style="width:15%;">Họ tên</th>
-                                <th class="center-header" scope="col">Ngày sinh</th>
-                                <th class="center-header" scope="col">Giới tính</th>
-                                <th class="center-header" scope="col">Email</th>
-                                <th class="center-header" scope="col">SĐT</th>
-                                <th class="center-header" scope="col" style="width:20%;">Địa chỉ</th>
-                                <th class="center-header" scope="col">Ghi chú</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
+                                    <th class="center-header" scope="col" style="width:15%;">Họ tên</th>
+                                    <th class="center-header" scope="col">Ngày sinh</th>
+                                    <th class="center-header" scope="col">Giới tính</th>
+                                    <th class="center-header" scope="col">Email</th>
+                                    <th class="center-header" scope="col">SĐT</th>
+                                    <th class="center-header" scope="col" style="width:20%;">Địa chỉ</th>
+                                    <th class="center-header" scope="col">Ghi chú</th>
+                                </tr>
+                            </thead>
                             <tbody class="tbody"></tbody>
 
                         </table>

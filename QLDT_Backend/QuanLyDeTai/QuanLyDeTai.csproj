@@ -144,8 +144,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ScoreController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentFieldController.cs" />
     <Compile Include="Controllers\StudentPracticeController.cs" />
     <Compile Include="Controllers\StudentSubjectController.cs" />
     <Compile Include="Controllers\StudentTeacherController.cs" />
@@ -158,6 +160,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\ScoreExcelModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\StudentExcelModel.cs" />
@@ -195,7 +198,11 @@
     <Content Include="Assets\scripts\ListStudentSubjectControl.js" />
     <Content Include="Assets\scripts\ListStudentTeacherControl.js" />
     <Content Include="Assets\scripts\ListTeacherSubjectControl.js" />
+    <Content Include="Assets\scripts\MonitorProgressControl.js" />
+    <Content Include="Assets\scripts\NotificationCommon.js" />
+    <Content Include="Assets\scripts\NotificationControl.js" />
     <Content Include="Assets\scripts\SaveTopic.js" />
+    <Content Include="Assets\scripts\StudentFieldControl.js" />
     <Content Include="Assets\scripts\StudentPracticeControl.js" />
     <Content Include="Assets\scripts\StudentScoreControl.js" />
     <Content Include="Assets\scripts\StudentSubjectControl.js" />
@@ -210,6 +217,39 @@
     <Content Include="Assets\vendor\bootstrap\js\bootstrap.js" />
     <Content Include="Assets\vendor\bootstrap\js\bootstrap.min.js" />
     <Content Include="Assets\vendor\bootstrap\js\npm.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.foundation.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.foundation.min.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.jqueryui.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.jqueryui.min.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.semanticui.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\dataTables.semanticui.min.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\jquery.dataTables.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\css\jquery.dataTables.min.css" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\images\sort_asc.png" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\images\sort_asc_disabled.png" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\images\sort_both.png" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\images\sort_desc.png" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.bootstrap.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.bootstrap.min.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.foundation.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.foundation.min.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.jqueryui.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.jqueryui.min.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.semanticui.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\dataTables.semanticui.min.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\jquery.dataTables.js" />
+    <Content Include="Assets\vendor\DataTables\DataTables-1.10.18\js\jquery.dataTables.min.js" />
+    <Content Include="Assets\vendor\DataTables\datatables.css" />
+    <Content Include="Assets\vendor\DataTables\datatables.js" />
+    <Content Include="Assets\vendor\DataTables\datatables.min.css" />
+    <Content Include="Assets\vendor\DataTables\datatables.min.js" />
     <Content Include="Assets\vendor\font-awesome\css\font-awesome.css" />
     <Content Include="Assets\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Include="Assets\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -286,6 +326,9 @@
     <Content Include="Views\Student\ListStudentTeacher.cshtml" />
     <Content Include="Views\Score\StudentScore.cshtml" />
     <Content Include="Views\Score\ListScore.cshtml" />
+    <Content Include="Views\StudentField\ChooseField.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\TopicStudent\MonitorProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyDeTai.Data\QuanLyDeTai.Data.csproj">

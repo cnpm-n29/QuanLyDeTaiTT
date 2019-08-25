@@ -23,6 +23,11 @@ namespace QuanLyDeTai.Controllers
             return View();
         }
 
+        public ActionResult MonitorProgress()
+        {
+            return View();
+        }
+
         public JsonResult GetByThucTap(long IDTT,string search , int pageNumber = 0, int pageSize = 10)
         {
             long idsv = long.Parse(Session["UserId"].ToString());
@@ -129,5 +134,42 @@ namespace QuanLyDeTai.Controllers
         {
             return Json(topicStudentService.ChangeStatus(id), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetByKHvaLoaiTT(long IDHK, long IDTT, string search)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var total = deTaiService.getCount(thuctap.ID, id_gv, search);
+            var list = topicStudentService.GetListByTTvaMaGV(thuctap.ID, id_gv, search);
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(list , JsonRequestBehavior.AllowGet);
+
+
+        }
+
+        public JsonResult GetById(long id)
+        {
+            return Json(topicStudentService.GetById(id), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Plus(long id,int progress)
+        {
+
+            return Json(topicStudentService.Plus(id,progress), JsonRequestBehavior.AllowGet);
+        }
+
+        //public JsonResult Plus(int i)
+        //{
+        //    long id_gv = long.Parse(Session["UserId"].ToString());
+        //    var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+        //    var total = deTaiService.getCount(thuctap.ID, id_gv, search);
+        //    var list = topicStudentService.GetListByTTvaMaGV(thuctap.ID, id_gv, search);
+
+        //    // 5. Trả về các Link được phân trang theo kích thước và số trang.
+        //    return Json(list, JsonRequestBehavior.AllowGet);
+
+
+        //}
     }
 }

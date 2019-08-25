@@ -51,12 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\FacultyDAL.cs" />
+    <Compile Include="DAL\FieldDAL.cs" />
     <Compile Include="DAL\FunctionDAL.cs" />
+    <Compile Include="DAL\NotificationDAL.cs" />
     <Compile Include="DAL\PracticeDAL.cs" />
     <Compile Include="DAL\PracticeTypeDAL.cs" />
     <Compile Include="DAL\ScoreDAL.cs" />
     <Compile Include="DAL\SemesterDAL.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
+    <Compile Include="DAL\StudentFieldDAL.cs" />
+    <Compile Include="DAL\StudentNotificationDAL.cs" />
     <Compile Include="DAL\StudentPracticeDAL.cs" />
     <Compile Include="DAL\StudentSubjectDAL.cs" />
     <Compile Include="DAL\StudentTeacherDAL.cs" />
@@ -67,14 +71,18 @@
     <Compile Include="Entities\Branch.cs" />
     <Compile Include="DefaultDbContent.cs" />
     <Compile Include="Entities\Faculty.cs" />
+    <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\Function.cs" />
     <Compile Include="Entities\FunctionRoleRelationship.cs" />
+    <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\Practice.cs" />
     <Compile Include="Entities\PracticeType.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Score.cs" />
     <Compile Include="Entities\Semester.cs" />
     <Compile Include="Entities\Student.cs" />
+    <Compile Include="Entities\StudentFieldRelationship.cs" />
+    <Compile Include="Entities\StudentNotificationRelationship.cs" />
     <Compile Include="Entities\StudentPracticeRelationship.cs" />
     <Compile Include="Entities\StudentSubjectRelationship.cs" />
     <Compile Include="Entities\StudentTeacherRelationship.cs" />
@@ -96,5 +104,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

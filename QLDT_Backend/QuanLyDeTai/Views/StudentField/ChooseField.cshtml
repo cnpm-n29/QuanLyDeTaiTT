@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/StudentFieldControl.js"></script>
+}
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                <li><a href="~/StudentTeacher/InstructorInfo" class=""><i class="fa fa-address-card"></i> <span>Thông tin chi tiết</span></a></li>
+                <li><a href="~/Score/StudentScore" class="active"><i class="fa fa-list-alt"></i> <span>Chọn lĩnh vực</span></a></li>
+                <li><a href="~/TopicStudent/ChooseTopic" class=""><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
+                <li><a href="~/Score/StudentScore" class=""><i class="fa fa-list-alt"></i> <span>Kết quả thực tập</span></a></li>
+
+
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-3">
+                    <h4>CHỌN LĨNH VỰC</h4>
+                </div>
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div class="tab-pane active row" style="padding: 20px">
+
+                        <table id="TableField" class="TableStudent table table-bordered" cellspacing="0" cellpadding="5px" id=""
+                               style="border-collapse:collapse;">
+                            <thead>
+                                <tr>
+                                    <th class="center-header" scope="col" style="width:20%;"> Chọn </th>
+                                    <th class="center-header" scope="col" style="width:20%;">Lĩnh vực</th>
+                                    <th class="center-header" scope="col">Mô tả</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                      
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- END RECENT PURCHASES -->
+
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- END MAIN -->

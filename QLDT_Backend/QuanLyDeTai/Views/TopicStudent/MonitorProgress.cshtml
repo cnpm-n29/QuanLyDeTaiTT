@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "MonitorProgress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/MonitorProgressControl.js"></script>
+}
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a href="#subPages" data-toggle="collapse" class="collapsed active"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse in">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
+                            {
+                                <li><a href="~/Topic/Index" class="" ><span>Đề tài thực tập</span></a></li>
+                            }
+
+
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
+                            {
+                                <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
+                            {
+                                <li><a href="~/TopicStudent/SaveTopic" class=""><span>Chốt đề tài</span></a></li>
+                            }
+                            <li><a href="~/TopicStudent/MonitorProgress" class="" style="background-color:#337ab7"><span>Giám sát tiến độ</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages2" class="collapse">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
+                            {
+                                <li><a href="~/Student/ListStudent" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
+                            {
+                                <li><a href="~/StudentPractice/Index" class=""><span>Danh sách thực tập</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa thông báo"))
+                            {
+                                <li><a href="~/Notification/Index" class=""><span>Danh sách thông báo</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                            {
+                                <li><a href="~/Student/ListStudentSubject" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+
+
+                @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
+                {
+                    <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa điểm"))
+                {
+                    <li><a href="~/Score/ListScore" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
+                }
+
+                @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
+                {
+                    <li><a href="~/StudentTeacher/AssignedTeacher" class=" "><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-3">
+                    <h4>GIÁM SÁT TIẾN ĐỘ</h4>
+                </div>
+                <div class="col-md-9" style="margin-top: 10px">
+                    <div class="input-group" style="max-width: 255px;float: right;" id="adv-search">
+                        <input type="text" class="form-control" placeholder="Search ..." id="myInput" onkeyup="Search()" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary" onclick="Search()">
+                                <span class="fa fa-search"
+                                      aria-hidden="true"></span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4" style="padding-left:20px">
+                                <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <table id="myTable" class="mytable table table-bordered"  style="border-collapse:collapse;margin:10px 0px 10px 0px" cellspacing="0" cellpadding="5">
+                            <thead>
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col">Mã SV</th>
+                                    <th class="center-header" scope="col">Họ tên</th>
+                                    <th class="center-header" scope="col" style="width:40%;">Tên đề tài</th>
+                                    <th class="center-header" scope="col">Trạng thái</th>
+                                    <th class="center-header" scope="col">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+</div>
+<!-- Modal giám sát tiến độ -->
+<div class="modal fade" id="giamsattd" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom:0">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#menu1">Home</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Menu 1</a></li>
+
+                </ul>
+
+            </div>
+            <div style="width:75%;margin:auto">
+
+                <div class="modal-body tab-pane fade in active" id="menu1">
+                    <!-- edit form column -->
+                    <input type="hidden" id="ID" />
+                    <div class="container">
+                        <div class="stepwizard">
+                            <div class="stepwizard-row setup-panel">
+                                <div class="stepwizard-step col-xs-4">
+                                    <a href="#step-1" id="step1" type="button" class="btn btn-success btn-circle">1</a>
+                                    <p><small>BCTĐ lần 1</small></p>
+                                </div>
+                                <div class="stepwizard-step col-xs-4">
+                                    <a href="#step-2" id="step2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                    <p><small>BCTĐ lần 2</small></p>
+                                </div>
+                                <div class="stepwizard-step col-xs-4">
+                                    <a href="#step-3" id="step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                    <p><small>Đánh giá</small></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form role="form">
+                            <div class="panel panel-primary setup-content" id="step-1">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Báo cáo tiến độ lần 1</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Hình thành ý tưởng, lựa chọn ngôn ngữ để thực hiện đề tài</label>
+
+                                    </div>
+                                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary setup-content" id="step-2">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Báo cáo tiến độ lần 2</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Trình bày sơ qua về những phần đã hoàn thiện( Bao gồm sản phẩm, báo cáo word và slide)</label>
+
+                                    </div>
+                                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary setup-content" id="step-3">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Đánh giá</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Trình bày sản phẩm đã hoàn thiện</label>
+
+                                    </div>
+                                    <button class="btn btn-success pull-right nextBtn" type="submit">Đạt!</button>
+                                    <button class="btn btn-danger pull-right nextBtn" style="margin-right:5%" type="submit">Không đạt!</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-body tab-pane fade" id="menu2">
+                    <!-- edit form column -->
+                    <input type="hidden" id="ID" />
+                    <div class="container">
+                        <div class="stepwizard">
+                            <div class="stepwizard-row setup-panel">
+                                <div class="stepwizard-step col-xs-4">
+                                    <a href="#step-1" id="step1" type="button" class="btn btn-success btn-circle">1</a>
+                                    <p><small>BCTĐ lần 1</small></p>
+                                </div>
+                                <div class="stepwizard-step col-xs-4">
+                                    <a href="#step-2" id="step2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                    <p><small>BCTĐ lần 2</small></p>
+                                </div>
+                                <div class="stepwizard-step col-xs-4">
+                                    <a href="#step-3" id="step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                    <p><small>Đánh giá</small></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form role="form">
+                            <div class="panel panel-primary setup-content" id="step-1">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Báo cáo tiến độ lần 1</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Hình thành ý tưởng, lựa chọn ngôn ngữ để thực hiện đề tài</label>
+
+                                    </div>
+                                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary setup-content" id="step-2">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Báo cáo tiến độ lần 2</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Trình bày sơ qua về những phần đã hoàn thiện( Bao gồm sản phẩm, báo cáo word và slide)</label>
+
+                                    </div>
+                                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary setup-content" id="step-3">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Đánh giá</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Trình bày sản phẩm đã hoàn thiện</label>
+
+                                    </div>
+                                    <button class="btn btn-success pull-right nextBtn" type="submit">Đạt!</button>
+                                    <button class="btn btn-danger pull-right nextBtn" style="margin-right:5%" type="submit">Không đạt!</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+            </div>
+
+        </div>
+</div>
+<!-- /Modal giám sát tiến độ -->
+<div id="snackbar">
+    <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
+</div>

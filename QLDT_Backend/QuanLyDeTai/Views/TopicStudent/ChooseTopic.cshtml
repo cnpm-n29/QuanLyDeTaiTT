@@ -15,8 +15,10 @@
         <nav>
             <ul class="nav">
                 <li><a href="~/StudentTeacher/InstructorInfo" class=""><i class="fa fa-address-card"></i> <span>Thông tin chi tiết</span></a></li>
+                <li><a href="~/StudentField/ChooseField" class=""><i class="fa fa-list-alt"></i> <span>Chọn lĩnh vực</span></a></li>
                 <li><a href="~/TopicStudent/ChooseTopic" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
                 <li><a href="~/Score/StudentScore" class=""><i class="fa fa-list-alt"></i> <span>Kết quả thực tập</span></a></li>
+
 
             </ul>
         </nav>
@@ -46,7 +48,7 @@
                         <label style="float: left;margin: 5px 10px 25px 0px ">Thực tập </label>
                         <div class="ddlLoaiTT col-sm-3" style="padding-left:20px">
                         </div>
-                        <table class="mytable table table-bordered" cellspacing="0" cellpadding="5">
+                        <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5">
                             <tr>
                                 <th class="center-header" scope="col">STT</th>
                                 <th class="center-header" scope="col" style="width:40%;">Tên đề tài</th>

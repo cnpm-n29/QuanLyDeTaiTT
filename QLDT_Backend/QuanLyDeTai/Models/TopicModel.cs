@@ -14,6 +14,8 @@ namespace QuanLyDeTai.Models
 
         public long? PracticeTypeID { get; set; }
 
+        public long? FieldID { get; set; }
+
         public long? SemesterID { get; set; }
 
         public long? PracticeID { get; set; }

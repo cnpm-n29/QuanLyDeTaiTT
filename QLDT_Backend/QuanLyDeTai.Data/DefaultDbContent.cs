@@ -14,14 +14,18 @@ namespace QuanLyDeTai.Data.Entities
 
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
+        public virtual DbSet<Field> Fields { get; set; }
         public virtual DbSet<Function> Functions { get; set; }
         public virtual DbSet<FunctionRoleRelationship> FunctionRoleRelationships { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Practice> Practices { get; set; }
         public virtual DbSet<PracticeType> PracticeTypes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Score> Scores { get; set; }
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<StudentFieldRelationship> StudentFieldRelationships { get; set; }
+        public virtual DbSet<StudentNotificationRelationship> StudentNotificationRelationships { get; set; }
         public virtual DbSet<StudentPracticeRelationship> StudentPracticeRelationships { get; set; }
         public virtual DbSet<StudentSubjectRelationship> StudentSubjectRelationships { get; set; }
         public virtual DbSet<StudentTeacherRelationship> StudentTeacherRelationships { get; set; }

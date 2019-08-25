@@ -1,7 +1,13 @@
 ﻿$(document).ready(function() {
-	
-	
-	
+    
+    
+
+    $('.collapsed').on('click', function () {
+        $('.collapsed').removeClass("active");
+        $('.collapse').removeClass("in");
+        $(this).addClass('active');
+        
+    });
 
     $('.kichhoat').on('click', function () {
         var trangthai = $('#TrangThai').prop('checked');
@@ -64,7 +70,41 @@
 		// for shorter main content
 		if($('.main').height() < $('#sidebar-nav').height()) {
 			$('.main').css('min-height', $('#sidebar-nav').height());
-		}
+        }
+
+        $('#myTable').DataTable({
+            "order": [[0, "asc"]],
+            "paging": false,
+            "info": false,
+            "searching": false
+        });
+
+        $('#myTable1').DataTable({
+            "order": [[0, "asc"]],
+            "paging": false,
+            "info": false,
+            "searching": false
+        });
+
+        $('#TableField').DataTable({
+            "order": [[0, "asc"]],
+            "paging": false,
+            "info": false,
+            "searching": false
+        });
+
+        $('#TableStudent').DataTable({
+            "order": [[0, "asc"]],
+            "paging": false,
+            "info": false,
+            "searching": false
+        });
+        $('#TableTeacher').DataTable({
+            "order": [[0, "asc"]],
+            "paging": false,
+            "info": false,
+            "searching": false
+        });
 	});
 
 
@@ -223,9 +263,12 @@
 			}
 
 			toastr['info']($message);
-		});
+        });
+
+       
 	}
 });
+
 
 // toggle function
 $.fn.clickToggle = function( f1, f2 ) {
@@ -242,6 +285,14 @@ $.fn.clickToggle = function( f1, f2 ) {
 		});
 	});
 
+}
+
+function myFunction() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+    }, 3000);
 }
 
 

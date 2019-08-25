@@ -4,7 +4,7 @@ $(window).on('load', function () {
     getListHocKy1();
     changeDropHocKy1($(".drpHocKy #HocKy").val());
     changeDropHocKy($(".HocKy #HocKy").val());
-
+   
 });
 
 //combobox loai hoc ky 

@@ -1,7 +1,8 @@
 ﻿$(window).on('load', function () {
     getListKhoaHoc();
     getListKhoaHoc2();
-    changeDropKhoaHoc($("#KhoaHoc").val())
+    changeDropKhoaHoc($("#KhoaHoc").val());
+  
 });
 
 

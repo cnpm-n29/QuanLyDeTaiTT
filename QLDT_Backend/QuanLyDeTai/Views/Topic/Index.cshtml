@@ -16,33 +16,62 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
-                {
-                    <li><a href="~/Topic/Index" class="active"><i class="fa fa-book"></i> <span>Đề tài thực tập</span></a></li>
-                }
-
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
-                {
-                    <li><a href="~/Student/ListStudentTeacher" class=""><i class="fa fa-list-alt"></i> <span>Danh sách hướng dẫn</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
-                {
-                    <li><a href="~/TopicStudent/SaveTopic" class=""><i class="fa fa-check-circle"></i> <span>Chốt đề tài</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
-                {
-                    <li><a href="~/Student/ListStudent" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
-                {
-                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
-                }
+                <li>
+                    <a href="#subPages" data-toggle="collapse" class="collapsed active"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse in">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
+                            {
+                                <li><a href="~/Topic/Index" class=""  style="background-color:#337ab7"><span>Đề tài thực tập</span></a></li>
+                            }
 
 
-                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
-                {
-                    <li><a href="~/StudentPractice/Index" class=""><i class="fa fa-address-card"></i> <span>Danh sách thực tập</span></a></li>
-                }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
+                            {
+                                <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
+                            {
+                                <li><a href="~/TopicStudent/SaveTopic" class=""><span>Chốt đề tài</span></a></li>
+                            }
+                            <li><a href="~/TopicStudent/MonitorProgress" class=""><span>Giám sát tiến độ</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages2" class="collapse">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
+                            {
+                                <li><a href="~/Student/ListStudent" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
+                            {
+                                <li><a href="~/StudentPractice/Index" class=""><span>Danh sách thực tập</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa thông báo"))
+                            {
+                                <li><a href="~/Notification/Index" class=""><span>Danh sách thông báo</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                            {
+                                <li><a href="~/Student/ListStudentSubject" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+
+
                 @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
                 {
                     <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
@@ -51,17 +80,10 @@
                 {
                     <li><a href="~/Score/ListScore" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
                 }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
-                {
-                    <li><a href="~/Student/ListStudentSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách sinh viên</span></a></li>
-                }
-                @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
-                {
-                    <li><a href="~/Teacher/ListTeacherSubject" class=""><i class="fa fa-user-plus"></i> <span>Danh sách giảng viên</span></a></li>
-                }
+
                 @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
                 {
-                    <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                    <li><a href="~/StudentTeacher/AssignedTeacher" class=" "><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
                 }
             </ul>
         </nav>
@@ -98,64 +120,124 @@
                 <div class="panel-heading">
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label style="float: left;margin: 5px 0px ">Học kỳ </label>
-                                <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#menu1">Đề tài</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Đề tài bộ môn</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="menu1" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                    <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
+
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4" style="padding-left:20px">
+                                    <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                    <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
+                                    </div>
 
                                 </div>
 
-                            </div>
-                            <div class="col-sm-4" style="padding-left:20px">
-                                <label style="float: left;margin: 5px 0px ">Thực tập </label>
-                                <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
+
+                                <div class="col-sm-4" style="padding: 0px;">
+                                    <button onclick="clearTextBox()" data-toggle="modal"
+                                            data-target="#themdetai" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                        <i class="fa fa-plus"></i> Thêm mới
+                                    </button>
                                 </div>
-
                             </div>
+                            <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
+                                   style="border-collapse:collapse;margin:10px 0px 10px 0px">
+                                <thead><tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:35%;">Tên đề tài</th>
+                                    <th class="center-header" scope="col" style="width:30%;">Mô tả</th>
+                                    <th class="center-header" scope="col" style="width:15%;">Lĩnh vực</th>
+                                    <th class="center-header" scope="col">Trạng thái</th>
+                                    <th class="center-header" scope="col">Thao tác</th>
+                                </tr></thead>
+                                <tbody class="tbody"></tbody>
+                            </table>
+                            <div class="row">
 
+                                <div class="col-sm-5">
+                                    <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                    <div style="float: left;margin: 0px 5px;" class="form-group">
+                                        <select name="state" id="maxRows" class="form-control" style="width:80px;">
+                                            <option value="10" selected>10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
 
-                            <div class="col-sm-4" style="padding: 0px;">
-                                <button onclick="clearTextBox()" data-toggle="modal"
-                                        data-target="#themdetai" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
-                                    <i class="fa fa-plus"></i> Thêm mới
-                                </button>
+                                    </div>
+                                    <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                                </div>
+                                <div class="pagination-container col-sm-7">
+                                    <nav style="float:right;">
+                                        <ul class="pagination"></ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
-                        <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
-                               style="border-collapse:collapse;">
-                            <tr>
-                                <th class="center-header" scope="col">STT</th>
-                                <th class="center-header" scope="col" style="width:50%;">Tên đề tài</th>
-                                <th class="center-header" scope="col" style="width:20%;">Mô tả</th>
-                                <th class="center-header" scope="col">Trạng thái</th>
-                                <th class="center-header" scope="col">Thao tác</th>
-                            </tr>
-                            <tbody class="tbody"></tbody>
-                        </table>
-                        <div class="row">
-
-                            <div class="col-sm-5">
-                                <p style="float: left;margin-top: 5px">Hiển thị </p>
-                                <div style="float: left;margin: 0px 5px;" class="form-group">
-                                    <select name="state" id="maxRows" class="form-control" style="width:80px;">
-                                        <option value="10" selected>10</option>
-                                        <option value="20">20</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
+                        <div id="menu2" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                    <div class="ddlHocKy1 HocKy1 col-sm-8" style="padding-left:20px">
 
                                 </div>
-                                <p style="float: left;margin-top: 5px">trên 1 trang </p>
+
+                                </div>
+                                <div class="col-sm-4" style="padding-left:20px">
+                                    <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                    <div class="ddlLoaiTT1 LoaiTT1 col-sm-9" style="padding-left:20px">
+                                    </div>
+
+                                </div>
+
+
+                                
                             </div>
-                            <div class="pagination-container col-sm-7">
-                                <nav style="float:right;">
-                                    <ul class="pagination"></ul>
-                                </nav>
+                            <table id="myTable1" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
+                                   style="border-collapse:collapse;margin:10px 0px 10px 0px">
+                                <thead>
+                                    <tr>
+                                        <th class="center-header" scope="col" style="width:5%;">STT</th>
+                                        <th class="center-header" scope="col" style="width:35%;">Tên đề tài</th>
+                                        <th class="center-header" scope="col" style="width:30%;">Mô tả</th>
+                                        <th class="center-header" scope="col" style="width:15%;">Lĩnh vực</th>
+                                        <th class="center-header" scope="col" style="width:15%;">Giảng viên</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody1"></tbody>
+                            </table>
+                            <div class="row">
+
+                                <div class="col-sm-5">
+                                    <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                    <div style="float: left;margin: 0px 5px;" class="form-group">
+                                        <select name="state" id="maxRows1" class="form-control" style="width:80px;">
+                                            <option value="10" selected>10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+
+                                    </div>
+                                    <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                                </div>
+                                <div class="pagination-container col-sm-7">
+                                    <nav style="float:right;">
+                                        <ul class="pagination pagination1"></ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
             </div>
             <!-- END RECENT PURCHASES -->
@@ -163,6 +245,7 @@
         </div>
     </div>
     <!-- END MAIN CONTENT -->
+</div>
 </div>
 <!-- Modal sua detai -->
 <div class="modal fade" id="suadetai" role="dialog">
@@ -172,7 +255,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">CHỈNH SỬA ĐỀ TÀI</h4>
             </div>
-            <form>
+            <form style="width:75%;margin:auto">
                 <div class="modal-body">
                     <!-- edit form column -->
                     <input type="hidden" id="ID" />
@@ -182,10 +265,18 @@
                             <div class="ddlHocKy SuaHocKy"></div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Thực tập</label>
                         <div class="col-sm-5">
                             <div class="ddlLoaiTT SuaLoaiTT"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Lĩnh vực</label>
+                        <div class="col-sm-5">
+                            <div class="ddlLinhvuc SuaLinhvuc"></div>
                         </div>
                     </div>
 
@@ -196,6 +287,7 @@
                             <p id="SuaerrorTenDT" class="text-danger"></p>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Mô tả</label>
                         <div class="col-sm-9">
@@ -204,6 +296,7 @@
                             <p id="SuaerrorMoTa" class="text-danger"></p>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label class="col-sm-3 control-label">Trạng thái</label>
                         <div class="col-sm-3">
@@ -251,6 +344,13 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-sm-3 control-label">Lĩnh vực</label>
+                        <div class="col-sm-5">
+                            <div class="ddlLinhvuc drpLinhvuc"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-sm-3 control-label">Tên đề tài</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="TenDeTai" />
@@ -285,3 +385,6 @@
     </div>
 </div>
 <!-- /Modal them detai -->
+<div id="snackbar">
+    <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
+    </div>

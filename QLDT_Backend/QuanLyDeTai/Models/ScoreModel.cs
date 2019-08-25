@@ -60,6 +60,10 @@ namespace QuanLyDeTai.Models
 
         public DateTime? DeletedTime { get; set; }
 
+        public string Error { get; set; }
+
+        public string FullName { get; set; }
+
         public Score ToModel()
         {
             var st = new Score

@@ -115,6 +115,18 @@ namespace QuanLyDeTai.Data.DAL
             return user.ToList().Count();
         }
 
+        public IEnumerable<Student> getListByTeacherIdAndPracticeId(long id, long practiceid)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from i in context.Students
+                       join j in context.StudentTeacherRelationships on i.ID equals j.StudentID
+                       join x in context.StudentPracticeRelationships on i.ID equals x.StudentID
+                       where j.TeacherID == id && x.PracticeTypeID == practiceid && (i.IsDeleted == false || i.IsDeleted.Equals(null)) && (j.IsDeleted == false || j.IsDeleted.Equals(null)) && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       select i;
+
+            return user.ToList();
+        }
+
         public bool Update(Student model)
         {
             try

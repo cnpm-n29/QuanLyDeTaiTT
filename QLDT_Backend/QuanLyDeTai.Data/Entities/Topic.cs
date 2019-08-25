@@ -21,6 +21,8 @@ namespace QuanLyDeTai.Data.Entities
 
         public long? PracticeTypeID { get; set; }
 
+        public long? FieldID { get; set; }
+
         [StringLength(500)]
         public string TopicName { get; set; }
 
@@ -30,6 +32,8 @@ namespace QuanLyDeTai.Data.Entities
         public bool? Status { get; set; }
 
         public bool? IsDeleted { get; set; }
+
+        public virtual Field Field { get; set; }
 
         public virtual PracticeType PracticeType { get; set; }
 

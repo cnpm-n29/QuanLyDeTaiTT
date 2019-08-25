@@ -12,6 +12,12 @@ namespace QuanLyDeTai.Service
     public class StudentPracticeService
     {
         StudentPracticeDAL studentPracticeDAL = new StudentPracticeDAL();
+
+        public object GetById(long id)
+        {
+            return studentPracticeDAL.GetById(id);
+        }
+
         public StudentPracticeRelationship GetBySinhVienvaLoaiTT(long idsv, long idltt)
         {
             if (studentPracticeDAL.GetBySinhVienvaLoaiTT(idsv, idltt) != null)
@@ -26,7 +32,7 @@ namespace QuanLyDeTai.Service
             return studentPracticeDAL.GetBySinhVienvaKieuTT(idsv, idktt);
         }
 
-        public IEnumerable<Student> getListByPracticeTypeIdSort(long practiceTypeId,string masv,string studentname, int pageNumber, int pageSize)
+        public IQueryable getListByPracticeTypeIdSort(long practiceTypeId,string masv,string studentname, int pageNumber, int pageSize)
         {
             return studentPracticeDAL.getListByPracticeTypeIdSort(practiceTypeId,masv,studentname, pageNumber, pageSize);
         }
@@ -46,6 +52,36 @@ namespace QuanLyDeTai.Service
                 }
                 var create = studentPracticeDAL.Create(model);
                 return create;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Update(StudentPracticeRelationship model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return false;
+                }
+                var update = studentPracticeDAL.Update(model);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(long id, long person)
+        {
+            try
+            {
+                var update = studentPracticeDAL.Delete(id, person);
+                return update;
             }
             catch
             {

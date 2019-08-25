@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewBag.Title = "Thông báo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/NotificationControl.js"></script>
+}
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a href="#subPages" data-toggle="collapse" class="collapsed" ><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse ">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
+                            {
+                                <li><a href="~/Topic/Index" class=""><span>Đề tài thực tập</span></a></li>
+                            }
+
+
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
+                            {
+                                <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Chốt đề tài"))
+                            {
+                                <li><a href="~/TopicStudent/SaveTopic" class=""><span>Chốt đề tài</span></a></li>
+                            }
+                            <li><a href="~/TopicStudent/MonitorProgress" class=""><span>Giám sát tiến độ</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#subPages2" data-toggle="collapse" class="collapsed active"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages2" class="collapse in">
+                        <ul class="nav">
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
+                            {
+                                <li><a href="~/Student/ListStudent" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
+                            {
+                                <li><a href="~/StudentPractice/Index" class=""><span>Danh sách thực tập</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa thông báo"))
+                            {
+                                <li><a href="~/Notification/Index" class="active" style="background-color:#337ab7"><span>Danh sách thông báo</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
+                            {
+                                <li><a href="~/Student/ListStudentSubject" class=""><span>Danh sách sinh viên</span></a></li>
+                            }
+                            @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
+                            {
+                                <li><a href="~/Teacher/ListTeacherSubject" class=""><span>Danh sách giảng viên</span></a></li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+
+
+                @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn"))
+                {
+                    <li><a href="~/StudentSubject/Index" class=""><i class="fa fa-server"></i> <span>Phân bộ môn</span></a></li>
+                }
+                @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa điểm"))
+                {
+                    <li><a href="~/Score/ListScore" class=""><i class="fa fa-pencil-square-o"></i> <span>Điểm</span></a></li>
+                }
+
+                @if (Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn "))
+                {
+                    <li><a href="~/StudentTeacher/AssignedTeacher" class=""><i class="fa fa-server"></i> <span>Phân GVHD</span></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END LEFT SIDEBAR -->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-3">
+                    <h4>THÔNG BÁO</h4>
+                </div>
+                
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4" style="padding-left:20px">
+                                <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-sm-4" style="padding: 0px;">
+                                <button onclick="clearTextBox()" data-toggle="modal"
+                                        data-target="#themdetai" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <i class="fa fa-plus"></i> Thêm mới
+                                </button>
+                            </div>
+                        </div>
+                        <table id="myTable" class="table table-bordered" cellspacing="0" cellpadding="5" id=""
+                               style="border-collapse:collapse;margin-top:10px">
+                            <thead>
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:30%;">Tên thông báo</th>
+                                    <th class="center-header" scope="col" style="width:50%;">Nội dung</th>
+                                    <th class="center-header" scope="col">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+
+            </div>
+            <!-- END RECENT PURCHASES -->
+
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+<!-- Modal sua detai -->
+<div class="modal fade" id="suathongbao" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">CHỈNH SỬA THÔNG BÁO</h4>
+            </div>
+            <form style="width:75%;margin:auto">
+                <div class="modal-body">
+                    <!-- edit form column -->
+                    <input type="hidden" id="ID" />
+                    
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Tiêu đề</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaTenTB" />
+                            <p id="SuaerrorTenTB" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Nội dung</label>
+                        <div class="col-sm-9">
+                            <textarea id="SuaMoTa" class="form-control" rows="10"></textarea>
+
+                            <p id="SuaerrorMoTa" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button onclick="Update()" type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- /Modal sua detai -->
+<!-- Modal them detai -->
+<div class="modal fade" id="themthongbao" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">THÊM MỚI ĐỀ TÀI</h4>
+            </div>
+            <form style="width:75%;margin:auto">
+                <div class="modal-body">
+                    <!-- edit form column -->
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Kỳ học</label>
+                        <div class="col-sm-5">
+                            <div class="ddlHocKy drpHocKy"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Thực tập</label>
+                        <div class="col-sm-5">
+                            <div class="ddlLoaiTT drpLoaiTT"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Tên thông báo</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="TenTB" />
+                            <p id="errorTenTB" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Nội dung</label>
+                        <div class="col-sm-9">
+                            <textarea id="MoTa" class="form-control" rows="10"></textarea>
+
+                            <p id="errorMoTa" class="text-danger"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button onclick="Add()" type="submit" class="btn btn-primary btn-primary"> <i class="fa fa-save"></i> Thêm mới</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /Modal them detai -->
+

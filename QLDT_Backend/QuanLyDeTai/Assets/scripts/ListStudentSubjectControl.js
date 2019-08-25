@@ -1,6 +1,7 @@
 ﻿$(window).on('load', function () {
     getListKhoaHoc();
-    changeDropKhoaHoc($("#KhoaHoc").val())
+    changeDropKhoaHoc($("#KhoaHoc").val());
+   
 });
 
 //Thay doi dropdown cua thuc tap
