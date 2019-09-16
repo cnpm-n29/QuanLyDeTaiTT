@@ -91,10 +91,27 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
                     html += '<td>' + item.Masv + '</td>';
                     html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
                     html += '<td>' + item.TopicName + '</td>';
-                    html += '<td>' + item.CompanyScore + '</td>';
+
+                    if (item.CompanyScore == null) {
+                        html += '<td></td>';
+                    }
+                    else {
+                        html += '<td>' + item.CompanyScore + '</td>';
+                    }
+                    
                     html += '<td>' + item.TeacherScore + '</td>';
-                    html += '<td>' + item.ReportScore + '</td>';
-                    html += '<td>' + item.TotalScore + '</td>';
+                    if (item.ReportScore == null) {
+                        html += '<td></td>';
+                    }
+                    else {
+                        html += '<td>' + item.ReportScore + '</td>';
+                    }
+                    if (item.TotalScore == null) {
+                        html += '<td></td>';
+                    }
+                    else {
+                        html += '<td>' + item.TotalScore + '</td>';
+                    }
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
                     html += '</tr>';
                 });
@@ -473,3 +490,44 @@ function Search() {
 //        }
 //    });
 //}
+
+function QuestionDelete() {
+    $("#thongbao").modal("show");
+}
+
+$("#deleteall").click(function () {
+    var PracticeID = $('#LoaiTT').val();
+    var SemesterID = $("#HocKy").val();
+    $.ajax({
+        url: "/Score/DeleteAll?SemesterID=" + SemesterID + "&PracticeID=" + PracticeID,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            if (result == true) {
+                $("#thongbao").modal("hide");
+                changeDropHocKy($("#HocKy").val());
+                $('#notification').addClass('alert-success');
+                $('#notification').text('Xóa thành công');
+                myFunction();
+            }
+            else if (result == false) {
+                $("#thongbao").modal("hide");
+                changeDropHocKy($("#HocKy").val());
+                $('#notification').addClass('alert-danger');
+                $('#notification').text('Xóa thất bại');
+                myFunction();
+            }
+            else {
+                $("#thongbao").modal("hide");
+                $("#alerterror").text(result);
+                $("#error").modal("show");
+            }
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+});

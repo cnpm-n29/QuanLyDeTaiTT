@@ -142,6 +142,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdditionalController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -190,6 +191,9 @@
     <Content Include="Assets\img\user3.png" />
     <Content Include="Assets\img\user4.png" />
     <Content Include="Assets\img\user5.png" />
+    <Content Include="Assets\scripts\AddtionalListPractice.js" />
+    <Content Include="Assets\scripts\AddtionalListScore.js" />
+    <Content Include="Assets\scripts\AddtionalListTopic.js" />
     <Content Include="Assets\scripts\common.js" />
     <Content Include="Assets\scripts\DropDown.js" />
     <Content Include="Assets\scripts\InstructorInfo.js" />
@@ -329,6 +333,9 @@
     <Content Include="Views\StudentField\ChooseField.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\TopicStudent\MonitorProgress.cshtml" />
+    <Content Include="Views\Additional\ListPractice.cshtml" />
+    <Content Include="Views\Additional\ListScore.cshtml" />
+    <Content Include="Views\Additional\ListTopic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyDeTai.Data\QuanLyDeTai.Data.csproj">

@@ -11,6 +11,26 @@ namespace QuanLyDeTai.Data.DAL
     {
         private DefaultDbContent context = new DefaultDbContent();
 
+        public Score GetByTopicStudent2(long id)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.Scores
+                .Where(i => i.TopicStudentID == id && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .FirstOrDefault();
+            return user;
+        }
+
+        public Score GetByTopicStudent(long id)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.Scores
+                .Where(i => i.TopicStudentID == id)
+                .FirstOrDefault();
+            return user;
+        }
+
         public Object GetBySinhvienAndLoaiTT(long idltt,long idsv)
         {
             context.Configuration.ProxyCreationEnabled = false;
@@ -134,6 +154,32 @@ namespace QuanLyDeTai.Data.DAL
             return user.FirstOrDefault();
         }
 
+        public bool CreateNewScore(Score model)
+        {
+            try
+            {
+                //Initialization empty item
+                var item = new Score();
+
+                //Set value for item with value from model
+                item.TopicStudentID = model.TopicStudentID;
+                item.PracticeTypeID = model.PracticeTypeID;
+                item.TeacherScore = model.TeacherScore;
+                item.CreateBy = model.CreateBy;
+                item.CreateTime = DateTime.Now;
+
+                //Add item to entity
+                context.Scores.Add(item);
+                //Save to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool Create(Score model)
         {
             try
@@ -188,6 +234,56 @@ namespace QuanLyDeTai.Data.DAL
             }
         }
 
+        public bool UpdateNewScore(Score model)
+        {
+            try
+            {
+                //Get item user with Id from database
+                var item = context.Scores.Where(i => i.ID == model.ID).FirstOrDefault();
+
+                //Set value item with value from model
+                item.TeacherScore = model.TeacherScore;
+
+                item.ModifyBy = model.ModifyBy;
+                item.ModifyTime = DateTime.Now;
+
+                item.IsDeleted = false;
+                item.DeletedBy = null;
+                item.DeletedTime = null;
+                //Save change to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateOldScore(Score model)
+        {
+            try
+            {
+                //Get item user with Id from database
+                var item = context.Scores.Where(i => i.ID == model.ID).FirstOrDefault();
+
+                //Set value item with value from model
+                item.CompanyScore = model.CompanyScore;
+                item.ReportScore = model.ReportScore;
+                item.TotalScore = model.TotalScore;
+
+                item.ModifyBy = model.ModifyBy;
+                item.ModifyTime = DateTime.Now;
+                //Save change to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool Delete(long id, long person)
         {
             try
@@ -205,8 +301,56 @@ namespace QuanLyDeTai.Data.DAL
                 context.SaveChanges();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                var a = e.Message;
+                return false;
+            }
+        }
+
+        public bool DeleteAll(long id, long person)
+        {
+            try
+            {
+                //Tương tự update
+                var item = context.Scores.Where(i => i.PracticeTypeID == id).FirstOrDefault();
+
+                //Remove item.
+
+                item.CompanyScore = null;
+                item.ReportScore = null;
+                item.TotalScore = null;
+
+                //Change database
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                var a = e.Message;
+                return false;
+            }
+        }
+        public bool DeleteOldScore(long id, long person)
+        {
+            try
+            {
+                //Tương tự update
+                var item = context.Scores.Where(i => i.ID == id).FirstOrDefault();
+
+                //Remove item.
+
+                item.CompanyScore = null;
+                item.ReportScore = null;
+                item.TotalScore = null;
+
+                //Change database
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                var a = e.Message;
                 return false;
             }
         }

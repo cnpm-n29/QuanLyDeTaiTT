@@ -39,7 +39,7 @@ namespace QuanLyDeTai.Data.DAL
                        join c in context.PracticeTypes on s.PracticeTypeID equals c.ID
                        where s.StudentID == idsv && c.PracticeID==idltt && (s.IsDeleted == false || s.IsDeleted.Equals(null))
                        select s;
-            return user.FirstOrDefault();
+            return user.ToList().LastOrDefault();
         }
 
         public StudentPracticeRelationship GetBySinhVienvaKieuTT(long? idsv, long idktt)
@@ -73,6 +73,17 @@ namespace QuanLyDeTai.Data.DAL
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize) ;
         }
 
+        public List<StudentPracticeRelationship> getListByPracticeTypeId(long practiceTypeId)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       where c.PracticeTypeID == practiceTypeId && (c.IsDeleted == false || c.IsDeleted.Equals(null))
+                       select c;
+
+            return user.ToList();
+        }
+
         public int getListByPracticeTypeIdCount(long practiceTypeId, string masv, string studentname)
         {
             context.Configuration.ProxyCreationEnabled = false;
@@ -96,7 +107,7 @@ namespace QuanLyDeTai.Data.DAL
                 item.StudentID = model.StudentID;
                 item.PracticeTypeID = model.PracticeTypeID;
                 item.CreateBy = model.CreateBy;
-                item.CreateTime = model.CreateTime;
+                item.CreateTime = DateTime.Now;
 
                 //Add item to entity
                 context.StudentPracticeRelationships.Add(item);
@@ -146,6 +157,31 @@ namespace QuanLyDeTai.Data.DAL
                 item.IsDeleted = true;
                 item.DeletedBy = person;
                 item.DeletedTime = DateTime.Now;
+
+                //Change database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteAll(long id, long person)
+        {
+            try
+            {
+                //Tương tự update
+                var item = context.StudentPracticeRelationships.Where(i => i.PracticeTypeID == id && (i.IsDeleted == false || i.IsDeleted.Equals(null))).ToList();
+
+                //Remove item.
+                foreach (var i in item)
+                {
+                    i.IsDeleted = true;
+                    i.DeletedBy = person;
+                    i.DeletedTime = DateTime.Now;
+                }
 
                 //Change database
                 context.SaveChanges();

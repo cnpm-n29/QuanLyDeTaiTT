@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Services", "2.Services", "{2C9FB10E-C231-4C06-8926-B47328CBFB19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Data", "3.Data", "{BC461207-F90C-4072-9097-B00FF0F7C865}"
+	ProjectSection(SolutionItems) = preProject
+		QuanLyDeTai.Service\TopicStudentService.cs = QuanLyDeTai.Service\TopicStudentService.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Cross", "4.Cross", "{1EF6AF20-8988-41BB-8AE6-2FFE8C7AC6ED}"
 EndProject

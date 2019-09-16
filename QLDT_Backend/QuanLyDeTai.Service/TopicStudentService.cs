@@ -21,10 +21,31 @@ namespace QuanLyDeTai.Service
         {
             return topicStudentDAL.GetByStudentPracticeId(id);
         }
+        
+
+        public TopicStudent GetByStudentPracticeIdNoCheckStatus(long id)
+        {
+            return topicStudentDAL.GetByStudentPracticeIdNoCheckStatus(id);
+        }
 
         public IQueryable GetListByTopicId(long tpid)
         {
             return topicStudentDAL.GetListByTopicId(tpid);
+        }
+
+        public IQueryable GetListByTopicIdNotIncludeUser(long tpid, long userid)
+        {
+            return topicStudentDAL.GetListByTopicIdNotIncludeUser(tpid, userid);
+        }
+
+            public bool CheckTopic(long tpid)
+        {
+            var model=topicStudentDAL.GetListByTopicId(tpid);
+            if (model != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public int getCount(long tpid)
@@ -47,7 +68,38 @@ namespace QuanLyDeTai.Service
             return topicStudentDAL.GetListByTTvaMaGV(id_tt,id_gv,search);
         }
 
-        public Topic getTopicChoose(long id)
+        public IQueryable GetListByTTvaBoMon(long? id_tt, long? id_bm, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            return topicStudentDAL.GetListByTTvaBoMon(id_tt, id_bm, masv, studentname, pageNumber, pageSize);
+        }
+
+        public IQueryable GetListByTT(long? id_tt, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            return topicStudentDAL.GetListByTT(id_tt, masv, studentname, pageNumber, pageSize);
+        }
+
+        public int GetListByTTvaBoMonCount(long? id_tt, long? id_bm, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            return topicStudentDAL.GetListByTTvaBoMonCount(id_tt, id_bm, masv, studentname, pageNumber, pageSize);
+        }
+
+        public int GetListByTTCount(long? id_tt, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            return topicStudentDAL.GetListByTTCount(id_tt, masv, studentname, pageNumber, pageSize);
+        }
+
+        public int GetCount(long? id_tt, long? id_gv, string search)
+        {
+            return topicStudentDAL.GetCount(id_tt, id_gv, search);
+        }
+
+
+        public IQueryable getExport(long? id_tt, long? id_gv, string search)
+        {
+            return topicStudentDAL.getExport(id_tt, id_gv, search);
+        }
+
+            public object getTopicChoose(long id)
         {
             return topicStudentDAL.getTopicChoose(id);
         }
@@ -61,6 +113,23 @@ namespace QuanLyDeTai.Service
                     return false;
                 }
                 var update = topicStudentDAL.Plus(id,progress);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Result(long id, bool result)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return false;
+                }
+                var update = topicStudentDAL.Result(id, result);
                 return update;
             }
             catch

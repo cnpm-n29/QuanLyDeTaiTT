@@ -18,6 +18,7 @@ namespace QuanLyDeTai.Controllers
         private PracticeService practiceService = new PracticeService();
         private StudentService studentService = new StudentService();
         private StudentPracticeService studentPracticeService = new StudentPracticeService();
+        private TopicStudentService topicStudentService = new TopicStudentService();
         // GET: StudentPractice
         public ActionResult Index()
         {
@@ -68,6 +69,30 @@ namespace QuanLyDeTai.Controllers
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             return Json(studentPracticeService.Delete(id,id_gv), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteAll(long PracticeID, long SemesterID)
+        {
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
+            var practiceTypeId = thuctap.ID;
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            var studentpractice = studentPracticeService.getListByPracticeTypeId(practiceTypeId);
+            if (studentpractice.Count() == 0)
+            {
+                return Json("Không có sinh viên nào trong kì thực tập này !", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                foreach (var s in studentpractice)
+                {
+                    var checkChooseTopic = topicStudentService.GetByStudentPracticeIdNoCheckStatus(s.ID);
+                    if (checkChooseTopic != null)
+                    {
+                        return Json("Các sinh viên này đã có đề tài. Không thể xóa !", JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            return Json(studentPracticeService.DeleteAll(practiceTypeId, id_gv), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Upload(long PracticeID, long SemesterID)
@@ -136,12 +161,17 @@ namespace QuanLyDeTai.Controllers
 
                                         student.PracticeTypeID = practiceTypeId;
 
+                                        student.CreateBy= long.Parse(Session["UserId"].ToString());
+
                                         studentPracticeService.Create(student);
                                     }
 
                                 }
                             }
-                            ExportError(error);
+                            if (error != null)
+                            {
+                                ExportError(error);
+                            }
                         }
                     }
                 }

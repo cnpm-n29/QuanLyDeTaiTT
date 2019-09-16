@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Đề tài";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var i = 0;
 }
 @section footer
 {
@@ -241,7 +240,7 @@
 
             </div>
             <!-- END RECENT PURCHASES -->
-
+              
         </div>
     </div>
     <!-- END MAIN CONTENT -->
@@ -388,3 +387,29 @@
 <div id="snackbar">
     <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
     </div>
+
+<!-- /Modal thông báo -->
+    <div class="modal fade" id="thongbao" role="dialog" style="margin-top:7%">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content"  style="width:55%;margin:auto;padding:20px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Warning</h4>
+                </div>               
+                <div>
+
+                    <div class="modal-body">
+                        Đề tài đã được chọn. Bạn không thể xóa !
+
+                    </div>
+                    <div class="modal-footer">
+                       
+                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"> OK</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+     </div>
+

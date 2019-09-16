@@ -63,6 +63,7 @@ namespace QuanLyDeTai.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
+            Session.RemoveAll();
             return View("Index");
         }
     }

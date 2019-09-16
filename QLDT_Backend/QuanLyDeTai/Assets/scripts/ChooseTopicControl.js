@@ -3,18 +3,12 @@ $(window).on('load', function () {
     getListLoaiTT();
     changeDropThucTap($("#LoaiTT").val());
 
-    $('#myTable').DataTable({
-        "order": [[3, "desc"]],
-        "paging": false,
-        "info": false,
-        "searching": false
-    });
+    
 });
 
 //Thay doi dropdown cua thuc tap
-function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
-    var i = PgSize;
-    i = (i * PgNumber) + 1;
+function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
+    i = 1;
     $.ajax({
         async: false,
         url: "/TopicStudent/GetByThucTap?IDTT=" + Id + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
@@ -23,10 +17,11 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
         dataType: "json",
         success: function (result) {
             var html = '';
+            
             if (result.List == "") {
                 $('.mytable').show();
                 html += '<tr>';
-                html += '<td colspan="5">Không có dữ liệu</td>';
+                html += '<td colspan="6">Không có dữ liệu</td>';
 
                 html += '</tr>';
                 $('.tbody').html(html);
@@ -36,15 +31,40 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
                 $('.mytable').hide();
                 html = '<tr>';
                 html += '<th class="center-header" scope = "col"> STT</th>';
-                html += '<th class="center-header" scope="col" style="width:40%;">Tên đề tài</th>';
-                html += '<th class="center-header" scope="col" style="width:40%;">Mô tả</th>';
+                html += '<th class="center-header" scope="col">Tên đề tài</th>';
+                html += '<th class="center-header" scope="col">Mô tả</th>';
+                html += '<th class="center-header" scope="col">Tiến độ</th>';
+                html += '<th class="center-header" scope="col">Kết quả</th>';
                 html += '</tr>';
 
                 html += '<tr>';
                 html += '<td align="center">' + (i++) + '</td>';
                 html += '<td>' + result.Detai.TopicName + '</td>';
                 html += '<td>' + result.Detai.Description + '</td>';
-                    
+                if (result.Detai.Progress == 0) {
+
+                    html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Nhận đề tài</label ></td >';
+
+                }
+                else if (result.Detai.Progress == 1) {
+                    html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">BCTD lần 1</label ></td >';
+                }
+                else if (result.Detai.Progress == 2) {
+                    html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">BCTD lần 2</label ></td >';
+                }
+                if (result.Detai.Result == null) {
+
+                    html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Chưa đánh giá</label ></td >';
+
+                }
+                else if (result.Detai.Result == true) {
+
+                    html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Đạt</label ></td >';
+
+                }
+                else {
+                    html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Không đạt</label ></td >';
+                }
                 html += '</tr>';
                 $('.tableTopic').html(html);
             }
@@ -52,7 +72,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
                 $('.mytable').show();
                 $('.tableTopic').html("");
                 html += '<tr>';
-                html += '<td colspan="5">Đã chọn đề tài, chờ giáo viên hướng dẫn chốt</td>';
+                html += '<td colspan="6">Đã chọn đề tài, chờ giáo viên hướng dẫn chốt</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
             }
@@ -60,7 +80,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
                 $('.mytable').show();
                 $('.tableTopic').html("");
                 html += '<tr>';
-                html += '<td colspan="5">Chưa được phân giảng viên</td>';
+                html += '<td colspan="6">Chưa được phân giảng viên</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
             }
@@ -68,14 +88,14 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
                 $('.mytable').show();
                 $('.tableTopic').html("");
                 html += '<tr>';
-                html += '<td colspan="5">Chưa được phân thực tập</td>';
+                html += '<td colspan="6">Chưa được phân thực tập</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
             }
             else if (result.List == null) {
                 $('.mytable').show();
                 html += '<tr>';
-                html += '<td colspan="5">Không có dữ liệu</td>';
+                html += '<td colspan="6">Không có dữ liệu</td>';
 
                 html += '</tr>';
                 $('.tbody').html(html);
@@ -83,35 +103,21 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
             }
 
             else {
-                $.each(result.List, function (key, item) {
+                var j = 0;
+                $.each(result.List[0], function (key, item) {
                     $('.mytable').show();
-                    $('.tableTopic').html("");
+                    $('.tableTopic').html;
                     html += '<tr>';
                     html += '<td align="center">' + (i++) + '</td>';
-                    html += '<td>' + item.TopicName + '</td>';
-                    html += '<td>' + item.Description + '</td>';
-                    html += '<td align="center"><input id="' + item.ID + '" onclick="check(' + item.ID + ')" type="checkbox" ></td >';
-                    html += ' <td align="center"><a data-toggle="modal" data-target="#chitietdt"><i style="color:#009933" class="fa fa-address-card"></i></a> </td>';
-
+                    html += '<td>' + item["TopicName"] + '</td>';
+                    html += '<td>' + item["Description"] + '</td>'; 
+                    html += '<td>' + item["FieldName"] + '</td>';
+                    html += '<td align="center"><input id="' + item["ID"] + '" onclick="check(' + item["ID"] + ')" type="checkbox" ></td >';
+                    html += '<td align="center"><a onclick="checkUserChoose(' +item["ID"] + ')"><i style="color:#009933" class="fa fa-address-card"></i></a> </td>';
                     html += '</tr>';
                 });
                 $('.tbody').html(html);
-                $('.pagination').html('')
-                var totalRows = result.TotalRecords
-
-                if (totalRows > PgSize) {
-                    var pagenum = Math.ceil(totalRows / PgSize)
-
-                    $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
-                    for (var j = 1; j <= pagenum;) {
-                        $('.pagination').append('<li onclick="Page(' + j + ')" class="page-item page page-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
-
-                    }
-                    num = pagenum;
-                    $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
-                }
-                $('.page-number-1').addClass('active')
-                $('.page-number-1').addClass('abc')
+                
             }
         },
         error: function (errormessage) {
@@ -119,6 +125,38 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = $("#maxRows")
         }
     });
 } 
+
+function checkUserChoose(id) {
+    $.ajax({
+        url: "/TopicStudent/CheckUserChoose?TopicId="+id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var html = "";
+            if (result == null || result == "") {
+                html += '<tr>';
+                html += '<td colspan="2">Không có dữ liệu</td>';
+
+                html += '</tr>';
+            }
+            else {
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.StudentID + '</td>';
+                    html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
+
+                    html += '</tr>';
+                    $('.tablecheck').html(html);
+                });
+            }
+            },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $("#chitietdt").modal('show');
+}
 
 
 function check(ID)
@@ -133,7 +171,7 @@ function check(ID)
                 dataType: "json",
                 success: function (result) {
                     if (numberOfChecked == 1) {
-                        var html = '<table id="edittable" class="table table-bordered" cellspacing="0" cellpadding="5"><thread><th style="display:none">ID</th><th class="center-header" scope="col" style="width:60%;">Tên đề tài</th><th class="center-header" scope="col">Độ ưu tiên</th><th class="center-header" scope="col">Thao tác</th></thread>';
+                        var html = '<h3 class="text-center">Danh sách chọn đề tài</h3><table id="edittable" class="table table-bordered" cellspacing="0" cellpadding="5"><thread><th style="display:none">ID</th><th class="center-header" scope="col" style="width:60%;">Tên đề tài</th><th class="center-header" scope="col">Độ ưu tiên</th><th class="center-header" scope="col">Thao tác</th></thread>';
                         $.each(result, function (key, item) {
                             html += '<tr class="' + item.ID + ' ' + numberOfChecked + '">';
                             html += '<td style="display:none">' + item.ID + '</td>';

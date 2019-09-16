@@ -53,6 +53,48 @@ namespace QuanLyDeTai.Controllers
             return Json(new { TotalRecords = total, List = list }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Create(long PracticeID, long SemesterID, float Score,long Id)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
+            var check = scoreService.GetByTopicStudent(Id);
+
+            if (check != null)
+            {
+                Score score = new Score
+                {
+                    ID = check.ID,
+                    TopicStudentID = Id,
+                    PracticeTypeID = thuctap.ID,
+                    TeacherScore = Score,
+                    ModifyBy=id_gv
+                };
+                return Json(scoreService.UpdateNewScore(score), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Score score = new Score
+                {
+                    TopicStudentID = Id,
+                    PracticeTypeID = thuctap.ID,
+                    TeacherScore = Score,
+                    CreateBy = id_gv
+
+                };
+                return Json(scoreService.CreateNewScore(score), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CheckFalse(long Id)
+        {
+            var check = scoreService.GetByTopicStudent(Id);
+            if (check == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            return Json(studentService.Delete(check.ID, long.Parse(Session["UserId"].ToString())), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetbyID(int ID)
         {
             var score = scoreService.GetById(ID);
@@ -70,7 +112,21 @@ namespace QuanLyDeTai.Controllers
 
         public JsonResult Delete(long id)
         {
-            return Json(studentService.Delete(id, long.Parse(Session["UserId"].ToString())), JsonRequestBehavior.AllowGet);
+            return Json(scoreService.DeleteOldScore(id, long.Parse(Session["UserId"].ToString())), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteAll(long PracticeID, long SemesterID)
+        {
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
+            var practiceTypeId = thuctap.ID;
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            var score = scoreService.getListByPracticeTypeIdAll(practiceTypeId);
+            if (score.Count() == 0)
+            {
+                return Json("Chưa có sinh viên nào có điểm trong kì thực tập này !", JsonRequestBehavior.AllowGet);
+            }
+            
+            return Json(scoreService.DeleteAll(practiceTypeId, id_gv), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Upload(long PracticeID, long SemesterID)
@@ -170,32 +226,24 @@ namespace QuanLyDeTai.Controllers
                                     {
                                         score.CompanyScore = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value.ToString());
                                     }
+                                    
                                     if (workSheet.Cells[rowIterator, 6].Value == null)
-                                    {
-                                        score.TeacherScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.TeacherScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
-                                    }
-                                    if (workSheet.Cells[rowIterator, 7].Value == null)
                                     {
                                         score.ReportScore = null;
                                         dem++;
                                     }
                                     else
                                     {
-                                        score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
+                                        score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
                                     }
-                                    if (workSheet.Cells[rowIterator, 8].Value == null)
+                                    if (workSheet.Cells[rowIterator, 7].Value == null)
                                     {
                                         score.TotalScore = null;
                                         dem++;
                                     }
                                     else
                                     {
-                                        score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value.ToString());
+                                        score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
                                     }
                                     if (dem != 0)
                                     {
@@ -222,9 +270,18 @@ namespace QuanLyDeTai.Controllers
                                                 var topicstudent = topicStudentService.GetByStudentPracticeId(studentpracticeid.ID);
                                                 score.PracticeTypeID = practiceTypeId;
                                                 score.TopicStudentID = topicstudent.ID;
-                                                score.CreateBy = long.Parse(Session["UserId"].ToString());
-                                                var sc = score.ToModel();
-                                                scoreService.Create(score.ToModel());
+                                                score.ModifyBy = long.Parse(Session["UserId"].ToString());
+                                                score.ID = scoreService.GetByTopicStudent2(topicstudent.ID).ID;
+                                                if (scoreService.GetByTopicStudent2(topicstudent.ID) == null)
+                                                {
+                                                    score.Error = "Sinh viên này chưa được xét đạt và chưa có điểm GVHD";
+                                                }
+                                                else
+                                                {
+                                                    var sc = score.ToModel();
+                                                    scoreService.UpdateOldScore(score.ToModel());
+                                                }
+                                                
                                             }
                                         }
                                     }
@@ -233,7 +290,17 @@ namespace QuanLyDeTai.Controllers
 
                                 
                             }
-                            ExportError(resultsList);
+                            foreach(var item in resultsList){
+                                if (item.Error == null)
+                                {
+                                    resultsList.Remove(item);
+                                }
+                            }
+                            if (resultsList.Count > 0)
+                            {
+                                ExportError(resultsList);
+                            }
+
                         }
                     }
                 }
@@ -258,7 +325,6 @@ namespace QuanLyDeTai.Controllers
                 LastName = "Thủy",
                 TopicName="",
                 CompanyScore=9,
-                TeacherScore=9,
                 ReportScore= 8.5,
                 TotalScore=9
 
@@ -295,7 +361,7 @@ namespace QuanLyDeTai.Controllers
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             // Dòng này rất quan trọng, vì chạy trên firefox hay IE thì dòng này sẽ hiện Save As dialog cho người dùng chọn thư mục để lưu
             // File name của Excel này là ExcelDemo
-            Response.AddHeader("Content-Disposition", "attachment; filename=StudentPracticeDemo.xlsx");
+            Response.AddHeader("Content-Disposition", "attachment; filename=ScoreDemo.xlsx");
             // Lưu file excel của chúng ta như 1 mảng byte để trả về response
             Response.BinaryWrite(buffer.ToArray());
             // Send tất cả ouput bytes về phía clients
@@ -311,17 +377,17 @@ namespace QuanLyDeTai.Controllers
             worksheet.DefaultColWidth = 5;
             worksheet.Cells[4, 6].AutoFitColumns(5);
             //gộp hàng
-            worksheet.Cells["A1:H1"].Merge = true;
-            worksheet.Cells["A2:H2"].Merge = true;
+            worksheet.Cells["A1:G1"].Merge = true;
+            worksheet.Cells["A2:G2"].Merge = true;
             worksheet.Cells["A3:B3"].Merge = true;
             worksheet.Cells["C3:D3"].Merge = true;
             //căn giữa
-            worksheet.Cells["A1:H2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells["A1:G2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             //thiếp lập font và cỡ chữ
-            worksheet.Cells["A1:H2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
+            worksheet.Cells["A1:G2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
             worksheet.Cells[1, 1].Value = "DANH SÁCH ĐIỂM THỰC TẬP";
             worksheet.Cells[2, 1].Value = "Thực tập cơ sở ngành KS CNTT(118)_01_TT";
-            worksheet.Cells["A3:H3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
+            worksheet.Cells["A3:G3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
             worksheet.Cells[3, 1].Value = "Thời gian học :";
             worksheet.Cells[3, 3].Value = "17/12/2018 - 06/01/2019";
             // Tự động xuống hàng khi text quá dài
@@ -332,11 +398,10 @@ namespace QuanLyDeTai.Controllers
             worksheet.Cells[4, 3].Value = "Họ tên";
             worksheet.Cells[4, 4].Value = "Tên đề tài";
             worksheet.Cells[4, 5].Value = "Điểm công ty";
-            worksheet.Cells[4, 6].Value = "Điểm hướng dẫn";
-            worksheet.Cells[4, 7].Value = "Điểm báo cáo";
-            worksheet.Cells[4, 8].Value = "Điểm tổng";
+            worksheet.Cells[4, 6].Value = "Điểm báo cáo";
+            worksheet.Cells[4, 7].Value = "Điểm tổng";
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A3:H4"])
+            using (var range = worksheet.Cells["A3:G4"])
             {
 
                 // Canh giữa cho các text
@@ -345,7 +410,7 @@ namespace QuanLyDeTai.Controllers
                 range.Style.Font.SetFromFont(new Font("Times New Roman", 10));
                 range.Style.Font.Bold = true;
                 // Set Border
-                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
+                //range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
             }
             // Đỗ dữ liệu từ list vào 
             for (int i = 0; i < listItems.Count; i++)
@@ -357,9 +422,8 @@ namespace QuanLyDeTai.Controllers
                 worksheet.Cells[i + 5, 3].Value = student.FirstName + " " + student.LastName;
                 worksheet.Cells[i + 5, 4].Value = student.TopicName;
                 worksheet.Cells[i + 5, 5].Value = student.CompanyScore;
-                worksheet.Cells[i + 5, 6].Value = student.TeacherScore;
-                worksheet.Cells[i + 5, 7].Value = student.ReportScore;
-                worksheet.Cells[i + 5, 8].Value = student.TotalScore;
+                worksheet.Cells[i + 5, 6].Value = student.ReportScore;
+                worksheet.Cells[i + 5, 7].Value = student.TotalScore;
 
 
             }

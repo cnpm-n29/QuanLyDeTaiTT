@@ -21,7 +21,7 @@ function changeDropThucTap(IDTT, search = "") {
 
             if (result == "") {
                 html += '<tr>';
-                html += '<td colspan="6">Không có dữ liệu</td>';
+                html += '<td colspan="8">Không có dữ liệu</td>';
 
                 html += '</tr>';
                 $('.tbody').html(html);
@@ -44,15 +44,27 @@ function changeDropThucTap(IDTT, search = "") {
                     else if (item.Progress == 2) {
                         html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">BCTD lần 2</label ></td >';
                     }
-                    else if (item.Progress == 3) {
-                        html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Đạt</label ></td >';
-                    }
+                    if (item.Result == null) {
 
+                        html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Chưa đánh giá</label ></td >';
+
+                    }
+                    else if (item.Result == true) {
+
+                        html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Đạt</label ></td >';
+
+                    }
+                    else{
+                        html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Không đạt</label ></td >';
+                    }
+                    html += '<td>' + item.TeacherScore + '</td>';
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> </td>';
 
                     html += '</tr>';
                 });
                 $('.tbody').html(html);
+                
+                $("#export").attr("href", "/TopicStudent/Export?SemesterID=" + IDHK + "&PracticeID=" + IDTT);
 
             }
         },
@@ -74,11 +86,17 @@ function getbyID(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            if (result.Progress == 0) {
+            if (result.Result != null) {
                 id = ID;
                 progress = result.Progress;
-                $('#giamsattd').modal('show');
+                $('#thongbao').modal('show');
+                
             }
+            else if (result.Progress == 0) {
+                    id = ID;
+                    progress = result.Progress;
+                    $('#giamsattd').modal('show');
+                }
             else if (result.Progress == 1){
                 $('#step1').attr("disabled");
                 $('#step1').removeClass('btn-success').addClass('btn-default');
@@ -102,11 +120,6 @@ function getbyID(ID) {
                 id = ID;
                 progress = result.Progress;
                 $('#giamsattd').modal('show');
-            }
-            else {
-                $('#notification').addClass('alert-success');
-                $('#notification').text('Đã xét duyệt đạt cho sinh viên này');
-                myFunction();
             }
             
 
@@ -163,8 +176,34 @@ $(document).ready(function () {
 
         if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
         plus(id, ++progress);
-        changeDropHocKy($(".HocKy #HocKy").val());
     });
+
+    $(".lose").click(function () {
+        result(id, false);
+        checkfalse(id);
+        Reload();
+        $('#notification').addClass('alert-success');
+        $('#notification').text('Thành công');
+        myFunction();
+    })
+    $(".success").click(function () {
+        var score = $("#score").val();
+        if (isNaN(score) == false) {
+            result(id, true);
+            create(score, id);
+            Reload();
+            $('#notification').addClass('alert-success');
+            $('#notification').text('Thành công');
+            myFunction();
+        }
+        else {
+            $('#giamsattd').modal('show');
+            $('#notification').addClass('alert-danger');
+            $('#notification').text('Đã xảy ra lỗi khi xét duyệt');
+            myFunction();
+        }
+        
+    })
 
     $('div.setup-panel div a.btn-success').trigger('click');
 });
@@ -182,4 +221,87 @@ function plus(id,progress) {
             alert(errormessage.responseText);
         }
     });
+}
+
+function result(id, result) {
+    $.ajax({
+        url: "/TopicStudent/Result?id=" + id + "&result=" + result,
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            Reload();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function create(score, id) {
+    var IDTT = $(".LoaiTT #LoaiTT").val();
+    var IDHK = $(".HocKy #HocKy").val();
+    $.ajax({
+        url: "/Score/Create?SemesterID=" + IDHK + "&PracticeID=" + IDTT + "&Score=" + score + "&Id=" + id,
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function checkfalse(id) {
+    $.ajax({
+        url: "/Score/CheckFalse?Id=" + id,
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function QuestionUpdate() {
+    $('#thongbao').modal('hide');
+
+    if (progress == 0) {
+        $('#giamsattd').modal('show');
+    }
+    else if (progress == 1) {
+        $('#step1').attr("disabled");
+        $('#step1').removeClass('btn-success').addClass('btn-default');
+        $('#step-1').hide();
+        $('#step2').removeAttr("disabled");
+        $('#step2').addClass('btn-success');
+        $('#step-2').show();
+        $('#step3').attr("disabled");
+        $('#giamsattd').modal('show');
+    }
+    else if (progress == 2) {
+        $('#step1').attr("disabled");
+        $('#step1').removeClass('btn-success').addClass('btn-default');
+        $('#step-1').hide();
+        $('#step3').removeAttr("disabled");
+        $('#step3').addClass('btn-success');
+        $('#step-3').show();
+        $('#step2').attr("disabled");
+        $('#giamsattd').modal('show');
+    }
+}
+
+function Reload() {
+    changeDropThucTap($(".LoaiTT #LoaiTT").val());
+}
+
+function Export() {
+    var IDTT = $(".LoaiTT #LoaiTT").val();
+    var IDHK = $(".HocKy #HocKy").val();
+    $("#export").attr("href", "/TopicStudent/Export?SemesterID=" + IDHK + "&PracticeID=" +IDTT);
 }

@@ -14,6 +14,7 @@ namespace QuanLyDeTai.Controllers
     public class TopicController : BaseController
     {
         private TopicService topicService = new TopicService();
+        private TopicStudentService topicStudentService = new TopicStudentService();
         private PracticeService practiceService  = new PracticeService();
         private TeacherService teacherService = new TeacherService();
         // GET: DeTai
@@ -68,6 +69,10 @@ namespace QuanLyDeTai.Controllers
 
         public JsonResult Delete(long id)
         {
+            if (topicStudentService.CheckTopic(id))
+            {
+                return Json("ErrorCheck", JsonRequestBehavior.AllowGet);
+            }
             return Json(topicService.Delete(id), JsonRequestBehavior.AllowGet);
         }
         
@@ -119,23 +124,23 @@ namespace QuanLyDeTai.Controllers
             var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
             
             var i = 0;
-            if (Session["Quyen"].ToString().Contains("Xem danh sách đề tài"))
+            IQueryable listtc;
+            if (teacherService.GetRole(Session["Username"].ToString(), "Trưởng bộ môn"))
             {
-                var listtc = topicService.GetListByTTAndSubjectId(thuctap.ID, tc.ID, tc.SubjectID, search, pageNumber, pageSize);
-                foreach (var j in listtc)
-                {
-                    i++;
+                listtc = topicService.GetListByTT(thuctap.ID, tc.ID, search, pageNumber, pageSize);
+                i = topicService.GetListByTTCount(thuctap.ID, tc.ID, search, pageNumber, pageSize);
+            }
+            else if (teacherService.GetRole(Session["Username"].ToString(), "Viện trưởng")|| teacherService.GetRole(Session["Username"].ToString(), "Viện phó"))
+            {
+                listtc= topicService.GetListByTT(thuctap.ID, search, pageNumber, pageSize);
+                i = topicService.GetListByTTCount(thuctap.ID, search, pageNumber, pageSize);
+            }
+            else { 
+                listtc = topicService.GetListByTTAndSubjectId(thuctap.ID, tc.ID, tc.SubjectID, search, pageNumber, pageSize);
+                i = topicService.GetListByTTAndSubjectIdCount(thuctap.ID, tc.ID, tc.SubjectID, search, pageNumber, pageSize);
                 }
-                return Json(new { TotalRecords = i, List = listtc }, JsonRequestBehavior.AllowGet);
-            }
-            var listtcc = topicService.GetListByTT(thuctap.ID, tc.ID, search, pageNumber, pageSize);
-            foreach (var j in listtcc)
-            {
-                i++;
-            }
-
-            // 5. Trả về các Link được phân trang theo kích thước và số trang.
-            return Json(new { TotalRecords = i, List = listtcc }, JsonRequestBehavior.AllowGet);
+            return Json(new { TotalRecords = i, List = listtc }, JsonRequestBehavior.AllowGet);
+            
         }
 
         public JsonResult GetLoaiTTByHK(long? ID)

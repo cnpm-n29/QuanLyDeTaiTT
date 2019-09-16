@@ -2980,7 +2980,7 @@ border: 0px;
 }
 
 .stepwizard-row {
-    display: table-row;
+    display: flex;
 }
 
 .stepwizard {
@@ -3136,7 +3136,7 @@ form .panel{
         animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
 
-@-webkit-keyframes fadein {
+/*@-webkit-keyframes fadein {
     from {
         top: 0;
         opacity: 0;
@@ -3184,5 +3184,26 @@ form .panel{
         top: 0;
         opacity: 0;
     }
+}*/
+
+/*.fade.in {
+    opacity:1;
+    display:block;
+}
+
+.fade{
+    opacity:0;
+    display:none;
+}*/
+
+.fade.in {
+    display: block;
+}
+
+.fade {
+    display: none;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
 }
 

@@ -159,24 +159,31 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-5 row">
-                                <div class="col-sm-4" style="padding: 0px;">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
 
-                                </div>
                                 <div class="col-sm-4" style="padding: 0px;">
-                                    <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-success">
                                         <a style="color:white" href="~/Score/Export">
                                             <i class="fa fa-download"></i> Tải bản mẫu
                                         </a>
                                     </button>
                                 </div>
-                                <div class="col-sm-4" style="padding:0px">
+                                <div class="col-sm-4" style="padding: 0px;">
                                     <button data-toggle="modal"
                                             data-target="#themdsthuctap" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
                                         <i class="fa fa-plus"></i> Thêm mới
                                     </button>
                                 </div>
+                                <div class="col-sm-4" style="padding: 0px;">
+                                    <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-danger">
+                                        <a style="color:white" onclick="QuestionDelete()">
+                                            <i class="fa fa-trash"></i> Xóa tất cả
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
+
 
                         </div>
                         <table id="myTable" class="table table-bordered" cellspacing="0" cellpadding="5" id=""
@@ -193,7 +200,7 @@
                                     <th class="center-header" scope="col">Điểm tổng</th>
                                     <th class="center-header" scope="col">Thao tác</th>
                                 </tr>
-                                </thead>
+                            </thead>
                             <tbody class="tbody"></tbody>
                         </table>
                         <div class="row">
@@ -240,7 +247,7 @@
                 <!-- edit form column -->
                 <form style="max-width: 70%;margin: auto">
                     <input type="hidden" id="ID" />
-                    
+
                     <div class="form-group row">
                         <label class="col-sm-4 control-label">Mã sinh viên</label>
                         <div class="col-sm-8">
@@ -325,9 +332,9 @@
                                 <div class="ddlLoaiTT1 drpLoaiTT"></div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="col-sm-3" style="padding:0px" for="">Chọn file</label>
                         <input id="file" type="file" name="UploadedFile" class="" />
@@ -345,3 +352,30 @@
     </div>
 </div>
 <!-- /Modal them sv thuctap -->
+<div id="snackbar">
+    <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
+</div>
+<!-- /Modal thông báo -->
+<div class="modal fade" id="thongbao" role="dialog" style="margin-top:7%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:55%;margin:auto;padding:20px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Question</h4>
+            </div>
+            <div>
+
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa điểm của các sinh viên này ?
+
+                </div>
+                <div class="modal-footer">
+                    <button id="deleteall" class="btn btn-default btn-success"> Có</button>
+                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"> Không</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

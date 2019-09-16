@@ -77,6 +77,76 @@ namespace QuanLyDeTai.Data.DAL
             return user.OrderBy(a => a.FieldName).Skip(pageNumber * pageSize).Take(pageSize);
         }
 
+        public int GetListByTTCount(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
+                       join x in context.Teachers on d.TeacherID equals x.ID
+                       join a in context.Fields on d.FieldID equals a.ID
+                       where d.PracticeTypeID == id_tt && d.TeacherID != id_gv && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       select new
+                       {
+                           d.ID,
+                           d.TopicName,
+                           d.Description,
+                           d.Status,
+                           x.FirstName,
+                           x.LastName,
+                           a.FieldName
+                       };
+            return user.Count();
+        }
+
+
+        public IQueryable GetListByTT(long? id_tt, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
+                       join x in context.Teachers on d.TeacherID equals x.ID
+                       join a in context.Fields on d.FieldID equals a.ID
+                       where d.PracticeTypeID == id_tt && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       select new
+                       {
+                           d.ID,
+                           d.TopicName,
+                           d.Description,
+                           d.Status,
+                           x.FirstName,
+                           x.LastName,
+                           a.FieldName
+                       };
+            return user.OrderBy(a => a.FieldName).Skip(pageNumber * pageSize).Take(pageSize);
+        }
+
+        public int GetListByTTCount(long? id_tt, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
+                       join x in context.Teachers on d.TeacherID equals x.ID
+                       join a in context.Fields on d.FieldID equals a.ID
+                       where d.PracticeTypeID == id_tt && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       select new
+                       {
+                           d.ID,
+                           d.TopicName,
+                           d.Description,
+                           d.Status,
+                           x.FirstName,
+                           x.LastName,
+                           a.FieldName
+                       };
+            return user.Count();
+        }
+
         public IQueryable GetListByTTAndSubjectId(long? id_tt,long? id_gv, long? id_bm, string search, int pageNumber, int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
@@ -100,6 +170,30 @@ namespace QuanLyDeTai.Data.DAL
             return user.OrderBy(a=>a.FieldName).Skip(pageNumber * pageSize).Take(pageSize);
         }
 
+        public int GetListByTTAndSubjectIdCount(long? id_tt, long? id_gv, long? id_bm, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.Topics
+                       join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
+                       join x in context.Teachers on d.TeacherID equals x.ID
+                       join a in context.Fields on d.FieldID equals a.ID
+                       where d.PracticeTypeID == id_tt && d.TeacherID != id_gv && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && x.SubjectID == id_bm && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       select new
+                       {
+                           d.ID,
+                           d.TopicName,
+                           d.Description,
+                           d.Status,
+                           x.FirstName,
+                           x.LastName,
+                           a.FieldName
+                       };
+            return user.Count();
+        }
+
+
         public IQueryable GetListByTTvaMaGV1(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
@@ -119,24 +213,63 @@ namespace QuanLyDeTai.Data.DAL
             //return user;
         }
 
-        public IEnumerable<Topic> GetListByTTvaMaGV(long? id_tt,long? id_gv,string search,int pageNumber,int pageSize)
+        public object GetListByTTvaMaGV(long? id_tt,long? id_gv,long? fieldId,string search,int pageNumber,int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
-            var user = context.Topics
-                //.Include(i => i.Field)
-                .Where(i => i.PracticeTypeID == id_tt &&i.TopicName.Contains(search)&& i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
-                .OrderBy(i => i.ID)
-                .Skip(pageNumber * pageSize).Take(pageSize).ToList();
-            return user;
+            
+            var user = context.Topics.Include("Field")
+            //.Include(i => i.Field)
+            .Where(i => i.PracticeTypeID == id_tt && i.FieldID == fieldId && i.TopicName.Contains(search) && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            .Select(i=>new { i.ID,i.TopicName,i.Description,i.Field.FieldName})
+
+            .OrderBy(i => i.ID)
+            .Skip(pageNumber * pageSize).Take(pageSize).ToList();
             //context.Configuration.ProxyCreationEnabled = false;
             ////Get from database
             //var user = context.Topics
             //    .Where(i => i.PracticeTypeID == id_tt && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
             //    .ToList();
-            //return user;
+            return user;
         }
 
+        public IEnumerable<Topic> GetListByTTvaMaGV2(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+
+            var user = context.Topics
+            //.Include(i => i.Field)
+            .Where(i => i.PracticeTypeID == id_tt && i.TopicName.Contains(search) && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            
+            .OrderBy(i => i.ID)
+            .Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            //context.Configuration.ProxyCreationEnabled = false;
+            ////Get from database
+            //var user = context.Topics
+            //    .Where(i => i.PracticeTypeID == id_tt && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            //    .ToList();
+            return user;
+        }
+
+        public object GetListByTTvaMaGV(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+
+            var user = context.Topics.Include("Field")
+            //.Include(i => i.Field)
+            .Where(i => i.PracticeTypeID == id_tt && i.TopicName.Contains(search) && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            .Select(i => new { i.ID, i.TopicName, i.Description, i.Field.FieldName })
+            .OrderBy(i => i.ID)
+            .Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            //context.Configuration.ProxyCreationEnabled = false;
+            ////Get from database
+            //var user = context.Topics
+            //    .Where(i => i.PracticeTypeID == id_tt && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+            //    .ToList();
+            return user;
+        }
 
 
         public int getCount(long? id_tt, long? id_gv,string search)

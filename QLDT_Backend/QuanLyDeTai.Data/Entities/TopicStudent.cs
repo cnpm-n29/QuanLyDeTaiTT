@@ -5,6 +5,7 @@ namespace QuanLyDeTai.Data.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Script.Serialization;
 
     [Table("TopicStudent")]
     public partial class TopicStudent
@@ -27,6 +28,8 @@ namespace QuanLyDeTai.Data.Entities
 
         public int? Progress { get; set; }
 
+        public bool? Result { get; set; }
+
         public long? CreateBy { get; set; }
 
         public DateTime? CreateTime { get; set; }
@@ -40,6 +43,7 @@ namespace QuanLyDeTai.Data.Entities
 
         public virtual StudentPracticeRelationship StudentPracticeRelationship { get; set; }
 
+        [ScriptIgnore]
         public virtual Topic Topic { get; set; }
     }
 }

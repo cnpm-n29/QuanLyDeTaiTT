@@ -27,7 +27,13 @@ namespace QuanLyDeTai.Service
             return null;
         }
 
-        public StudentPracticeRelationship GetBySinhVienvaKieuTT(long idsv, long idktt)
+        public List<StudentPracticeRelationship> getListByPracticeTypeId(long practiceTypeId)
+        {
+            return studentPracticeDAL.getListByPracticeTypeId(practiceTypeId);
+        }
+
+
+            public StudentPracticeRelationship GetBySinhVienvaKieuTT(long idsv, long idktt)
         {
             return studentPracticeDAL.GetBySinhVienvaKieuTT(idsv, idktt);
         }
@@ -81,6 +87,19 @@ namespace QuanLyDeTai.Service
             try
             {
                 var update = studentPracticeDAL.Delete(id, person);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteAll(long id, long person)
+        {
+            try
+            {
+                var update = studentPracticeDAL.DeleteAll(id, person);
                 return update;
             }
             catch

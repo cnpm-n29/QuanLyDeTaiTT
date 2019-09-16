@@ -180,6 +180,8 @@ function changeDropHocKy(IDHK) {
             
             $(".ddlLoaiTT").html(html);
             changeDropThucTap($("#LoaiTT").val());
+            var IDTT = $(".LoaiTT #LoaiTT").val();
+            $("#export").attr("href", "/TopicStudent/Export?SemesterID=" + IDHK + "&PracticeID=" + IDTT);
         },
 
         error: function (errormessage) {

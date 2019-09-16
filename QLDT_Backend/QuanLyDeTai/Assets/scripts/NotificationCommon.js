@@ -25,11 +25,12 @@ function GetNotification() {
                     
                     if (item.Status == null || item.Status == false) {
                         html += '<li><a href="#" style="background-color:#eaeaea" class="notification-item" onclick="info(' + item.ID + ')"><span class="dot bg-danger"></span>' + item.Title + '</a></li>';
+                        i++;
                     }
                     else {
                         html += '<li><a href="#" class="notification-item" onclick="info(' + item.ID + ')"><span class="dot bg-danger"></span>' + item.Title + '</a></li>';
                     }
-                    i++;
+
                 });
 
                 html += '<li><a href="" class="more">Đọc tất cả</a></li>';

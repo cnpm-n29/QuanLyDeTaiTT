@@ -20,6 +20,5 @@ namespace QuanLyDeTai.Data.Entities
         public virtual Notification Notification { get; set; }
 
         public virtual Student Student { get; set; }
-
     }
 }

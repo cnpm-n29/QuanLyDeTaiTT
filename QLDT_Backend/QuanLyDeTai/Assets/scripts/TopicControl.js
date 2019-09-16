@@ -52,7 +52,7 @@ function changeDropThucTap(IDTT,search="", PgNumber = 0, PgSize = $("#maxRows").
                         html += '<td align="center"><label class="switch " style="margin-bottom: 0px;"><input onclick="changeStatus(' + item.ID + ')" type="checkbox" class="primary"> <span class="slider round"></span></label ></td >';
                     }
 
-                    html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
+                    html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
 
                     html += '</tr>';
                 });
@@ -69,7 +69,7 @@ function changeDropThucTap(IDTT,search="", PgNumber = 0, PgSize = $("#maxRows").
 
                     }
                     num = pagenum;
-                    $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                    $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
                 }
                 $('.page-number-1').addClass('active')
                 $('.page-number-1').addClass('abc')
@@ -95,6 +95,7 @@ function Add() {
         Description: $('#MoTa').val(),
         Status: $('#TrangThai').is(":checked")
     };
+    console.log(detai);
     $.ajax({
         url: "/Topic/Add",
         data: JSON.stringify(detai),
@@ -209,16 +210,20 @@ function Delele(ID) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
-                changeDropThucTap($("#LoaiTT").val());
-                if (result == true) {
+                if (result == "ErrorCheck") {
+                    $('#thongbao').modal('show');
+                }
+                else if (result == true) {
                     $('#notification').addClass('alert-success');
                     $('#notification').text('Xóa đề tài thành công');
                     myFunction();
-                } else {
+                }
+                else {
                     $('#notification').addClass('alert-danger');
                     $('#notification').text('Xóa đề tài thất bại');
                     myFunction();
                 }
+                changeDropThucTap($("#LoaiTT").val());
             },
             error: function (errormessage) {
                 $('#notification').addClass('alert-danger');

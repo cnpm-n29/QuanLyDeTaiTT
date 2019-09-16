@@ -498,3 +498,45 @@ function Delele(ID) {
         });
     }
 }
+
+function QuestionDelete() {
+    $("#thongbao").modal("show");
+}
+
+
+$("#deleteall").click(function () {
+    var PracticeID = $('#LoaiTT').val();
+    var SemesterID = $("#HocKy").val();
+    $.ajax({
+        url: "/StudentPractice/DeleteAll?SemesterID=" + SemesterID + "&PracticeID=" + PracticeID,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            if (result == true) {
+                $("#thongbao").modal("hide");
+                changeDropHocKy($("#HocKy").val());
+                $('#notification').addClass('alert-success');
+                $('#notification').text('Xóa thành công');
+                myFunction();
+            }
+            else if (result == false) {
+                $("#thongbao").modal("hide");
+                changeDropHocKy($("#HocKy").val());
+                $('#notification').addClass('alert-danger');
+                $('#notification').text('Xóa thất bại');
+                myFunction();
+            }
+            else {
+                $("#thongbao").modal("hide");
+                $("#alerterror").text(result);
+                $("#error").modal("show");
+            }
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+});

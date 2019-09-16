@@ -43,6 +43,17 @@ namespace QuanLyDeTai.Service
             return teacherDAL.GetByMagv(magv);
         }
 
+        public bool GetRole(string magv,string rolename)
+        {
+
+            var role= teacherDAL.GetRole(magv, rolename);
+            if (role.Count()>0)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public IQueryable XetQuyen(long id)
         {

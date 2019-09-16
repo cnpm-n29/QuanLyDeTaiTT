@@ -197,7 +197,7 @@ namespace QuanLyDeTai.Data.DAL
             try
             {
                 //Tương tự update
-                var item = context.Students.Where(i => i.ID == id).FirstOrDefault();
+                var item = context.Scores.Where(i => i.ID == id).FirstOrDefault();
 
                 //Remove item.
 

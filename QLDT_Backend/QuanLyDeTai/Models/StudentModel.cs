@@ -50,6 +50,28 @@ namespace QuanLyDeTai.Models
             return st;
         }
 
+        public Student ToModelNoBirthday()
+        {
+
+            var st = new Student
+            {
+                ID = ID,
+                MaSV = Masv,
+                FirstName = FirstName,
+                LastName = LastName,
+                Sex = Sex,
+                Birthday = null,
+                Address = Address,
+                Email = Email,
+                Phone = Phone,
+                FacultyID = FacultyId,
+                Note = Note,
+                CreateBy = CreateBy,
+                ModifiedBy = ModifiedBy
+            };
+            return st;
+        }
+
 
         public long ID { get; set; }
 

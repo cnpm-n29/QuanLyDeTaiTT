@@ -1,13 +1,18 @@
 ﻿$(document).ready(function() {
     
-    
 
-    $('.collapsed').on('click', function () {
-        $('.collapsed').removeClass("active");
-        $('.collapse').removeClass("in");
-        $(this).addClass('active');
+    //$('.collapsed').on('click', function () {
+    //    if ($(this).hasClass('active')) {
+    //        $('.collapsed').removeClass("active");
+    //        $('.collapse').removeClass("in");
+    //    }
+    //    else {
+    //        $('.collapsed').removeClass("active");
+    //        $('.collapse').removeClass("in");
+    //        $(this).addClass('active');
+    //    }
         
-    });
+    //});
 
     $('.kichhoat').on('click', function () {
         var trangthai = $('#TrangThai').prop('checked');
@@ -72,39 +77,39 @@
 			$('.main').css('min-height', $('#sidebar-nav').height());
         }
 
-        $('#myTable').DataTable({
-            "order": [[0, "asc"]],
-            "paging": false,
-            "info": false,
-            "searching": false
-        });
+        //$('#myTable').DataTable({
+        //    "order": [[0, "asc"]],
+        //    "paging": false,
+        //    "info": false,
+        //    "searching": false
+        //});
 
-        $('#myTable1').DataTable({
-            "order": [[0, "asc"]],
-            "paging": false,
-            "info": false,
-            "searching": false
-        });
+        //$('#myTable1').DataTable({
+        //    "order": [[0, "asc"]],
+        //    "paging": false,
+        //    "info": false,
+        //    "searching": false
+        //});
 
-        $('#TableField').DataTable({
-            "order": [[0, "asc"]],
-            "paging": false,
-            "info": false,
-            "searching": false
-        });
+        //$('#TableField').DataTable({
+        //    "order": [[0, "asc"]],
+        //    "paging": false,
+        //    "info": false,
+        //    "searching": false
+        //});
 
-        $('#TableStudent').DataTable({
-            "order": [[0, "asc"]],
-            "paging": false,
-            "info": false,
-            "searching": false
-        });
-        $('#TableTeacher').DataTable({
-            "order": [[0, "asc"]],
-            "paging": false,
-            "info": false,
-            "searching": false
-        });
+        //$('#TableStudent').DataTable({
+        //    "order": [[0, "asc"]],
+        //    "paging": false,
+        //    "info": false,
+        //    "searching": false
+        //});
+        //$('#TableTeacher').DataTable({
+        //    "order": [[0, "asc"]],
+        //    "paging": false,
+        //    "info": false,
+        //    "searching": false
+        //});
 	});
 
 

@@ -8,7 +8,7 @@
     <script src="~/Assets/scripts/DropDown.js"></script>
     <script src="~/Assets/scripts/StudentPracticeControl.js"></script>
 }
-   
+
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
     <div class="sidebar-scroll">
@@ -43,7 +43,7 @@
                         <ul class="nav">
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
                             {
-                                <li><a href="~/Student/ListStudent" class="" ><span>Danh sách sinh viên</span></a></li>
+                                <li><a href="~/Student/ListStudent" class=""><span>Danh sách sinh viên</span></a></li>
                             }
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
                             {
@@ -51,7 +51,7 @@
                             }
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách thực tập"))
                             {
-                                <li><a href="~/StudentPractice/Index"class="active" style="background-color:#337ab7"><span>Danh sách thực tập</span></a></li>
+                                <li><a href="~/StudentPractice/Index" class="active" style="background-color:#337ab7"><span>Danh sách thực tập</span></a></li>
                             }
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa, Xóa thông báo"))
                             {
@@ -145,32 +145,44 @@
                 <div class="panel-body">
                     <div>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label style="float: left;margin: 5px 0px ">Học kỳ </label>
                                 <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
 
                                 </div>
 
                             </div>
-                            <div class="col-sm-4" style="padding-left:20px">
+                            <div class="col-sm-4" style="padding-left:20px;float:left">
                                 <label style="float: left;margin: 5px 0px ">Thực tập </label>
                                 <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
                                 </div>
 
                             </div>
-                            <div class="col-sm-2" style="padding: 0px;">
-                                <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
-                                    <a style="color:white" href="~/StudentPractice/Export">
-                                        <i class="fa fa-download"></i> Tải bản mẫu
-                                    </a>
-                                </button>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+
+                                <div class="col-sm-4" style="padding: 0px;">
+                                    <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-success">
+                                        <a style="color:white" href="~/StudentPractice/Export">
+                                            <i class="fa fa-download"></i> Tải bản mẫu
+                                        </a>
+                                    </button>
+                                </div>
+                                <div class="col-sm-4" style="padding: 0px;">
+                                    <button data-toggle="modal"
+                                            data-target="#themdsthuctap" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                        <i class="fa fa-plus"></i> Thêm mới
+                                    </button>
+                                </div>
+                                <div class="col-sm-4" style="padding: 0px;">
+                                    <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-danger">
+                                        <a style="color:white" onclick="QuestionDelete()">
+                                            <i class="fa fa-trash"></i> Xóa tất cả
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-sm-2" style="padding: 0px;">
-                                <button data-toggle="modal"
-                                        data-target="#themdsthuctap" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
-                                    <i class="fa fa-plus"></i> Thêm mới
-                                </button>
-                            </div>
+
                         </div>
                         <table id="myTable" class="table table-bordered" cellspacing="0" cellpadding="5" id=""
                                style="border-collapse:collapse;margin-top:10px">
@@ -186,7 +198,8 @@
                                     <th class="center-header" scope="col">Địa chỉ</th>
                                     <th class="center-header" scope="col">Ghi chú</th>
                                     <th class="center-header" scope="col">Thao tác</th>
-                                </tr></thead>
+                                </tr>
+                            </thead>
                             <tbody class="tbody"></tbody>
                         </table>
                         <div class="row">
@@ -222,7 +235,7 @@
 </div>
 <!-- END MAIN -->
 <!-- Modal sua sv thuc tap -->
-<div class="modal fade" id="suasvthuctap" role="dialog" >
+<div class="modal fade" id="suasvthuctap" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -248,13 +261,13 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label">Mã sinh viên</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" style="margin:5px 0px" id="suamasv" disabled/>
+                            <input type="text" class="form-control" style="margin:5px 0px" id="suamasv" disabled />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label">Họ tên sinh viên</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" style="margin:5px 0px" id="suahoten" disabled/>
+                            <input type="text" class="form-control" style="margin:5px 0px" id="suahoten" disabled />
                         </div>
                     </div>
                 </form>
@@ -333,8 +346,60 @@
                     </div>
                 }
 
-                </div>
+            </div>
         </div>
     </div>
 </div>
 <!-- /Modal them sv thuctap -->
+
+<div id="snackbar">
+    <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
+</div>
+<!-- /Modal thông báo -->
+<div class="modal fade" id="thongbao" role="dialog" style="margin-top:7%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:55%;margin:auto;padding:20px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Question</h4>
+            </div>
+            <div>
+
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa hết tất cả sinh viên này ?
+
+                </div>
+                <div class="modal-footer">
+                    <button id="deleteall" class="btn btn-default btn-success"> Có</button>
+                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"> Không</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- /Modal thông báo -->
+<div class="modal fade" id="error" role="dialog" style="margin-top:7%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:55%;margin:auto;padding:20px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div>
+
+                <div class="modal-body" id="alerterror">
+                    Các sinh viên này đã có đề tài. Không thể xóa !
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-primary" data-dismiss="modal"> OK</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

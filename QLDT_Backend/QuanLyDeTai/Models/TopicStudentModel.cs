@@ -7,6 +7,8 @@ namespace QuanLyDeTai.Models
 {
     public class TopicStudentModel
     {
+        public long ID { get; set; }
+
         public long? StudentPracticeID { get; set; }
 
         public long? TopicID { get; set; }
@@ -24,5 +26,23 @@ namespace QuanLyDeTai.Models
         public long? ModifiedBy { get; set; }
 
         public DateTime? ModifiedTime { get; set; }
+
+        public float? TeacherScore { get; set; }
+
+        public string MaSV { get; set; }
+
+
+        public string FirstName { get; set; }
+
+
+        public string LastName { get; set; }
+
+        public DateTime? Birthday { get; set; }
+
+        public string TopicName { get; set; }
+
+        public int? Progress { get; set; }
+
+        public bool? Result { get; set; }
     }
 }
