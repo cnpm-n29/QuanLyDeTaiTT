@@ -14,6 +14,8 @@
         
     //});
 
+    
+
     $('.kichhoat').on('click', function () {
         var trangthai = $('#TrangThai').prop('checked');
         if (trangthai == true) {
@@ -57,7 +59,9 @@
 		}
 	});
 
-	$(window).on('load', function() {
+    $(window).on('load', function () {
+        
+
 		if($(window).innerWidth() < 1025) {
 			$('.btn-toggle-fullwidth').find('.icon-arrows')
 			.removeClass('icon-arrows-move-left')

@@ -246,7 +246,7 @@ function Next() {
 }
 
 $('#maxRows').on('change', function () {
-    changeDropThucTap($(".LTT #LoaiTT").val(),"","", 0, $("#maxRows").val());
+    changeDropThucTap($("#LoaiTT").val(),"","", 0, $("#maxRows").val());
 })
 
 
@@ -284,10 +284,10 @@ function Search() {
 
     if ($("#choosen").val() == 0) {
         if (filter == "") {
-            changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
+            changeDropThucTap($("#LoaiTT").val(), "", "", 0, $("#maxRows").val());
         }
         else {
-            var IDTT = $(".LoaiTT #LoaiTT").val();
+            var IDTT = $("#LoaiTT").val();
             var IDHK = $(".HocKy #HocKy").val();
             var PgNumber = 0;
             var studentname = "";
@@ -360,10 +360,10 @@ function Search() {
     }
     else {
         if (filter == "") {
-            changeDropThucTap($(".LTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
+            changeDropThucTap($("#LoaiTT").val(), "", "", 0, $("#maxRows").val());
         }
         else {
-            var IDTT = $(".LoaiTT #LoaiTT").val();
+            var IDTT = $("#LoaiTT").val();
             var IDHK = $(".HocKy #HocKy").val();
             var PgNumber = 0;
             var masv = "";

@@ -28,6 +28,31 @@ function changeDropThucTap(IDTT, search = "") {
             }
             else {
                 $.each(result, function (key, item) {
+                    var thread;
+                    if (item.Result == true) {
+                        thread += "<tr>";
+                        thread += '<th class="center-header" scope = "col" > STT</th>';
+                        thread += '<th class="center-header" scope="col">Mã SV</th>';
+                        thread += '<th class="center-header" scope="col">Họ tên</th>';
+                        thread += '<th class="center-header" scope="col" style="width:30%;">Tên đề tài</th>';
+                        thread += '<th class="center-header" scope="col">Tiến độ</th>';
+                        thread += '<th class="center-header" scope="col">Kết quả</th>';
+                        thread += '<th class="center-header" scope="col">Điểm</th>';
+                        thread += '<th class="center-header" scope="col">Chi tiết</th>';
+                        thread += '</tr>';
+                    }
+                    else {
+                        thread += "<tr>";
+                        thread += '<th class="center-header" scope = "col" > STT</th>';
+                        thread += '<th class="center-header" scope="col">Mã SV</th>';
+                        thread += '<th class="center-header" scope="col">Họ tên</th>';
+                        thread += '<th class="center-header" scope="col" style="width:30%;">Tên đề tài</th>';
+                        thread += '<th class="center-header" scope="col">Tiến độ</th>';
+                        thread += '<th class="center-header" scope="col">Kết quả</th>';
+                        thread += '<th class="center-header" scope="col">Chi tiết</th>';
+                        thread += '</tr>';
+                    }
+                    $('.thead').html(thread);
                     html += '<tr>';
                     html += '<td align="center">' + (i++) + '</td>';
                     html += '<td>' + item.MaSV + '</td>';
@@ -52,12 +77,12 @@ function changeDropThucTap(IDTT, search = "") {
                     else if (item.Result == true) {
 
                         html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Đạt</label ></td >';
-
+                        html += '<td>' + item.TeacherScore + '</td>';
                     }
                     else{
                         html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Không đạt</label ></td >';
                     }
-                    html += '<td>' + item.TeacherScore + '</td>';
+                    
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> </td>';
 
                     html += '</tr>';
@@ -191,10 +216,11 @@ $(document).ready(function () {
         if (isNaN(score) == false) {
             result(id, true);
             create(score, id);
-            Reload();
+            
             $('#notification').addClass('alert-success');
             $('#notification').text('Thành công');
             myFunction();
+            Reload();
         }
         else {
             $('#giamsattd').modal('show');
@@ -247,6 +273,7 @@ function create(score, id) {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            Reload();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

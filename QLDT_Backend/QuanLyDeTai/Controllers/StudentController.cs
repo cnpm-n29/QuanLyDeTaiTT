@@ -530,9 +530,14 @@ namespace QuanLyDeTai.Controllers
             worksheet.Cells[3, 8].Value = "Email";
             worksheet.Cells[3, 9].Value = "Địa chỉ";
             worksheet.Cells[3, 10].Value = "Ghi chú";
+            
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới J1
-           
+            using (var range = worksheet.Cells["K1:N"+listItems.Count()])
+            {
+                range.Value = "";
+
+            }
             using (var range = worksheet.Cells["A2:J3"])
             {
 
@@ -634,10 +639,24 @@ namespace QuanLyDeTai.Controllers
             worksheet.Cells[3, 8].Value = "Email";
             worksheet.Cells[3, 9].Value = "Địa chỉ";
             worksheet.Cells[3, 10].Value = "Ghi chú";
+            worksheet.Cells[3, 11].Value = "Lỗi";
 
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới J1
+            using (var range = worksheet.Cells["A2:J2"])
+            {
+                range.Value = "";
+            }
+            using (var range = worksheet.Cells["K1:N2"])
+            {
+                range.Value = "";
 
-            using (var range = worksheet.Cells["A2:J3"])
+            }
+            using (var range = worksheet.Cells["L3:N" + listItems.Count()])
+            {
+                range.Value = "";
+
+            }
+            using (var range = worksheet.Cells["A3:J3"])
             {
 
                 // Canh giữa cho các text
@@ -670,7 +689,7 @@ namespace QuanLyDeTai.Controllers
                 worksheet.Cells[i + 4, 8].Value = student.Email;
                 worksheet.Cells[i + 4, 9].Value = student.Address;
                 worksheet.Cells[i + 4, 10].Value = student.Note;
-
+                worksheet.Cells[i + 4, 11].Value = student.Error;
 
             }
             // fix lại width của column với minimum width là 15

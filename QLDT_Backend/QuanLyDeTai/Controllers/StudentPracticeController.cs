@@ -124,25 +124,26 @@ namespace QuanLyDeTai.Controllers
                             var error = new List<StudentModel>();
                             for (int rowIterator = 5; rowIterator <= noOfRows; rowIterator++)
                             {
-                                
+
                                 var student = new StudentPracticeRelationship();
                                 if (workSheet.Cells[rowIterator, 4].Value == null)
                                 {
-                                    
-                                        var s = new StudentModel()
-                                        {
-                                            Masv = "",
-                                            FullName = workSheet.Cells[rowIterator, 2].Value.ToString(),
-                                            Birthday = workSheet.Cells[rowIterator, 3].Value.ToString(),
-                                            ClassBC= workSheet.Cells[rowIterator, 5].Value.ToString(),
-                                            Error="Mã sv trống"
-                                        };
-                                        error.Add(s);
+
+                                    var s = new StudentModel()
+                                    {
+                                        Masv = "",
+                                        FullName = workSheet.Cells[rowIterator, 2].Value.ToString(),
+                                        Birthday = workSheet.Cells[rowIterator, 3].Value.ToString(),
+                                        ClassBC = workSheet.Cells[rowIterator, 5].Value.ToString(),
+                                        Error = "Mã sv trống"
+                                    };
+                                    error.Add(s);
                                 }
                                 else
                                 {
                                     masv = workSheet.Cells[rowIterator, 4].Value.ToString();
                                     var studentGetDatabase = studentService.GetByMasv(masv);
+                                    var studentPractice = studentPracticeService.GetBySinhVienvaKieuTT(studentGetDatabase.ID, practiceTypeId);
                                     if (studentGetDatabase == null)
                                     {
                                         var s = new StudentModel()
@@ -155,20 +156,39 @@ namespace QuanLyDeTai.Controllers
                                         };
                                         error.Add(s);
                                     }
+                                    else if (studentPractice != null)
+                                    {
+                                        var s = new StudentModel()
+                                        {
+                                            Masv = masv,
+                                            FullName = workSheet.Cells[rowIterator, 2].Value.ToString(),
+                                            Birthday = workSheet.Cells[rowIterator, 3].Value.ToString(),
+                                            ClassBC = workSheet.Cells[rowIterator, 5].Value.ToString(),
+                                            Error = "Sinh viên này đã thực tập trong kì này"
+                                        };
+                                        error.Add(s);
+                                    }
                                     else
                                     {
                                         student.StudentID = studentGetDatabase.ID;
 
                                         student.PracticeTypeID = practiceTypeId;
 
-                                        student.CreateBy= long.Parse(Session["UserId"].ToString());
+                                        student.CreateBy = long.Parse(Session["UserId"].ToString());
 
                                         studentPracticeService.Create(student);
                                     }
 
                                 }
                             }
-                            if (error != null)
+                            foreach (var item in error)
+                            {
+                                if (item.Error == null)
+                                {
+                                    error.Remove(item);
+                                }
+                            }
+                            if (error.Count > 0)
                             {
                                 ExportError(error);
                             }
@@ -183,7 +203,6 @@ namespace QuanLyDeTai.Controllers
             }
             return View("Index");
         }
-
 
 
         private Stream CreateExcelFile(Stream stream = null)
@@ -413,8 +432,12 @@ namespace QuanLyDeTai.Controllers
             worksheet.Cells[4, 19].Value = "T14";
             worksheet.Cells[4, 20].Value = "T15";
             worksheet.Cells[4, 21].Value = "Lỗi";
+            using (var range = worksheet.Cells["E3:L4"])
+            {
+                range.Value = "";
+            }
             // Lấy range vào tạo format cho range đó ở đây là từ A1 tới D1
-            using (var range = worksheet.Cells["A3:T4"])
+                using (var range = worksheet.Cells["A3:T4"])
             {
 
                 // Canh giữa cho các text

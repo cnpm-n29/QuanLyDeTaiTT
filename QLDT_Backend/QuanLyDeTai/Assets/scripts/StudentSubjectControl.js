@@ -1,37 +1,58 @@
 ﻿
-    $(window).on('load', function () {
-        getListKhoaHoc();
-        getListBoMon();
-        changeDropKhoaHoc($("#KhoaHoc").val());
-        var lastChecked = null;
+$(window).on('load', function () {
+    getListKhoaHoc();
+    getListBoMon();
+    changeDropKhoaHoc($("#KhoaHoc").val());
+});
 
-        var $chkboxes = $('.checkbox');
-        $chkboxes.click(function (event) {
-            if (!lastChecked) {
-                lastChecked = this;
-                return;
-            }
+var lastChecked = null;
 
-            if (event.shiftKey) {
-                var start = $chkboxes.index(this);
-                var end = $chkboxes.index(lastChecked);
+function changeCheck(key) {
+    var $chkboxes = $('.checkbox');
+    if (lastChecked == null) {
+        lastChecked = key;
+        return;
+    }
 
-                $chkboxes.slice(Math.min(start, end), Math.max(start, end) + 1).attr('checked', lastChecked.checked);
+    if (window.event.shiftKey) {
+        var start = key;
+        var end = lastChecked;
 
-            }
+        for (var i = end; i <= start; i++) {
+            $("#" + i).prop('checked', true);
+        }
 
-            lastChecked = this;
-        });
-    });
+    }
 
+    lastChecked = key;
 
+}
+
+//var $chkboxes = $('.checkbox');
+//var lastChecked = null;
+//$chkboxes.click(function (e) {
+//    if (!lastChecked) {
+//        lastChecked = this.getAttribute("id");
+//        return;
+//    }
+
+//    if (e.shiftKey) {
+//        var start = $chkboxes.index(this);
+//        var end = $chkboxes.index(lastChecked);
+
+//        $chkboxes.slice(Math.min(start, end), Math.max(start, end) + 1).prop('checked', lastChecked.checked);
+
+//    }
+
+//    lastChecked = this;
+//});
 
 //Thay doi dropdown cua thuc tap
 function changeDropKhoaHoc(IDKH) {
     var IDBM = $("#BoMon").val();
     $.ajax({
         async: false,
-        url: "/StudentSubject/GetByMaKhoaHoc?IDKH=" + IDKH+"&IDBM="+IDBM ,
+        url: "/StudentSubject/GetByMaKhoaHoc?IDKH=" + IDKH + "&IDBM=" + IDBM,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -48,8 +69,9 @@ function changeDropKhoaHoc(IDKH) {
             else {
                 var n = 0;
                 $.each(result.Student, function (key, item) {
-                    html += '<tr >';
-                    html += '<td style="text-align:center"><input style="margin:auto" name="ids[]" class="checkbox" type="checkbox"></td>';
+                    console.log(key);
+                    html += '<tr>';
+                    html += '<td style="text-align:center"><input onclick="changeCheck(' + key + ')" style="margin:auto" id="' + key + '" class="checkbox" type="checkbox"></td>';
                     html += '<td style="display:none">' + item.ID + '</td>';
                     html += '<td>' + item.MaSV + '</td>';
                     html += '<td>' + item.FirstName + ' ' + item.LastName + '</td>';
@@ -93,7 +115,7 @@ function changeDropKhoaHoc(IDKH) {
             alert(errormessage.responseText);
         }
     });
-}  
+}
 
 //Thay doi dropdown cua thuc tap
 function changeDropBoMon(IDBM) {
@@ -118,7 +140,7 @@ function changeDropBoMon(IDBM) {
                 var n = 0;
                 $.each(result.Student, function (key, item) {
                     html += '<tr >';
-                    html += '<td style="text-align:center"><input style="margin:auto" name="ids[]" class="checkbox" type="checkbox"></td>';
+                    html += '<td style="text-align:center"><input onclick="changeCheck(' + key + ')" style="margin:auto" id="' + key + '" class="checkbox" type="checkbox"></td>';
                     html += '<td style="display:none">' + item.ID + '</td>';
                     html += '<td>' + item.MaSV + '</td>';
                     html += '<td>' + item.FirstName + ' ' + item.LastName + '</td>';
@@ -162,7 +184,7 @@ function changeDropBoMon(IDBM) {
             alert(errormessage.responseText);
         }
     });
-}  
+}
 
 
 
@@ -206,7 +228,7 @@ $("#move").click(function () {
             html += '<td style="display:none">' + tr[i].getElementsByTagName("td")[1].textContent + '</td>';
             html += '<td>' + tr[i].getElementsByTagName("td")[2].textContent + '</td>';
             html += '<td>' + tr[i].getElementsByTagName("td")[3].textContent + '</td>';
-            html += '<td align = "center"><a class="choosen" onclick="Deleted(' + tr[i].getElementsByTagName("td")[1].textContent+ ')"><i style="color:red" class="fa fa-trash"></i></a></td >'
+            html += '<td align = "center"><a class="choosen" onclick="Deleted(' + tr[i].getElementsByTagName("td")[1].textContent + ')"><i style="color:red" class="fa fa-trash"></i></a></td >'
             html += '</tr>';
             $(tr[i]).remove();
 
@@ -218,7 +240,7 @@ $("#move").click(function () {
             //    StudentID: tr[i].getElementsByTagName("td")[1].textContent
             //};
             //ids.push(dt);
-           
+
         }
         else {
             i++;
@@ -226,7 +248,7 @@ $("#move").click(function () {
     }
     if (dem == 1) {
         var button = '<button id="edit" onclick="Save()"  style = "float: right; border-radius: 2 %; " class="btn btn-outline-info btn-primary" ><i class="fa fa-save"></i> Lưu lại</button >';
-       
+
         $('#TableSubject').after(button);
     }
     if (tr1[1].getElementsByTagName("td")[0].textContent == "Không có dữ liệu") {
@@ -256,8 +278,7 @@ function Deleted(IDSV) {
     table1 = document.getElementById("TableSubject");
     tr1 = table1.getElementsByTagName("tr");
     var i = 1;
-    while (i < tr1.length) 
-    {
+    while (i < tr1.length) {
         td = tr1[i].getElementsByTagName("td")[1];
         if (IDSV == td.textContent) {
             $(tr1[i]).remove();
@@ -284,7 +305,7 @@ function Deleted(IDSV) {
                         } else {
                             html += '<td>' + result.SubjectName + '</td>';
                         }
-                        html+='</tr>'
+                        html += '</tr>'
 
                     });
                     if (tr[1].getElementsByTagName("td")[0].textContent == "Không có dữ liệu") {
@@ -360,8 +381,7 @@ function Save() {
     if (tr.length == 1) {
         alert("Không có dữ liệu");
     }
-    else if (tr[1].getElementsByTagName("td")[0].textContent == "Không có dữ liệu")
-    {
+    else if (tr[1].getElementsByTagName("td")[0].textContent == "Không có dữ liệu") {
         alert("Không có dữ liệu");
     }
     else {
@@ -402,7 +422,7 @@ function search() {
     table = document.getElementById("TableStudent");
     tr = table.getElementsByTagName("tr");
     if ($("#searchfor").val() == 0) {
-        
+
         if (filter == "") {
             changeDropKhoaHoc($("#KhoaHoc").val())
         }
