@@ -6,7 +6,7 @@ $(window).on('load', function () {
 
 function GetNotification() {
     $.ajax({
-        url: "/Notification/GetbyStudentID/",
+        url: "/Notification/GetbyStudentIDLimit/",
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -33,10 +33,59 @@ function GetNotification() {
 
                 });
 
-                html += '<li><a href="" class="more">Đọc tất cả</a></li>';
+                html += '<li><a onclick="GetAllNotification()" class="more">Đọc tất cả</a></li>';
                 $('.nt').html(html);
                 $('.bg').html(i);
             }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetAllNotification() {
+    $.ajax({
+        url: "/Notification/GetbyStudentID/",
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+            var i = 0;
+            if (result == "") {
+
+                html += '<li>Không có thông báo nào</li>';
+
+
+                $('#allnotification').html(html);
+            }
+            else {
+                $.each(result, function (key, item) {
+                    if (parseInt(item.Day) < 10) {
+                        item.Day = "0" + item.Day;
+                    }
+                    if (parseInt(item.Month) < 10) {
+                        item.Month = "0" + item.Month;
+                    }
+                    if (parseInt(item.Hour) < 10) {
+                        item.Hour = "0" + item.Hour;
+                    }
+                    if (parseInt(item.Minute) < 10) {
+                        item.Minute = "0" + item.Minute;
+                    }
+                    if (item.Status == null || item.Status == false) {
+                        html += ' <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"><div class="d-flex w-100 justify-content-between" ><h5 class="mb-1" style="font-weight: bolder;color: mediumblue;">' + item.Title + '</h5></div ><p class="mb-1">' + item.Content + '</p><small>' + item.Hour + ":" + item.Minute + " " + item.Day + "/" + item.Month + "/" + item.Year +'</small></a>';
+                    }
+                    else {
+                        html += ' <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"><div class="d-flex w-100 justify-content-between" ><h5 class="mb-1" style="font-weight: bolder;color: mediumblue;">' + item.Title + '</h5></div ><p class="mb-1">' + item.Content + '</p><small>' + item.Hour + ":" + item.Minute + " " + item.Day + "/" + item.Month + "/" + item.Year +'</small></a>';
+                    }
+
+                });
+                
+                $('#allnotification').html(html);
+            }
+            $('#xemtatcathongbao').modal('show');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

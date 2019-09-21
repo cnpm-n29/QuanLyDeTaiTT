@@ -32,6 +32,7 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
+
         public IEnumerable<Notification> GetListByTTvaMaGV(long? id_tt, long? id_gv)
         {
             context.Configuration.ProxyCreationEnabled = false;

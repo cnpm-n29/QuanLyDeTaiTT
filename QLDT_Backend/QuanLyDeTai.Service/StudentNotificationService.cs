@@ -73,5 +73,10 @@ namespace QuanLyDeTai.Service
         {
             return studentNotificationDAL.GetList(ID);
         }
+
+        public IQueryable GetListLimit(long ID)
+        {
+            return studentNotificationDAL.GetListLimit(ID);
+        }
     }
 }

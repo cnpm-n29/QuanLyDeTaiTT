@@ -32,6 +32,12 @@ namespace QuanLyDeTai.Controllers
             return Json(studentNotification.ChangeStatus(id), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetbyStudentIDLimit()
+        {
+            long id = long.Parse(Session["UserId"].ToString());
+            return Json(studentNotification.GetListLimit(id), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetbyID(int ID)
         {
             return Json(notification.GetById(ID), JsonRequestBehavior.AllowGet);

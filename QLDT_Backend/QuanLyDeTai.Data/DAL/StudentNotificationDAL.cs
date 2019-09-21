@@ -38,8 +38,17 @@ namespace QuanLyDeTai.Data.DAL
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = context.StudentNotificationRelationships.Include(i => i.Notification)
-                .Where(i => i.StudentID == ID).Select(i => new { i.Notification.ID,i.Notification.Title,i.Notification.Content, i.Status });
+                .Where(i => i.StudentID == ID).Select(i => new { i.Notification.ID, i.Notification.Title, i.Notification.Content, i.Status, i.Notification.CreateTime.Value.Day, i.Notification.CreateTime.Value.Month, i.Notification.CreateTime.Value.Year, i.Notification.CreateTime.Value.Hour, i.Notification.CreateTime.Value.Minute });
             return user;
+        }
+
+        public IQueryable GetListLimit(long ID)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.StudentNotificationRelationships.Include(i => i.Notification)
+                .Where(i => i.StudentID == ID).Select(i => new { i.Notification.ID, i.Notification.Title, i.Notification.Content, i.Status,i.Notification.CreateTime });
+            return user.OrderBy(i=>i.CreateTime).Skip(0).Take(3);
         }
 
 

@@ -79,6 +79,7 @@ namespace QuanLyDeTai.Service
         {
             return notificationDAL.GetById(id);
         }
+        
 
         public IEnumerable<Notification> GetList(long ID)
         {

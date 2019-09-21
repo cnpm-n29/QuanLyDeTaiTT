@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QuanLyDeTai.Controllers
 {
-    public class AdditionalController : Controller
+    public class AdditionalController : BaseController
     {
         // GET: Additional
         public ActionResult ListTopic()
