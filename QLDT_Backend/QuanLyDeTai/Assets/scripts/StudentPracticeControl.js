@@ -132,7 +132,7 @@ function changeDropThucTap(IDTT,masv="",studentname="", PgNumber = 0, PgSize = $
 
             if (result.List == "") {
                 html += '<tr>';
-                html += '<td colspan="10">Không có dữ liệu</td>';
+                html += '<td colspan="11">Không có dữ liệu</td>';
 
                 html += '</tr>';
                 $('.tbody').html(html);
@@ -158,7 +158,8 @@ function changeDropThucTap(IDTT,masv="",studentname="", PgNumber = 0, PgSize = $
                     }
                     html += '<td>' + item.Note + '</td>';
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
-                    html += '</tr>';
+                    html += '<td style="text-align:center"><input id=' + item.ID + ' onclick="check(' + item.ID + ',' + key + ')" style="margin:auto" name="ids[]" class="checkbox" type="checkbox"></td>';
+                            html += '</tr>';
                 });
                 $('.tbody').html(html);
                 $('.pagination').html('')
@@ -255,6 +256,7 @@ function AddPracticeType() {
         PracticeID: $('.CreateLoaiTT #LoaiTT').val(),
         SemesterID: $('.CreateHocKy #HocKy').val()
     }
+    $("#err").text("");
     $.ajax({
         url: "/StudentPractice/AddPractice",
         data: JSON.stringify(practice),
@@ -262,13 +264,19 @@ function AddPracticeType() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            if (result == false) {
-                alert("Lỗi thêm mới");
-                return;
+            if (typeof (result) == "boolean") {
+                if (result == false) {
+                    $("#err").html("<span style='color:red'>* Lỗi thêm mới </span>");
+                    return;
+                }
+                $("#err").html("<span style='color:green'>* Thêm thành công!</span>");
+                getListHocKy();
+                getListLoaiTT();
+                changeDropHocKy($(".drpHocKy #HocKy").val());
             }
-            getListHocKy();
-            getListLoaiTT();
-            changeDropHocKy($(".drpHocKy #HocKy").val());
+            else {
+                $("#err").html("<span style='color:red'>"+result+"<span>");
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -305,7 +313,7 @@ function Search() {
 
                     if (result.List == "") {
                         html += '<tr>';
-                        html += '<td colspan="10">Không có dữ liệu</td>';
+                        html += '<td colspan="11">Không có dữ liệu</td>';
 
                         html += '</tr>';
                         $('.tbody').html(html);
@@ -331,6 +339,7 @@ function Search() {
                             }
                             html += '<td>' + item.Note + '</td>';
                             html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
+                            html += '<td style="text-align:center"><input id=' + item.ID + ' onclick="check(' + item.ID + ',' + key + ')" style="margin:auto" name="ids[]" class="checkbox" type="checkbox"></td>';
                             html += '</tr>';
                         });
                         $('.tbody').html(html);
@@ -381,7 +390,7 @@ function Search() {
 
                     if (result.List == "") {
                         html += '<tr>';
-                        html += '<td colspan="10">Không có dữ liệu</td>';
+                        html += '<td colspan="11">Không có dữ liệu</td>';
 
                         html += '</tr>';
                         $('.tbody').html(html);
@@ -407,6 +416,7 @@ function Search() {
                             }
                             html += '<td>' + item.Note + '</td>';
                             html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
+                            html += '<td style="text-align:center"><input id=' + item.ID + ' onclick="check(' + item.ID + ','+key+')" style="margin:auto" name="ids[]" class="checkbox" type="checkbox"></td>';
                             html += '</tr>';
                         });
                         $('.tbody').html(html);
@@ -539,4 +549,93 @@ $("#deleteall").click(function () {
             alert(errormessage.responseText);
         }
     });
+});
+
+var lastChecked = null;
+function check(ID,key) {
+        var numberOfChecked = $('input:checkbox:checked').length;
+        if (numberOfChecked > 0) {
+            $('.btn-warning').addClass("show");
+        }
+        else {
+            $('.btn-warning').removeClass("show");
+        }
+        if (lastChecked == null) {
+            lastChecked = key;
+            return;
+        }
+
+        if (window.event.shiftKey) {
+            var start = key;
+            var end = lastChecked;
+
+            for (var i = end; i <= start; i++) {
+                $("#" + i).prop('checked', true);
+            }
+
+        }
+
+        lastChecked = key;
+}
+
+function QuestionDeleteChoose() {
+    $("#thongbao2").modal("show");
+}
+
+$("#deletechoosen").click(function () {
+    var list = new Array();
+    var checkbox = $(".checkbox");
+    for (var i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked === true) {
+            list.push(checkbox[i].id);
+        }
+    }
+    $.ajax({
+        url: "/StudentPractice/DeleteChoose",
+        data: JSON.stringify({ 'list': list }),
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            $("#thongbao2").modal("hide");
+            
+            changeDropThucTap($("#LoaiTT").val(), "", "", 0, $("#maxRows").val());
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //$.ajax({
+    //    url: "/StudentPractice/DeleteAll?SemesterID=" + SemesterID + "&PracticeID=" + PracticeID,
+    //    type: "POST",
+    //    contentType: "application/json;charset=UTF-8",
+    //    dataType: "json",
+    //    success: function (result) {
+    //        if (result == true) {
+    //            $("#thongbao").modal("hide");
+    //            changeDropHocKy($("#HocKy").val());
+    //            $('#notification').addClass('alert-success');
+    //            $('#notification').text('Xóa thành công');
+    //            myFunction();
+    //        }
+    //        else if (result == false) {
+    //            $("#thongbao").modal("hide");
+    //            changeDropHocKy($("#HocKy").val());
+    //            $('#notification').addClass('alert-danger');
+    //            $('#notification').text('Xóa thất bại');
+    //            myFunction();
+    //        }
+    //        else {
+    //            $("#thongbao").modal("hide");
+    //            $("#alerterror").text(result);
+    //            $("#error").modal("show");
+    //        }
+
+
+    //    },
+    //    error: function (errormessage) {
+    //        alert(errormessage.responseText);
+    //    }
+    //});
 });

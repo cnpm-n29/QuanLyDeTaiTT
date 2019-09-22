@@ -181,6 +181,7 @@
                                         </a>
                                     </button>
                                 </div>
+
                             </div>
 
                         </div>
@@ -198,6 +199,7 @@
                                     <th class="center-header" scope="col">Địa chỉ</th>
                                     <th class="center-header" scope="col">Ghi chú</th>
                                     <th class="center-header" scope="col">Thao tác</th>
+                                    <th class="center-header" scope="col">Chọn</th>
                                 </tr>
                             </thead>
                             <tbody class="tbody"></tbody>
@@ -223,6 +225,11 @@
                                 </nav>
                             </div>
                         </div>
+                        <button style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-warning hide">
+                            <a style="color:white" onclick="QuestionDeleteChoose()">
+                                <i class="fa fa-trash"></i> Xóa đã chọn
+                            </a>
+                        </button>
                     </div>
                 </div>
 
@@ -329,9 +336,15 @@
                                     <td><div class="CreateHocKy"></div></td>
                                     <td><div class="CreateLoaiTT"></div></td>
 
-                                    <td align="center"><a onclick="AddPracticeType()"><i style="color:dodgerblue;margin:0px 20px" title="lưu" class="fa fa-save"></i></a><i style="color: red;" id="closett" title="hủy" class="fa fa-close"></i></td>
+                                    <td align="center">
+                                        <a onclick="AddPracticeType()"><i style="color:dodgerblue;margin:0px 20px" title="lưu" class="fa fa-save"></i></a>
+                                        <a href="#themtt" aria-expanded="false" data-toggle="collapse"><i style="color: red;" id="closett" title="hủy" class="fa fa-close"></i></a>
+                                    </td>
                                 </tr>
+
                             </table>
+                                <p id="err" style="text-align:center"></p>
+
                         </fieldset>
                     </div>
                     <div class="form-group">
@@ -366,11 +379,36 @@
             <div>
 
                 <div class="modal-body">
-                    Bạn có chắc chắn muốn xóa hết tất cả sinh viên này ?
+                    Bạn có chắc chắn muốn xóa tất cả sinh viên này ?
 
                 </div>
                 <div class="modal-footer">
                     <button id="deleteall" class="btn btn-default btn-success"> Có</button>
+                    <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"> Không</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- /Modal thông báo -->
+<div class="modal fade" id="thongbao2" role="dialog" style="margin-top:7%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:55%;margin:auto;padding:20px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Question</h4>
+            </div>
+            <div>
+
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa các sinh viên đã chọn ?
+
+                </div>
+                <div class="modal-footer">
+                    <button id="deletechoosen" class="btn btn-default btn-success"> Có</button>
                     <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"> Không</button>
                 </div>
 

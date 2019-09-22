@@ -38,14 +38,19 @@ namespace QuanLyDeTai.Controllers
 
         public JsonResult AddPractice(long PracticeID, long SemesterID)
         {
-            var practice = new PracticeType
+            var check = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
+            if (check == null)
             {
-                PracticeID = PracticeID,
-                SemesterID = SemesterID
-            };
-            bool status = practiceService.Create(practice);
-            // 5. Trả về các Link được phân trang theo kích thước và số trang.
-            return Json(status, JsonRequestBehavior.AllowGet);
+                var practice = new PracticeType
+                {
+                    PracticeID = PracticeID,
+                    SemesterID = SemesterID
+                };
+                bool status = practiceService.Create(practice);
+                // 5. Trả về các Link được phân trang theo kích thước và số trang.
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            return Json("Loại thực tập này đã có trong kì học", JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetbyID(int ID)
@@ -69,6 +74,25 @@ namespace QuanLyDeTai.Controllers
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             return Json(studentPracticeService.Delete(id,id_gv), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteChoose(List<int> list)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            int dem = 0;
+            foreach(var i in list)
+            {
+                var checkChooseTopic = topicStudentService.GetByStudentPracticeIdNoCheckStatus(i);
+                if (checkChooseTopic != null)
+                {
+                    dem++;
+                }
+                else
+                {
+                    studentPracticeService.Delete(i, id_gv);
+                }
+            }
+            return Json(dem, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeleteAll(long PracticeID, long SemesterID)
