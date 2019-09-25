@@ -11,15 +11,13 @@
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
                 { 
                     <li>
-                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <a id="menu" href="#subPages" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a>
                         <div id="subPages" class="collapse ">
                             <ul class="nav">
                                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
                                 {
                                     <li><a href="~/Topic/Index" class=""><span>Đề tài thực tập</span></a></li>
                                 }
-
-
                                 @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
                                 {
                                     <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
@@ -34,7 +32,7 @@
                     </li>
 
                     <li>
-                        <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <a id="menu2" href="#subPages2" class="collapsed"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a>
                         <div id="subPages2" class="collapse ">
                             <ul class="nav">
                                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))

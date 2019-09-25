@@ -3107,10 +3107,11 @@ form .panel{
         }
 
 .footer {
-    margin-top: 140px;
+    position: absolute;
+    bottom: 0;
     height: 40px;
-    padding-bottom: 0px;
-    background-color: #2980B9;
+    width: 100%;
+    background-color: #2980b9;
     color: white;
 }
 

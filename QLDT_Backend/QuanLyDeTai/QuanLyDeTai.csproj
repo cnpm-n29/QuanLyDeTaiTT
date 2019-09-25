@@ -183,6 +183,7 @@
     <Content Include="Assets\img\login.png" />
     <Content Include="Assets\img\logo-dark.png" />
     <Content Include="Assets\img\logo.png" />
+    <Content Include="Assets\img\logo2.png" />
     <Content Include="Assets\img\profile-bg.png" />
     <Content Include="Assets\img\user-medium.jpg" />
     <Content Include="Assets\img\user.png" />
