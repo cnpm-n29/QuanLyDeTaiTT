@@ -222,75 +222,41 @@ namespace QuanLyDeTai.Controllers
         [HttpPost]
         public ActionResult Upload(string FacultyId)
         {
-            if (Request != null)
+            ViewBag.error = "";
+            try
             {
-                HttpPostedFileBase file = Request.Files["UploadedFile"];
-                if ((file != null && file.ContentLength > 0 && !string.IsNullOrEmpty(file.FileName)))
+                if (Request != null)
                 {
-                    string fileName = file.FileName;
-                    string fileContentType = file.ContentType;
-                    byte[] filebytes = new byte[file.ContentLength];
-                    var data = file.InputStream.Read(filebytes, 0, Convert.ToInt32(file.ContentLength));
-
-                    var suppleirList = new List<StudentModel>();
-
-                    using (var package = new ExcelPackage(file.InputStream))
+                    HttpPostedFileBase file = Request.Files["UploadedFile"];
+                    if ((file != null && file.ContentLength > 0 && !string.IsNullOrEmpty(file.FileName)))
                     {
-                        var currentSheet = package.Workbook.Worksheets;
-                        var workSheet = currentSheet.First();
-                        var noOfColumns = workSheet.Dimension.End.Column;
-                        var noOfRows = workSheet.Dimension.End.Row;// Here is where my issue is
-                        var error = new List<StudentModel>();
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] filebytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(filebytes, 0, Convert.ToInt32(file.ContentLength));
 
-                        for (int rowIterator = 4; rowIterator <= noOfRows; rowIterator++)
+                        var suppleirList = new List<StudentModel>();
+
+                        using (var package = new ExcelPackage(file.InputStream))
                         {
-                            var student = new StudentModel();
-                            if (workSheet.Cells[rowIterator, 2].Value == null)
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfColumns = workSheet.Dimension.End.Column;
+                            var noOfRows = workSheet.Dimension.End.Row;// Here is where my issue is
+                            var error = new List<StudentModel>();
+                            if (workSheet.Cells[3, 1].Value.ToString().ToLower().Equals("stt") && workSheet.Cells[3, 2].Value.ToString().ToLower().Equals("mã sv")
+                                && workSheet.Cells[3, 3].Value.ToString().ToLower().Equals("họ") && workSheet.Cells[3, 4].Value.ToString().ToLower().Equals("tên")
+                                && workSheet.Cells[3, 5].Value.ToString().ToLower().Equals("ngày sinh") && workSheet.Cells[3, 6].Value.ToString().ToLower().Equals("giới tính")
+                                && workSheet.Cells[3, 7].Value.ToString().ToLower().Equals("số điện thoại"))
                             {
-                                var s = new StudentModel()
+                                for (int rowIterator = 4; rowIterator <= noOfRows; rowIterator++)
                                 {
-                                    Masv = "",
-                                    FirstName = workSheet.Cells[rowIterator, 3].Value!=null? workSheet.Cells[rowIterator, 3].Value.ToString() :"",
-                                    LastName = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : "",
-                                    Birthday = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : "",
-                                    Sex = (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ")?true:false ,
-                                    
-                                    Phone = workSheet.Cells[rowIterator, 7].Value != null ? workSheet.Cells[rowIterator, 7].Value.ToString() : "",
-                                    Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
-                                    Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
-                                    Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
-                                    Error = "Mã sv trống"
-                                };
-                                error.Add(s);
-                            }
-                            else
-                            {
-                                
-                                if(studentService.GetByMasv(workSheet.Cells[rowIterator, 2].Value.ToString()) != null)
-                                {
-                                    var s = new StudentModel()
-                                    {
-                                        Masv = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : "",
-                                        FirstName = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : "",
-                                        LastName = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : "",
-                                        Birthday = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : "",
-                                        Sex = (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ") ? true : false,
-
-                                        Phone = workSheet.Cells[rowIterator, 7].Value != null ? workSheet.Cells[rowIterator, 7].Value.ToString() : "",
-                                        Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
-                                        Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
-                                        Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
-                                        Error = "Sinh viên này đã tồn tại"
-                                    };
-                                    error.Add(s);
-                                }
-                                else {
-                                    student.Masv = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                    if (workSheet.Cells[rowIterator, 3].Value == null)
+                                    var student = new StudentModel();
+                                    if (workSheet.Cells[rowIterator, 2].Value == null)
                                     {
                                         var s = new StudentModel()
                                         {
-                                            Masv = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : "",
+                                            Masv = "",
                                             FirstName = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : "",
                                             LastName = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : "",
                                             Birthday = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : "",
@@ -300,14 +266,14 @@ namespace QuanLyDeTai.Controllers
                                             Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
                                             Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
                                             Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
-                                            Error = "Tên không được để trống"
+                                            Error = "Mã sv trống"
                                         };
                                         error.Add(s);
                                     }
                                     else
                                     {
-                                        student.FirstName = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                        if (workSheet.Cells[rowIterator, 4].Value == null)
+
+                                        if (studentService.GetByMasv(workSheet.Cells[rowIterator, 2].Value.ToString()) != null)
                                         {
                                             var s = new StudentModel()
                                             {
@@ -321,81 +287,35 @@ namespace QuanLyDeTai.Controllers
                                                 Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
                                                 Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
                                                 Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
-                                                Error = "Tên không được để trống"
+                                                Error = "Sinh viên này đã tồn tại"
                                             };
                                             error.Add(s);
                                         }
                                         else
                                         {
-                                            student.LastName = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                            if (workSheet.Cells[rowIterator, 5].Value == null)
+                                            student.Masv = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                            if (workSheet.Cells[rowIterator, 3].Value == null)
                                             {
-                                                student.Birthday = "";
-                                            }
-                                            else
-                                            {
-                                                student.Birthday = workSheet.Cells[rowIterator, 5].Value.ToString().Trim();
-
-                                            }
-                                            if (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ")
-                                            {
-                                                student.Sex = true;
-                                            }
-                                            else if (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nam")
-                                            {
-                                                student.Sex = false;
-                                            }
-                                            else
-                                            {
-                                                student.Sex = null;
-                                            }
-                                            if (workSheet.Cells[rowIterator, 7].Value == null)
-                                            {
-                                                student.Phone = "";
-                                            }
-                                            else
-                                            {
-                                                student.Phone = workSheet.Cells[rowIterator, 7].Value.ToString();
-                                            }
-                                            if (workSheet.Cells[rowIterator, 8].Value == null)
-                                            {
-                                                student.Email = "";
-                                            }
-                                            else
-                                            {
-                                                student.Email = workSheet.Cells[rowIterator, 8].Value.ToString();
-                                            }
-                                            if (workSheet.Cells[rowIterator, 9].Value == null)
-                                            {
-                                                student.Address = ""; ;
-                                            }
-                                            else
-                                            {
-                                                student.Address = workSheet.Cells[rowIterator, 9].Value.ToString();
-                                            }
-                                            if (workSheet.Cells[rowIterator, 10].Value == null)
-                                            {
-                                                student.Note = "";
-                                            }
-                                            else
-                                            {
-                                                student.Note = workSheet.Cells[rowIterator, 10].Value.ToString();
-                                            }
-                                            student.FacultyId = Convert.ToInt32(FacultyId);
-                                            student.CreateBy = long.Parse(Session["UserId"].ToString());
-                                            if (student.Birthday == "")
-                                            {
-                                                studentService.Create(student.ToModelNoBirthday());
-                                            }
-                                            else
-                                            {
-                                                var state = false;
-                                                try
+                                                var s = new StudentModel()
                                                 {
-                                                    var check = student.ToModel();
-                                                    state = true;
-                                                }
-                                                catch (Exception e)
+                                                    Masv = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : "",
+                                                    FirstName = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : "",
+                                                    LastName = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : "",
+                                                    Birthday = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : "",
+                                                    Sex = (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ") ? true : false,
+
+                                                    Phone = workSheet.Cells[rowIterator, 7].Value != null ? workSheet.Cells[rowIterator, 7].Value.ToString() : "",
+                                                    Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
+                                                    Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
+                                                    Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
+                                                    Error = "Tên không được để trống"
+                                                };
+                                                error.Add(s);
+                                            }
+                                            else
+                                            {
+                                                student.FirstName = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                                if (workSheet.Cells[rowIterator, 4].Value == null)
                                                 {
                                                     var s = new StudentModel()
                                                     {
@@ -409,44 +329,142 @@ namespace QuanLyDeTai.Controllers
                                                         Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
                                                         Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
                                                         Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
-                                                        Error = "Đã có lỗi với ngày sinh " + e.ToString()
+                                                        Error = "Tên không được để trống"
                                                     };
                                                     error.Add(s);
-                                                    state = false;
                                                 }
-                                                if (state)
+                                                else
                                                 {
-                                                    bool status = studentService.Create(student.ToModel());
+                                                    student.LastName = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                                    if (workSheet.Cells[rowIterator, 5].Value == null)
+                                                    {
+                                                        student.Birthday = "";
+                                                    }
+                                                    else
+                                                    {
+                                                        student.Birthday = workSheet.Cells[rowIterator, 5].Value.ToString().Trim();
 
-                                                    suppleirList.Add(student);
+                                                    }
+                                                    if (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ")
+                                                    {
+                                                        student.Sex = true;
+                                                    }
+                                                    else if (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nam")
+                                                    {
+                                                        student.Sex = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        student.Sex = null;
+                                                    }
+                                                    if (workSheet.Cells[rowIterator, 7].Value == null)
+                                                    {
+                                                        student.Phone = "";
+                                                    }
+                                                    else
+                                                    {
+                                                        student.Phone = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                                    }
+                                                    if (workSheet.Cells[rowIterator, 8].Value == null)
+                                                    {
+                                                        student.Email = "";
+                                                    }
+                                                    else
+                                                    {
+                                                        student.Email = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                                    }
+                                                    if (workSheet.Cells[rowIterator, 9].Value == null)
+                                                    {
+                                                        student.Address = ""; ;
+                                                    }
+                                                    else
+                                                    {
+                                                        student.Address = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                                    }
+                                                    if (workSheet.Cells[rowIterator, 10].Value == null)
+                                                    {
+                                                        student.Note = "";
+                                                    }
+                                                    else
+                                                    {
+                                                        student.Note = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                                    }
+                                                    student.FacultyId = Convert.ToInt32(FacultyId);
+                                                    student.CreateBy = long.Parse(Session["UserId"].ToString());
+                                                    if (student.Birthday == "")
+                                                    {
+                                                        studentService.Create(student.ToModelNoBirthday());
+                                                    }
+                                                    else
+                                                    {
+                                                        var state = false;
+                                                        try
+                                                        {
+                                                            var check = student.ToModel();
+                                                            state = true;
+                                                        }
+                                                        catch (Exception e)
+                                                        {
+                                                            var s = new StudentModel()
+                                                            {
+                                                                Masv = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : "",
+                                                                FirstName = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : "",
+                                                                LastName = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : "",
+                                                                Birthday = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : "",
+                                                                Sex = (workSheet.Cells[rowIterator, 6].Value.ToString() == "Nữ") ? true : false,
+
+                                                                Phone = workSheet.Cells[rowIterator, 7].Value != null ? workSheet.Cells[rowIterator, 7].Value.ToString() : "",
+                                                                Email = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : "",
+                                                                Address = workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : "",
+                                                                Note = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : "",
+                                                                Error = "Đã có lỗi với ngày sinh " + e.ToString()
+                                                            };
+                                                            error.Add(s);
+                                                            state = false;
+                                                        }
+                                                        if (state)
+                                                        {
+                                                            bool status = studentService.Create(student.ToModel());
+
+                                                            suppleirList.Add(student);
+                                                        }
+                                                    }
+
                                                 }
-                                            }
 
+                                            }
                                         }
 
+
+                                    }
+
+
+
+                                }
+                                foreach (var item in error)
+                                {
+                                    if (item.Error == null)
+                                    {
+                                        error.Remove(item);
                                     }
                                 }
-                                
-                                
+                                if (error.Count > 0)
+                                {
+                                    ExportError(error);
+                                }
+
                             }
-                            
-                            
-                        }
-                        foreach (var item in error)
-                        {
-                            if (item.Error == null)
+                            else
                             {
-                                error.Remove(item);
+                                ViewBag.error = "Không đúng định dạng excel";
                             }
                         }
-                        if (error.Count > 0)
-                        {
-                            ExportError(error);
-                        }
-
-
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = "Thêm mới dữ liệu không thành công";
             }
             return View("ListStudent");
         }
@@ -651,10 +669,13 @@ namespace QuanLyDeTai.Controllers
                 range.Value = "";
 
             }
-            using (var range = worksheet.Cells["L3:N" + listItems.Count()])
+            if (listItems.Count() > 2)
             {
-                range.Value = "";
+                using (var range = worksheet.Cells["L3:N" + listItems.Count()])
+                {
+                    range.Value = "";
 
+                }
             }
             using (var range = worksheet.Cells["A3:J3"])
             {

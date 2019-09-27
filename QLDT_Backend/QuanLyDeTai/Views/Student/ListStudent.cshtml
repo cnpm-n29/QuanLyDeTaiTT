@@ -7,6 +7,15 @@
 {
     <script src="~/Assets/scripts/DropDown.js"></script>
     <script src="~/Assets/scripts/ListStudentControl.js"></script>
+
+    @if (@ViewBag.error != null)
+    {
+        <script>
+            if ($("errorexcel").text() != "") {
+                $("#themdssv").modal("show");
+            }
+        </script>
+    }
 }
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
@@ -168,7 +177,7 @@
                                 <tr>
                                     <th class="center-header" scope="col" style="width:3%">STT</th>
                                     <th class="center-header" scope="col" style="width:5%">Mã SV</th>
-                                    <th class="center-header" scope="col" style="width:20%" >Họ tên</th>
+                                    <th class="center-header" scope="col" style="width:20%">Họ tên</th>
                                     <th class="center-header" scope="col" style="width:10%">Ngày sinh</th>
                                     <th class="center-header" scope="col" style="width:10%">Giới tính</th>
                                     <th class="center-header" scope="col" style="width:10%">Email</th>
@@ -202,130 +211,130 @@
                             </div>
                         </div>
                     </div>
-                        </div>
-
                 </div>
-                <!-- END RECENT PURCHASES -->
 
             </div>
+            <!-- END RECENT PURCHASES -->
+
         </div>
-        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+</div>
+<!-- END MAIN -->
+<!-- Modal sua sv -->
+<div class="modal fade" id="suasvthuctap" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">CHỈNH SỬA THÔNG TIN SINH VIÊN</h4>
+            </div>
+            <form style="margin:20px 40px">
+                <div class="modal-body">
+                    <input type="hidden" id="ID" />
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Kỳ học</label>
+                        <div class="col-sm-5">
+                            <div class="ddlKhoaHoc2 SuaHocKy"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Mã SV</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaMasv" />
+                            <p id="errorMasv" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Họ</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaHo" />
+
+                            <p id="errorHo" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Tên</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaTen" />
+
+                            <p id="errorTen" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Ngày sinh</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" id="SuaNs" />
+
+                            <p id="errorNs" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">SDT</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaSdt" />
+
+                            <p id="errorSdt" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaEmail" />
+
+                            <p id="errorEmail" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Địa</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="SuaDc" />
+
+                            <p id="errorDc" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Trạng thái</label>
+                        <div class="col-sm-3">
+                            <input type="radio" name="SuaGt" value="True" class="SuaGt col-sm-3" />
+                            <p id="suatrangthai" class="col-sm-3">Nữ</p>
+                            <input type="radio" name="SuaGt" value="False" class="SuaGt col-sm-3" />
+                            <p id="suatrangthai" class="col-sm-3">Nam</p>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="submit" onclick="Update()" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
+
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+            </div>
+
+        </div>
     </div>
 </div>
-    <!-- END MAIN -->
-    <!-- Modal sua sv -->
-    <div class="modal fade" id="suasvthuctap" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">CHỈNH SỬA THÔNG TIN SINH VIÊN</h4>
-                </div>
-                <form style="margin:20px 40px">
-                    <div class="modal-body">
-                        <input type="hidden" id="ID" />
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Kỳ học</label>
-                            <div class="col-sm-5">
-                                <div class="ddlKhoaHoc2 SuaHocKy"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Mã SV</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="SuaMasv" />
-                                <p id="errorMasv" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Họ</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="SuaHo" />
-
-                                <p id="errorHo" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Tên</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="SuaTen" />
-
-                                <p id="errorTen" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Ngày sinh</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control" id="SuaNs" />
-
-                                <p id="errorNs" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">SDT</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="SuaSdt" />
-
-                                <p id="errorSdt" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Email</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="SuaEmail" />
-
-                                <p id="errorEmail" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Địa</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="SuaDc" />
-
-                                <p id="errorDc" class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 control-label">Trạng thái</label>
-                            <div class="col-sm-3">
-                                <input type="radio" name="SuaGt" value="True" class="SuaGt col-sm-3" />
-                                <p id="suatrangthai" class="col-sm-3">Nữ</p>
-                                <input type="radio" name="SuaGt" value="False" class="SuaGt col-sm-3" />
-                                <p id="suatrangthai" class="col-sm-3">Nam</p>
-
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                    <div class="modal-footer">
-                        <button type="submit" onclick="Update()" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Sửa</button>
-                        
-                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
-    <!-- /Modal sua sv-->
-    <!-- Modal them sv -->
-    <div class="modal fade" id="themdssv" role="dialog" style="margin-top: 7%">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">THÊM DANH SÁCH SINH VIÊN</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- edit form column -->
-                    @using (Html.BeginForm("Upload", "Student", FormMethod.Post, new { enctype = "multipart/form-data", @style = "max-width: 80%;margin: auto" }))
-                    {
+<!-- /Modal sua sv-->
+<!-- Modal them sv -->
+<div class="modal fade" id="themdssv" role="dialog" style="margin-top: 7%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="clearBag()">&times;</button>
+                <h4 class="modal-title">THÊM DANH SÁCH SINH VIÊN</h4>
+            </div>
+            <div class="modal-body">
+                <!-- edit form column -->
+                @using (Html.BeginForm("Upload", "Student", FormMethod.Post, new { enctype = "multipart/form-data", @style = "max-width: 80%;margin: auto" }))
+                {
                     <div class="create form-group row">
 
                         <label class="col-sm-3" style="float: left;margin: 5px 0px 10px 0px ">Khóa học </label>
-                        <div class="ddlKhoaHoc1 col-sm-5" ></div>
+                        <div class="ddlKhoaHoc1 col-sm-5"></div>
 
                     </div>
                     <br />
@@ -333,21 +342,22 @@
                     <div class="form-group row">
                         <label class="col-sm-3" for="">Chọn file</label>
                         <input id="file" type="file" name="UploadedFile" class="" />
+                        @if (@ViewBag.error != null)
+                        {
+                            <p style="color:red" id="errorexcel">* @ViewBag.error</p>
+                        }
                     </div>
 
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-success"> <i class="fa fa-save"></i> Save</button>
-                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal" onclick="clearBag()"><i class="fa fa-close"></i> Đóng</button>
                     </div>
-                      }
+                }
 
-                 </div>
-             </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- /Modal them sv -->
-
-    <a href="~/Student/Export">Ok</a>
-
+<!-- /Modal them sv -->

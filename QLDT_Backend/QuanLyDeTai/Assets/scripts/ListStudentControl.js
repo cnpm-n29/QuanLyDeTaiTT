@@ -322,4 +322,8 @@ function Search() {
         }
 }
 
+function clearBag() {
+    $("#errorexcel").text("");
+}
+
 
