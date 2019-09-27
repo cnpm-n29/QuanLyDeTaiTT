@@ -1,4 +1,4 @@
-﻿$(document).ready(function() {
+﻿$(document).ready(function () {
     
 
     $('.collapsed').on('click', function () {
@@ -78,7 +78,22 @@
 	});
 
     $(window).on('load', function () {
-        
+        if ($("a").hasClass("menu")){
+            $("#menu").addClass('active');
+            $("#subPages").addClass("in");
+            $("#menu").attr("aria-expanded", true);
+            $("#subPages").attr("aria-expanded", true);
+            $("#menu").find("i.icon-submenu").removeClass("lnr-chevron-left")
+            $("#menu").find("i.icon-submenu").addClass("lnr-chevron-down");
+        }
+        if ($("a").hasClass("menu2")) {
+            $("#menu2").addClass('active');
+            $("#subPages2").addClass("in");
+            $("#menu2").attr("aria-expanded", true);
+            $("#subPages2").attr("aria-expanded", true);
+            $("#menu2").find("i.icon-submenu").removeClass("lnr-chevron-left")
+            $("#menu2").find("i.icon-submenu").addClass("lnr-chevron-down");
+        }
 
 		if($(window).innerWidth() < 1025) {
 			$('.btn-toggle-fullwidth').find('.icon-arrows')

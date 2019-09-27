@@ -48,7 +48,7 @@ namespace QuanLyDeTai.Controllers
             var detai = topicStudentService.getTopicChoose(svtt.ID);
 
             if (status != null && detai == null) {
-                return Json(new { TotalRecords = 0, Error = "Đã chọn đề tài, chờ giáo viên hướng dẫn chốt" }, JsonRequestBehavior.AllowGet);
+                return Json(new { TotalRecords = 0, ChooseTopic = status }, JsonRequestBehavior.AllowGet);
             }
             else if (detai != null)
             {

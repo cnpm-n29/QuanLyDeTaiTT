@@ -42,7 +42,7 @@
                         <ul class="nav">
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
                             {
-                                <li><a href="~/Student/ListStudent" class="active"><span>Danh sách sinh viên</span></a></li>
+                                <li><a href="~/Student/ListStudent" class=""><span>Danh sách sinh viên</span></a></li>
                             }
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách Giảng viên"))
                             {
@@ -58,7 +58,7 @@
                             }
                             @if (Session["Quyen"].ToString().Contains("Xem danh sách sinh viên bộ môn"))
                             {
-                                <li><a href="~/Student/ListStudentSubject" class="" style="background-color:#337ab7"><span>Danh sách sinh viên</span></a></li>
+                                <li><a href="~/Student/ListStudentSubject" class="menu2" style="background-color:#337ab7"><span>Danh sách sinh viên</span></a></li>
                             }
                             @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
                             {

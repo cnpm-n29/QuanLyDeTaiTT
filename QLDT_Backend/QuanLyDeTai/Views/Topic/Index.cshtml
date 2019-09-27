@@ -17,11 +17,11 @@
             <ul class="nav">
                 <li>
                     <a id="menu" href="#subPages" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a>
-                    <div id="subPages" class="collapse">
+                    <div id="subPages" class="collapse" style="background-color:aqua">
                         <ul class="nav">
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
                             {
-                                <li><a href="~/Topic/Index" class=""  style="background-color:#337ab7"><span>Đề tài thực tập</span></a></li>
+                                <li><a href="~/Topic/Index" class="menu"  style="background-color:#337ab7"><span>Đề tài thực tập</span></a></li>
                             }
 
 
