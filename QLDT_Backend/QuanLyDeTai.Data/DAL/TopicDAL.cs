@@ -101,7 +101,7 @@ namespace QuanLyDeTai.Data.DAL
         }
 
 
-        public IQueryable GetListByTT(long? id_tt, string search, int pageNumber, int pageSize)
+        public IQueryable GetListByTTAll(long? id_tt,long? id_bm, string search, int pageNumber, int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
@@ -109,8 +109,8 @@ namespace QuanLyDeTai.Data.DAL
                        join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
                        join x in context.Teachers on d.TeacherID equals x.ID
                        join a in context.Fields on d.FieldID equals a.ID
-                       where d.PracticeTypeID == id_tt && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
-                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       where d.PracticeTypeID == id_tt && (x.FirstName.Contains(search)|| x.LastName.Contains(search)) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))&&x.SubjectID==id_bm
                        select new
                        {
                            d.ID,
@@ -121,10 +121,10 @@ namespace QuanLyDeTai.Data.DAL
                            x.LastName,
                            a.FieldName
                        };
-            return user.OrderBy(a => a.FieldName).Skip(pageNumber * pageSize).Take(pageSize);
+            return user.OrderBy(a => a.LastName).Skip(pageNumber * pageSize).Take(pageSize);
         }
 
-        public int GetListByTTCount(long? id_tt, string search, int pageNumber, int pageSize)
+        public int GetListByTTAllCount(long? id_tt, long? id_bm, string search, int pageNumber, int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
@@ -132,8 +132,8 @@ namespace QuanLyDeTai.Data.DAL
                        join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
                        join x in context.Teachers on d.TeacherID equals x.ID
                        join a in context.Fields on d.FieldID equals a.ID
-                       where d.PracticeTypeID == id_tt && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
-                        && (x.IsDeleted == false || x.IsDeleted.Equals(null))
+                       where d.PracticeTypeID == id_tt && (x.FirstName.Contains(search) || x.LastName.Contains(search)) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                        && (x.IsDeleted == false || x.IsDeleted.Equals(null)) && x.SubjectID == id_bm
                        select new
                        {
                            d.ID,
@@ -213,7 +213,7 @@ namespace QuanLyDeTai.Data.DAL
             //return user;
         }
 
-        public object GetListByTTvaMaGV(long? id_tt,long? id_gv,long? fieldId,string search,int pageNumber,int pageSize)
+        public IQueryable GetListByTTvaMaGV(long? id_tt,long? id_gv,long? fieldId,string search,int pageNumber,int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
@@ -224,7 +224,7 @@ namespace QuanLyDeTai.Data.DAL
             .Select(i=>new { i.ID,i.TopicName,i.Description,i.Field.FieldName})
 
             .OrderBy(i => i.ID)
-            .Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            .Skip(pageNumber * pageSize).Take(pageSize);
             //context.Configuration.ProxyCreationEnabled = false;
             ////Get from database
             //var user = context.Topics
@@ -252,7 +252,7 @@ namespace QuanLyDeTai.Data.DAL
             return user;
         }
 
-        public object GetListByTTvaMaGV(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        public IQueryable GetListByTTvaMaGV(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
         {
             context.Configuration.ProxyCreationEnabled = false;
             //Get from database
@@ -262,7 +262,7 @@ namespace QuanLyDeTai.Data.DAL
             .Where(i => i.PracticeTypeID == id_tt && i.TopicName.Contains(search) && i.TeacherID == id_gv && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
             .Select(i => new { i.ID, i.TopicName, i.Description, i.Field.FieldName })
             .OrderBy(i => i.ID)
-            .Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            .Skip(pageNumber * pageSize).Take(pageSize);
             //context.Configuration.ProxyCreationEnabled = false;
             ////Get from database
             //var user = context.Topics

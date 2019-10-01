@@ -96,7 +96,8 @@ namespace QuanLyDeTai.Data.DAL
                            CompanyScore=s.CompanyScore,
                            TeacherScore=s.TeacherScore,
                            ReportScore=s.ReportScore,
-                           TotalScore=s.TotalScore
+                           TotalScore=s.TotalScore,
+                           s.IsDeleted
                        };
 
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList(); ;
@@ -313,16 +314,17 @@ namespace QuanLyDeTai.Data.DAL
             try
             {
                 //Tương tự update
-                var item = context.Scores.Where(i => i.PracticeTypeID == id).FirstOrDefault();
+                var item = context.Scores.Where(i => i.PracticeTypeID == id).ToList();
 
                 //Remove item.
-
-                item.CompanyScore = null;
-                item.ReportScore = null;
-                item.TotalScore = null;
-
-                //Change database
-                context.SaveChanges();
+                foreach (var i in item)
+                {
+                    i.CompanyScore = null;
+                    i.ReportScore = null;
+                    i.TotalScore = null;
+                    context.SaveChanges();
+                }
+                
                 return true;
             }
             catch (Exception e)

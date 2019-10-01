@@ -118,7 +118,7 @@ namespace QuanLyDeTai.Controllers
             return Json(new { TotalRecords = total, List = list }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetList(long IDHK, long IDTT, string search, int pageNumber = 0, int pageSize = 10)
+        public JsonResult GetList(long IDHK, long IDTT,long? id_bm, string search, int pageNumber = 0, int pageSize = 10)
         {
             var tc = teacherService.GetByMagv(Session["Username"].ToString());
             var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
@@ -132,8 +132,8 @@ namespace QuanLyDeTai.Controllers
             }
             else if (teacherService.GetRole(Session["Username"].ToString(), "Viện trưởng")|| teacherService.GetRole(Session["Username"].ToString(), "Viện phó"))
             {
-                listtc= topicService.GetListByTT(thuctap.ID, search, pageNumber, pageSize);
-                i = topicService.GetListByTTCount(thuctap.ID, search, pageNumber, pageSize);
+                listtc= topicService.GetListByTTAll(thuctap.ID,id_bm, search, pageNumber, pageSize);
+                i = topicService.GetListByTTAllCount(thuctap.ID,id_bm, search, pageNumber, pageSize);
             }
             else { 
                 listtc = topicService.GetListByTTAndSubjectId(thuctap.ID, tc.ID, tc.SubjectID, search, pageNumber, pageSize);

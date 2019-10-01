@@ -29,7 +29,6 @@ function changeDropThucTap(IDTT, search = "") {
             else {
                 $.each(result, function (key, item) {
                     var thread;
-                    if (item.Result == true) {
                         thread += "<tr>";
                         thread += '<th class="center-header" scope = "col" > STT</th>';
                         thread += '<th class="center-header" scope="col">Mã SV</th>';
@@ -40,18 +39,8 @@ function changeDropThucTap(IDTT, search = "") {
                         thread += '<th class="center-header" scope="col">Điểm</th>';
                         thread += '<th class="center-header" scope="col">Chi tiết</th>';
                         thread += '</tr>';
-                    }
-                    else {
-                        thread += "<tr>";
-                        thread += '<th class="center-header" scope = "col" > STT</th>';
-                        thread += '<th class="center-header" scope="col">Mã SV</th>';
-                        thread += '<th class="center-header" scope="col">Họ tên</th>';
-                        thread += '<th class="center-header" scope="col" style="width:30%;">Tên đề tài</th>';
-                        thread += '<th class="center-header" scope="col">Tiến độ</th>';
-                        thread += '<th class="center-header" scope="col">Kết quả</th>';
-                        thread += '<th class="center-header" scope="col">Chi tiết</th>';
-                        thread += '</tr>';
-                    }
+
+
                     $('.thead').html(thread);
                     html += '<tr>';
                     html += '<td align="center">' + (i++) + '</td>';
@@ -72,15 +61,17 @@ function changeDropThucTap(IDTT, search = "") {
                     if (item.Result == null) {
 
                         html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Chưa đánh giá</label ></td >';
+                        html += '<td align="center"></td >';
 
                     }
                     else if (item.Result == true) {
 
                         html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Đạt</label ></td >';
-                        html += '<td>' + item.TeacherScore + '</td>';
+                        html += '<td align="center">' + item.TeacherScore + '</td>';
                     }
                     else{
                         html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Không đạt</label ></td >';
+                        html += '<td align="center"></td >';
                     }
                     
                     html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> </td>';
@@ -174,17 +165,18 @@ $(document).ready(function () {
         var $target = $($(this).attr('href')),
             $item = $(this);
 
-        if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('btn-success').addClass('btn-default');
-            $item.addClass('btn-success');
-            allWells.hide();
-            $target.show();
-            $target.find('input:eq(0)').focus();
+        //if (!$item.hasClass('disabled')) {
+        //    navListItems.removeClass('btn-success').addClass('btn-default');
+        //    $item.addClass('btn-success');
+        //    allWells.hide();
+        //    $target.show();
+        //    $target.find('input:eq(0)').focus();
             
-        }
+        //}
     });
 
     allNextBtn.click(function () {
+
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
             nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
@@ -207,13 +199,17 @@ $(document).ready(function () {
         result(id, false);
         checkfalse(id);
         Reload();
-        $('#notification').addClass('alert-success');
-        $('#notification').text('Thành công');
-        myFunction();
     })
     $(".success").click(function () {
         var score = $("#score").val();
-        if (isNaN(score) == false) {
+        if (score == null || score == "") {
+            $('#giamsattd').modal('hide');
+            $('#notification').addClass('alert-danger');
+            $('#notification').text('Chưa nhập điểm');
+            myFunction();
+            
+        }
+        else if (isNaN(score) == false) {
             result(id, true);
             create(score, id);
             
@@ -222,8 +218,9 @@ $(document).ready(function () {
             myFunction();
             Reload();
         }
+        
         else {
-            $('#giamsattd').modal('show');
+            $('#giamsattd').modal('hide');
             $('#notification').addClass('alert-danger');
             $('#notification').text('Đã xảy ra lỗi khi xét duyệt');
             myFunction();

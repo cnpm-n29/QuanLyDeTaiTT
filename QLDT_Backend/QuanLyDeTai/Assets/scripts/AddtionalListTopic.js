@@ -1,8 +1,10 @@
 ﻿$(window).on('load', function () {
-    getListHocKy();
 
+
+
+    getListHocKy();
+    getListBoMon();
     changeDropHocKy($(".HocKy #HocKy").val());
-    getListLinhVuc();
 
 
 
@@ -10,18 +12,74 @@
 });
 
 
+function changeDropBoMon(id_bm, search = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    var IDHK = $(".HocKy #HocKy").val();
+    var IDTT = $("#LoaiTT").val();
 
+    var i = PgSize;
+    i = (i * PgNumber) + 1;
+    $.ajax({
+        async: false,
+        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + id_bm + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+
+            if (result.List == "" || result.List == null) {
+                html += '<tr>';
+                html += '<td colspan="5">Không có dữ liệu</td>';
+
+                html += '</tr>';
+                $('.tbody').html(html);
+            }
+            else {
+                $.each(result.List, function (key, item) {
+                    html += '<tr>';
+                    html += '<td align="center">' + (i++) + '</td>';
+                    html += '<td>' + item.TopicName + '</td>';
+                    html += '<td>' + item.Description + '</td>';
+                    html += '<td>' + item.FieldName + '</td>';
+                    html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+                $('.pagination').html('')
+                var totalRows = result.TotalRecords
+
+                if (totalRows > PgSize) {
+                    var pagenum = Math.ceil(totalRows / PgSize)
+
+                    $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                    for (var j = 1; j <= pagenum;) {
+                        $('.pagination').append('<li onclick="Page(' + j + ')" class="page-item page page-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
+
+                    }
+                    num = pagenum;
+                    $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                }
+                $('.page-number-1').addClass('active')
+                $('.page-number-1').addClass('abc')
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
 var num, num1;
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
     var IDHK = $(".HocKy #HocKy").val();
+    var id_bm = $("#BoMon").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
     $.ajax({
         async: false,
-        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + id_bm + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",

@@ -79,9 +79,9 @@ namespace QuanLyDeTai.Service
             return topicDAL.GetListByTT(id_tt, id_gv, search, pageNumber, pageSize);
         }
 
-        public IQueryable GetListByTT(long? id_tt, string search, int pageNumber, int pageSize)
+        public IQueryable GetListByTTAll(long? id_tt,long? id_bm, string search, int pageNumber, int pageSize)
         {
-            return topicDAL.GetListByTT(id_tt, search, pageNumber, pageSize);
+            return topicDAL.GetListByTTAll(id_tt,id_bm, search, pageNumber, pageSize);
         }
 
         public int GetListByTTCount(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
@@ -89,19 +89,19 @@ namespace QuanLyDeTai.Service
             return topicDAL.GetListByTTCount(id_tt, id_gv, search, pageNumber, pageSize);
         }
 
-        public int GetListByTTCount(long? id_tt, string search, int pageNumber, int pageSize)
+        public int GetListByTTAllCount(long? id_tt, long? id_bm, string search, int pageNumber, int pageSize)
         {
-            return topicDAL.GetListByTTCount(id_tt, search, pageNumber, pageSize);
+            return topicDAL.GetListByTTAllCount(id_tt,id_bm, search, pageNumber, pageSize);
         }
 
-        public object GetListByTTvaMaGV(long? id_tt, long? id_gv,long? fieldId, string search, int pageNumber, int pageSize)
+        public IQueryable GetListByTTvaMaGV(long? id_tt, long? id_gv,long? fieldId, string search, int pageNumber, int pageSize)
         {
 
             return topicDAL.GetListByTTvaMaGV(id_tt, id_gv,fieldId, search, pageNumber, pageSize);
 
         }
 
-        public object GetListByTTvaMaGV(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
+        public IQueryable GetListByTTvaMaGV(long? id_tt, long? id_gv, string search, int pageNumber, int pageSize)
         {
 
             return topicDAL.GetListByTTvaMaGV(id_tt, id_gv, search, pageNumber, pageSize);

@@ -58,7 +58,7 @@ namespace QuanLyDeTai.Service
             return topicStudentDAL.ChangeStatus(id);
         }
 
-        public TopicStudent CheckTopicUser(long id)
+        public IQueryable CheckTopicUser(long id)
         {
             return topicStudentDAL.CheckTopicUser(id);
         }

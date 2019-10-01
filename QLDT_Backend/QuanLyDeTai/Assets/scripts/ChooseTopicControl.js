@@ -68,7 +68,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                 html += '</tr>';
                 $('.tableTopic').html(html);
             } 
-            else if(result.ChooseTopic != null) {
+            else if (result.ChooseTopic != null) {
                 $('.mytable').hide();
                 html = '<tr>';
                 html += '<th class="center-header" scope = "col"> STT</th>';
@@ -76,14 +76,15 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                 html += '<th class="center-header" scope="col">Mô tả</th>';
                 html += '<th class="center-header" scope="col">Thứ tự</th>';
                 html += '</tr>';
+                $.each(result.ChooseTopic, function (key, item) {
+                    html += '<tr>';
+                    html += '<td align="center">' + (i++) + '</td>';
+                    html += '<td>' + item.TopicName + '</td>';
+                    html += '<td>' + item.Description + '</td>';
+                    html += '<td style="text-align:center">' + item.Order + '</td>';
 
-                html += '<tr>';
-                html += '<td align="center">' + (i++) + '</td>';
-                html += '<td>' + result.ChooseTopic.TopicName + '</td>';
-                html += '<td>' + result.ChooseTopic.Description + '</td>';
-                html += '<td>' + result.ChooseTopic.Order + '</td>';
-                
-                html += '</tr>';
+                    html += '</tr>';
+                })
                 $('.tableTopic').html(html);
             }
             else if (result.Error == "Chưa được phân giảng viên") {

@@ -2,16 +2,16 @@
     
 
     $('.collapsed').on('click', function () {
-        var id = $(this).attr("href");
+        var id = $(this).attr("href").replace("#","");
         if ($(this).hasClass("active")) {
             $('#menu').removeClass("active");
             $('#menu2').removeClass("active");
             $('.collapse').removeClass("in");
-            $(id).removeClass("in");
+            $("#"+id).removeClass("in");
             $('.collapsed').find("i.icon-submenu").removeClass("lnr-chevron-down")
             $('.collapsed').find("i.icon-submenu").addClass("lnr-chevron-left");
             $(this).attr("aria-expanded", false);
-            $(id).attr("aria-expanded", false);
+            $("#" + id).attr("aria-expanded", false);
             $(this).find("i.icon-submenu").removeClass("lnr-chevron-down")
             $(this).find("i.icon-submenu").addClass("lnr-chevron-left");
             
@@ -23,9 +23,9 @@
             $('.collapsed').find("i.icon-submenu").removeClass("lnr-chevron-down")
             $('.collapsed').find("i.icon-submenu").addClass("lnr-chevron-left");
             $(this).addClass('active');
-            $(id).addClass("in");
+            $("#" + id).addClass("in");
             $(this).attr("aria-expanded", true);
-            $(id).attr("aria-expanded", true);
+            $("#" + id).attr("aria-expanded", true);
             $(this).find("i.icon-submenu").removeClass("lnr-chevron-left")
             $(this).find("i.icon-submenu").addClass("lnr-chevron-down");
         }

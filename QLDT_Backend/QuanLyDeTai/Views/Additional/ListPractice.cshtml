@@ -18,15 +18,13 @@
                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
                 {
                     <li>
-                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <a id="menu" href="#subPages" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a>
                         <div id="subPages" class="collapse ">
                             <ul class="nav">
                                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
                                 {
                                     <li><a href="~/Topic/Index" class=""><span>Đề tài thực tập</span></a></li>
                                 }
-
-
                                 @if (Session["Quyen"].ToString().Contains("Xem danh sách hướng dẫn"))
                                 {
                                     <li><a href="~/Student/ListStudentTeacher" class=""><span>Danh sách hướng dẫn</span></a></li>
@@ -41,7 +39,7 @@
                     </li>
 
                     <li>
-                        <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <a id="menu2" href="#subPages2" class="collapsed"><i class="fa fa-address-card"></i> <span> Danh sách </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a>
                         <div id="subPages2" class="collapse ">
                             <ul class="nav">
                                 @if (Session["Quyen"].ToString().Contains("Thêm, Sửa , Xóa Danh sách sinh viên"))
@@ -96,7 +94,7 @@
                 }
                 @if (Session["Quyen"].ToString().Contains("Xem list thực tập"))
                 {
-                    <li><a href="~/Additional/ListPractice" class="active"><i class="fa fa-server"></i> <span>Thực tập</span></a></li>
+                    <li><a href="~/Additional/ListPractice" class="active"><i class="fa fa-server"></i> <span>Danh sách thực tập</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Xem list điểm"))
                 {
@@ -195,6 +193,7 @@
                                 <th class="center-header" scope="col">STT</th>
                                 <th class="center-header" scope="col">Mã SV</th>
                                 <th class="center-header" scope="col">Họ tên</th>
+                                <th class="center-header" scope="col">GVHD</th>
                                 <th class="center-header" scope="col" style="width:30%;">Tên đề tài</th>
                                 <th class="center-header" scope="col">Tiến độ</th>
                                 <th class="center-header" scope="col">Kết quả</th>

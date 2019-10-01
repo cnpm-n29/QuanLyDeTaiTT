@@ -518,7 +518,7 @@ function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRow
     i = (i * PgNumber) + 1;
     $.ajax({
         async: false,
-        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",

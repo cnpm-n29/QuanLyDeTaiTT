@@ -9,6 +9,7 @@ function getListLoaiTT() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            
             var html = '<select class="LTT form-control" onchange = "changeDropThucTap(this.value)" id="LoaiTT">';
             html += '<option disabled> -- Chọn loại thực tập -- </option>';
             $.each(result, function (key, item) {

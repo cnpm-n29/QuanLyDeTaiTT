@@ -8,6 +8,14 @@
 {
     <script src="~/Assets/scripts/DropDown.js"></script>
     <script src="~/Assets/scripts/ListScoreControl.js"></script>
+
+    @if (@ViewBag.excel != null)
+    {
+        <script>
+            
+                $("#themdssv").modal("show");
+        </script>
+    }
 }
 
 <!-- LEFT SIDEBAR -->
@@ -15,7 +23,8 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-                <li><a id="menu" href="#subPages" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a><a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                <li>
+                    <a id="menu" href="#subPages" class="collapsed"><i class="fa fa-book"></i><span> Thực tập </span> <i class="icon-submenu lnr lnr-chevron-left" style="float:right;font-size:15px"></i></a>
                     <div id="subPages" class="collapse ">
                         <ul class="nav">
                             @if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
@@ -128,7 +137,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" onclick="Search()">
                                     <span class="fa fa-search"
                                           aria-hidden="true"></span>
                                 </button>
@@ -337,6 +346,10 @@
                     <div class="form-group">
                         <label class="col-sm-3" style="padding:0px" for="">Chọn file</label>
                         <input id="file" type="file" name="UploadedFile" class="" />
+                        @if (@ViewBag.excel != null)
+                        {
+                            <p style="color:red" id="errorexcel">* @ViewBag.excel</p>
+                        }
                     </div>
 
 

@@ -37,6 +37,8 @@ namespace QuanLyDeTai.Models
 
         public string LastName { get; set; }
 
+        public string TeacherName { get; set; }
+
         public DateTime? Birthday { get; set; }
 
         public string TopicName { get; set; }

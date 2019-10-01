@@ -47,7 +47,13 @@ namespace QuanLyDeTai.Controllers
             var status = topicStudentService.CheckTopicUser(svtt.ID);
             var detai = topicStudentService.getTopicChoose(svtt.ID);
 
-            if (status != null && detai == null) {
+            var b = 0;
+            foreach(var s in status)
+            {
+                b++;
+            }
+
+            if (status != null && b!=0 && detai == null) {
                 return Json(new { TotalRecords = 0, ChooseTopic = status }, JsonRequestBehavior.AllowGet);
             }
             else if (detai != null)
@@ -62,7 +68,7 @@ namespace QuanLyDeTai.Controllers
                 var total = deTaiService.getCount(IDLoaiTT, idgv, search);
                 var field = StudentFieldService.GetByStudent(idsv);
                 List<object> result=new List<object>();
-                object list= (object)null;
+                IQueryable list= (IQueryable)null;
                 if (field.Count==0)
                 {
                     list = deTaiService.GetListByTTvaMaGV(IDLoaiTT, idgv, search, pageNumber, pageSize);
@@ -72,8 +78,17 @@ namespace QuanLyDeTai.Controllers
                 {
                     foreach (var a in field)
                     {
+                        var dem = 0;
                         list = deTaiService.GetListByTTvaMaGV(IDLoaiTT, idgv, a.FieldID, search, pageNumber, pageSize);
-                        result.Add(list);
+                        foreach(var l in list)
+                        {
+                            dem++;
+                        }
+                        if (dem>0)
+                        {
+                            result.Add(list);
+                        }
+                        
 
                     }
                 }
@@ -171,6 +186,16 @@ namespace QuanLyDeTai.Controllers
             foreach (var item in list)
             {
                 var ID = (long)item.GetType().GetProperty("ID").GetValue(item, null);
+                bool? result;
+                if (item.GetType().GetProperty("Result").GetValue(item, null) != null)
+                {
+                    result = (bool)item.GetType().GetProperty("Result").GetValue(item, null);
+                }
+                else
+                {
+                    result = null;
+                }
+
                 var topic = new TopicStudentModel
                 {
                     ID = ID,
@@ -178,10 +203,11 @@ namespace QuanLyDeTai.Controllers
                     FirstName = (string)item.GetType().GetProperty("FirstName").GetValue(item, null),
                     LastName = (string)item.GetType().GetProperty("LastName").GetValue(item, null),
                     MaSV = (string)item.GetType().GetProperty("MaSV").GetValue(item, null),
-                    
+
                     Progress = (int)item.GetType().GetProperty("Progress").GetValue(item, null),
-                    Result = (bool)item.GetType().GetProperty("Result").GetValue(item, null)
-                    
+                    Result = result
+
+
                 };
                 var check = scoreService.GetByTopicStudent2(ID);
                 if (check != null)
@@ -227,7 +253,7 @@ namespace QuanLyDeTai.Controllers
                     FirstName = (string)item.GetType().GetProperty("FirstName").GetValue(item, null),
                     LastName = (string)item.GetType().GetProperty("LastName").GetValue(item, null),
                     MaSV = (string)item.GetType().GetProperty("MaSV").GetValue(item, null),
-
+                    TeacherName= (string)item.GetType().GetProperty("TeacherName").GetValue(item, null),
                     Progress = (int)item.GetType().GetProperty("Progress").GetValue(item, null),
                     Result = (bool)item.GetType().GetProperty("Result").GetValue(item, null)
 
@@ -298,6 +324,7 @@ namespace QuanLyDeTai.Controllers
             else
             {
                 List = topicStudentService.getExport(thuctap.ID, id_gv, "");
+
             }
             var resultsList=new List<TopicStudentModel>();
             foreach (var item in List)

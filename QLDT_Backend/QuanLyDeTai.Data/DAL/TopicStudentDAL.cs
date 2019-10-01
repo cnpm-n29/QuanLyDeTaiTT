@@ -41,14 +41,16 @@ namespace QuanLyDeTai.Data.DAL
         }
 
 
-        public TopicStudent CheckTopicUser(long id)
+        public IQueryable CheckTopicUser(long id)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             //Get from database
             var user = from d in context.TopicStudents
+                       join a in context.Topics on d.TopicID equals a.ID
                        join t in context.StudentPracticeRelationships on d.StudentPracticeID equals t.ID
                        where d.StudentPracticeID == id 
-                       select d;
-            return user.FirstOrDefault();
+                       select new { a.TopicName,a.Description, d.Order};
+            return user;
         }
 
         public object getTopicChoose(long id)
@@ -326,6 +328,7 @@ namespace QuanLyDeTai.Data.DAL
                            LastName=a.LastName,
                            Progress=b.Progress,
                            Result=b.Result,
+                           TeacherName=t.FirstName+ " "+t.LastName 
                        };
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize);
         }
@@ -379,6 +382,7 @@ namespace QuanLyDeTai.Data.DAL
                            a.LastName,
                            b.Progress,
                            b.Result,
+                           TeacherName = t.FirstName + " " + t.LastName
                        };
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize);
         }

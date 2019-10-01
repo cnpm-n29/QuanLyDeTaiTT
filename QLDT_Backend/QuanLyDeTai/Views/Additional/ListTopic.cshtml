@@ -95,7 +95,7 @@
                 }
                 @if (Session["Quyen"].ToString().Contains("Xem list thực tập"))
                 {
-                    <li><a href="~/Additional/ListPractice" class=""><i class="fa fa-server"></i> <span>Thực tập</span></a></li>
+                    <li><a href="~/Additional/ListPractice" class=""><i class="fa fa-server"></i> <span>Danh sách thực tập</span></a></li>
                 }
                 @if (Session["Quyen"].ToString().Contains("Xem list điểm"))
                 {
@@ -141,22 +141,28 @@
                     <div class="tab-content">
                         <div id="menu1" class="tab-pane fade in active">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label style="float: left;margin: 5px 0px ">Học kỳ </label>
                                     <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
 
                                     </div>
 
                                 </div>
-                                <div class="col-sm-4" style="padding-left:20px">
+                                <div class="col-sm-3" style="padding-left:20px">
                                     <label style="float: left;margin: 5px 0px ">Thực tập </label>
                                     <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
                                     </div>
 
                                 </div>
+                                <div class="col-sm-4" style="padding-left:20px">
+                                    <label style="float: left;margin: 5px 0px ">Bộ Môn </label>
+                                    <div class="ddlBoMon col-sm-9" style="padding-left:20px">
+                                    </div>
+
+                                </div>
 
 
-                                
+
                             </div>
                             <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
                                    style="border-collapse:collapse;margin:10px 0px 10px 0px">

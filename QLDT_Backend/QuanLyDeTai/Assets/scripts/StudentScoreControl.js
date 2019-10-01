@@ -22,15 +22,36 @@ function changeDropThucTap(Id) {
                 $('.tbody').html(html);
             }
             else {
-                    html += '<tr>';
-                    html += '<td align="center">' + (i++) + '</td>';
+                html += '<tr>';
+                html += '<td align="center">' + (i++) + '</td>';
+                if (result.TopicName != null) {
                     html += '<td>' + result.TopicName + '</td>';
-                    html += '<td>' + result.CompanyScore + '</td>';
-                    html += '<td>' + result.TeacherScore + '</td>';
-                    html += '<td>' + result.ReportScore + '</td>';
-                    html += '<td>' + result.TotalScore + '</td>';
-                    
-
+                }
+                else {
+                    html += '<td></td>';
+                }
+                if (result.CompanyScore != null) {
+                    html += '<td align="center">' + result.CompanyScore + '</td>';
+                }
+                else {
+                    html += '<td></td>';
+                }
+                if (result.TeacherScore != null) {
+                    html += '<td align="center">' + result.TeacherScore + '</td>';
+                }
+                else {
+                    html += '<td></td>';
+                } if (result.ReportScore != null) {
+                    html += '<td align="center">' + result.ReportScore + '</td>';
+                }
+                else {
+                    html += '<td></td>';
+                } if (result.TotalScore != null) {
+                    html += '<td align="center">' + result.TotalScore + '</td>';
+                }
+                else {
+                    html += '<td></td>';
+                }
                     html += '</tr>';
                     $('.tbody').html(html);
                 

@@ -31,6 +31,7 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
                     html += '<td align="center">' + (i++) + '</td>';
                     html += '<td>' + item.MaSV + '</td>';
                     html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
+                    html += '<td>' + item.TeacherName + '</td>';
                     html += '<td>' + item.TopicName + '</td>';
                     if (item.Progress == 0) {
 
@@ -45,7 +46,7 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
                     }
                     if (item.Result == null) {
 
-                        html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Chưa đánh giá</label ></td >';
+                        html += '<td align="center"><label style="background-color:green;padding:5px;color:white">Chưa đánh giá</label ></td >';
 
                     }
                     else if (item.Result == true) {
@@ -54,9 +55,9 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
 
                     }
                     else {
-                        html += '<td align="center"><label style="background-color:cornflowerblue;padding:5px;color:white">Không đạt</label ></td >';
+                        html += '<td align="center"><label style="background-color:red;padding:5px;color:white">Không đạt</label ></td >';
                     }
-                    html += '<td>' + item.TeacherScore + '</td>';
+                    html += '<td align="center">' + item.TeacherScore + '</td>';
                     
                     html += '</tr>';
                 });

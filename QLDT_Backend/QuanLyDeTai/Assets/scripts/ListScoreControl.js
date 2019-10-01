@@ -267,7 +267,7 @@ function Update() {
 
 //function for deleting employee's record  
 function Delele(ID) {
-    var ans = confirm("Bạn muốn xóa sinh viên này?");
+    var ans = confirm("Bạn muốn xóa điểm của sinh viên này?");
     if (ans) {
         $.ajax({
             url: "/Score/Delete/" + ID,
@@ -317,7 +317,7 @@ function validateUpdate() {
 
     if ($('#diemTong').val().trim() == "") {
         $('#diemTong').css('border-color', 'Red');
-        $('#errorDiemT').text('* Chưa nhập email');
+        $('#errorDiemT').text('* Chưa nhập tổng');
         isValid = false;
     }
     else {

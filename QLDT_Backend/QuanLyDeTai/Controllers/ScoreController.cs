@@ -92,7 +92,7 @@ namespace QuanLyDeTai.Controllers
             {
                 return Json("", JsonRequestBehavior.AllowGet);
             }
-            return Json(studentService.Delete(check.ID, long.Parse(Session["UserId"].ToString())), JsonRequestBehavior.AllowGet);
+            return Json(scoreService.Delete(check.ID, long.Parse(Session["UserId"].ToString())), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetbyID(int ID)
@@ -156,149 +156,160 @@ namespace QuanLyDeTai.Controllers
                             var masv = "";
                             var dem = 0;
                             var resultsList = new List<ScoreModel>();
-                            for (int rowIterator = 5; rowIterator <= noOfRows; rowIterator++)
+                            if (workSheet.Cells[4, 1].Value.ToString().ToLower().Equals("stt") && workSheet.Cells[4, 2].Value.ToString().ToLower().Equals("mã sv")
+                                && workSheet.Cells[4, 3].Value.ToString().ToLower().Equals("họ tên") && workSheet.Cells[4, 4].Value.ToString().ToLower().Equals("tên đề tài")
+                                && workSheet.Cells[4, 5].Value.ToString().ToLower().Equals("điểm công ty") && workSheet.Cells[4, 6].Value.ToString().ToLower().Equals("điểm báo cáo")
+                                && workSheet.Cells[4, 7].Value.ToString().ToLower().Equals("điểm tổng"))
                             {
-                                var score = new ScoreModel();
-                                dem = 0;
-                                if (workSheet.Cells[rowIterator, 2].Value == null)
+                                for (int rowIterator = 5; rowIterator <= noOfRows; rowIterator++)
                                 {
-                                    masv = "";
-                                    score.MaSV = "";
-                                    score.FullName = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                    score.TopicName = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                    if (workSheet.Cells[rowIterator, 5].Value == null)
+                                    var score = new ScoreModel();
+                                    dem = 0;
+                                    if (workSheet.Cells[rowIterator, 2].Value == null)
                                     {
-                                        score.CompanyScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.CompanyScore = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value.ToString());
-                                    }
-                                    if (workSheet.Cells[rowIterator, 6].Value == null)
-                                    {
-                                        score.TeacherScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.TeacherScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
-                                    }
-                                    if (workSheet.Cells[rowIterator, 7].Value == null)
-                                    {
-                                        score.ReportScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
-                                    }
-                                    if (workSheet.Cells[rowIterator, 8].Value == null)
-                                    {
-                                        score.TotalScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value.ToString());
-                                    }
-                                    if (dem == 0)
-                                    {
-                                        score.Error = "Mã sv không được để trống";
-                                    }
-                                    else
-                                    {
-                                        score.Error = "Mã sv không được để trống, Các điểm số không được để trống";
-                                    }
-                                    resultsList.Add(score);
-                                }
-                                else
-                                {
-                                    score.MaSV = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                    score.FullName = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                    score.TopicName = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                    if (workSheet.Cells[rowIterator, 5].Value == null)
-                                    {
-                                        score.CompanyScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.CompanyScore = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value.ToString());
-                                    }
-                                    
-                                    if (workSheet.Cells[rowIterator, 6].Value == null)
-                                    {
-                                        score.ReportScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
-                                    }
-                                    if (workSheet.Cells[rowIterator, 7].Value == null)
-                                    {
-                                        score.TotalScore = null;
-                                        dem++;
-                                    }
-                                    else
-                                    {
-                                        score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
-                                    }
-                                    if (dem != 0)
-                                    {
-                                        
-                                        score.Error = "Các điểm số không được để trống";
-                                    }
-                                    else
-                                    {
-                                        masv = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                        var studentGetDatabase = studentService.GetByMasv(masv);
-                                        if (studentGetDatabase == null)
+                                        masv = "";
+                                        score.MaSV = "";
+                                        score.FullName = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                        score.TopicName = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                        if (workSheet.Cells[rowIterator, 5].Value == null)
                                         {
-                                            score.Error = "Không tìm thấy sinh viên này";
+                                            score.CompanyScore = null;
+                                            dem++;
                                         }
                                         else
                                         {
-                                            var studentpracticeid = studentPracticeService.GetBySinhVienvaKieuTT(studentService.GetByMasv(masv).ID, practiceTypeId);
-                                            if (studentpracticeid == null)
+                                            score.CompanyScore = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value.ToString());
+                                        }
+                                        if (workSheet.Cells[rowIterator, 6].Value == null)
+                                        {
+                                            score.TeacherScore = null;
+                                            dem++;
+                                        }
+                                        else
+                                        {
+                                            score.TeacherScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
+                                        }
+                                        if (workSheet.Cells[rowIterator, 7].Value == null)
+                                        {
+                                            score.ReportScore = null;
+                                            dem++;
+                                        }
+                                        else
+                                        {
+                                            score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
+                                        }
+                                        if (workSheet.Cells[rowIterator, 8].Value == null)
+                                        {
+                                            score.TotalScore = null;
+                                            dem++;
+                                        }
+                                        else
+                                        {
+                                            score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value.ToString());
+                                        }
+                                        if (dem == 0)
+                                        {
+                                            score.Error = "Mã sv không được để trống";
+                                        }
+                                        else
+                                        {
+                                            score.Error = "Mã sv không được để trống, Các điểm số không được để trống";
+                                        }
+                                        resultsList.Add(score);
+                                    }
+                                    else
+                                    {
+                                        score.MaSV = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                        score.FullName = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                        score.TopicName = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                        if (workSheet.Cells[rowIterator, 5].Value == null)
+                                        {
+                                            score.CompanyScore = null;
+                                            dem++;
+                                        }
+                                        else
+                                        {
+                                            score.CompanyScore = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value.ToString());
+                                        }
+
+                                        if (workSheet.Cells[rowIterator, 6].Value == null)
+                                        {
+                                            score.ReportScore = null;
+                                            dem++;
+                                        }
+                                        else
+                                        {
+                                            score.ReportScore = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value.ToString());
+                                        }
+                                        if (workSheet.Cells[rowIterator, 7].Value == null)
+                                        {
+                                            score.TotalScore = null;
+                                            dem++;
+                                        }
+                                        else
+                                        {
+                                            score.TotalScore = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value.ToString());
+                                        }
+                                        if (dem != 0)
+                                        {
+
+                                            score.Error = "Các điểm số không được để trống";
+                                        }
+                                        else
+                                        {
+                                            masv = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                            var studentGetDatabase = studentService.GetByMasv(masv);
+                                            if (studentGetDatabase == null)
                                             {
-                                                score.Error = "Sinh viên chưa thực tập trong kì này";
+                                                score.Error = "Không tìm thấy sinh viên này";
                                             }
                                             else
                                             {
-                                                var topicstudent = topicStudentService.GetByStudentPracticeId(studentpracticeid.ID);
-                                                score.PracticeTypeID = practiceTypeId;
-                                                score.TopicStudentID = topicstudent.ID;
-                                                score.ModifyBy = long.Parse(Session["UserId"].ToString());
-                                                score.ID = scoreService.GetByTopicStudent2(topicstudent.ID).ID;
-                                                if (scoreService.GetByTopicStudent2(topicstudent.ID) == null)
+                                                var studentpracticeid = studentPracticeService.GetBySinhVienvaKieuTT(studentService.GetByMasv(masv).ID, practiceTypeId);
+                                                if (studentpracticeid == null)
                                                 {
-                                                    score.Error = "Sinh viên này chưa được xét đạt và chưa có điểm GVHD";
+                                                    score.Error = "Sinh viên chưa thực tập trong kì này";
                                                 }
                                                 else
                                                 {
-                                                    var sc = score.ToModel();
-                                                    scoreService.UpdateOldScore(score.ToModel());
+                                                    var topicstudent = topicStudentService.GetByStudentPracticeId(studentpracticeid.ID);
+                                                    score.PracticeTypeID = practiceTypeId;
+                                                    score.TopicStudentID = topicstudent.ID;
+                                                    score.ModifyBy = long.Parse(Session["UserId"].ToString());
+                                                    score.ID = scoreService.GetByTopicStudent2(topicstudent.ID).ID;
+                                                    if (scoreService.GetByTopicStudent2(topicstudent.ID) == null)
+                                                    {
+                                                        score.Error = "Sinh viên này chưa được xét đạt và chưa có điểm GVHD";
+                                                    }
+                                                    else
+                                                    {
+                                                        var sc = score.ToModel();
+                                                        scoreService.UpdateOldScore(score.ToModel());
+                                                    }
+
                                                 }
-                                                
                                             }
                                         }
+                                        resultsList.Add(score);
                                     }
-                                    resultsList.Add(score);
-                                }
 
-                                
-                            }
-                            foreach(var item in resultsList){
-                                if (item.Error == null)
+
+                                }
+                                foreach (var item in resultsList)
                                 {
-                                    resultsList.Remove(item);
+                                    if (item.Error == null)
+                                    {
+                                        resultsList.Remove(item);
+                                    }
+                                }
+                                if (resultsList.Count > 0)
+                                {
+                                    ExportError(resultsList);
                                 }
                             }
-                            if (resultsList.Count > 0)
+                            else
                             {
-                                ExportError(resultsList);
+                                ViewBag.excel = "Không đúng định dạng excel mẫu";
                             }
 
                         }
@@ -307,7 +318,7 @@ namespace QuanLyDeTai.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.error = "Thêm mới dữ liệu không thành công";
+                ViewBag.excel = "Thêm mới dữ liệu không thành công";
                 return RedirectToAction("ListScore");
             }
             return RedirectToAction("ListScore");
