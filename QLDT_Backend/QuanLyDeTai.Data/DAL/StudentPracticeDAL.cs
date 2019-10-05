@@ -73,6 +73,34 @@ namespace QuanLyDeTai.Data.DAL
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize) ;
         }
 
+        public List<Student> getListByPracticeTypeIdAndTeacherIdSort(long practiceTypeId,long teacherid, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       join t in context.StudentTeacherRelationships on s.ID equals t.StudentID
+                       join f in context.Faculties on s.FacultyID equals f.ID
+                       where c.PracticeTypeID == practiceTypeId && t.TeacherID == teacherid && s.MaSV.Contains(masv) && (s.FirstName.Contains(studentname) || s.LastName.Contains(studentname)) && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
+                       select s;
+
+            return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList();
+        }
+
+        public int getListByPracticeTypeIdAndTeacherIdCount(long practiceTypeId, long teacherid, string masv, string studentname)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       join t in context.StudentTeacherRelationships on s.ID equals t.StudentID
+                       join f in context.Faculties on s.FacultyID equals f.ID
+                       where c.PracticeTypeID == practiceTypeId && t.TeacherID == teacherid && s.MaSV.Contains(masv) && (s.FirstName.Contains(studentname) || s.LastName.Contains(studentname)) && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
+                       select s;
+
+            return user.ToList().Count();
+        }
+
+
+
         public List<StudentPracticeRelationship> getListByPracticeTypeId(long practiceTypeId)
         {
             context.Configuration.ProxyCreationEnabled = false;

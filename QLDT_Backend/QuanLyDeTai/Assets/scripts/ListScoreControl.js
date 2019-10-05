@@ -267,21 +267,25 @@ function Update() {
 
 //function for deleting employee's record  
 function Delele(ID) {
-    var ans = confirm("Bạn muốn xóa điểm của sinh viên này?");
-    if (ans) {
+    $("#modal_delete").modal("show");
+    $(".btn_delete").attr("id", ID);
+}
+
+
+function DeleleResult(ID) {
         $.ajax({
             url: "/Score/Delete/" + ID,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
+                $("#modal_delete").modal("hide");
                 changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
             }
         });
-    }
 }
 
 

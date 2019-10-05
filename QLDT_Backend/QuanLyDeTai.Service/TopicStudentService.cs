@@ -38,10 +38,10 @@ namespace QuanLyDeTai.Service
             return topicStudentDAL.GetListByTopicIdNotIncludeUser(tpid, userid);
         }
 
-            public bool CheckTopic(long tpid)
+        public bool CheckTopic(long tpid)
         {
-            var model=topicStudentDAL.GetListByTopicId(tpid);
-            if (model != null)
+            var model=topicStudentDAL.GetListByTopicIdCount(tpid);
+            if (model >0)
             {
                 return true;
             }

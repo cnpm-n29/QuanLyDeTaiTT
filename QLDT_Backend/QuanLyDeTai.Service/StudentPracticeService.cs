@@ -48,6 +48,16 @@ namespace QuanLyDeTai.Service
             return studentPracticeDAL.getListByPracticeTypeIdCount(practiceTypeId, masv, studentname);
         }
 
+        public List<Student> getListByPracticeTypeIdAndTeacherIdSort(long practiceTypeId,long teacherid, string masv, string studentname, int pageNumber, int pageSize)
+        {
+            return studentPracticeDAL.getListByPracticeTypeIdAndTeacherIdSort(practiceTypeId, teacherid, masv, studentname, pageNumber, pageSize);
+        }
+
+        public int getListByPracticeTypeIdAndTeacherIdCount(long practiceTypeId, long teacherid, string masv, string studentname)
+        {
+            return studentPracticeDAL.getListByPracticeTypeIdAndTeacherIdCount(practiceTypeId, teacherid, masv, studentname);
+        }
+
         public bool Create(StudentPracticeRelationship model)
         {
             try

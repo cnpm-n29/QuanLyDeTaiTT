@@ -1,5 +1,4 @@
 ﻿<!-- Thêm thư viện -->
-
 <!-- Kết thúc-->
 @{
     ViewBag.Title = "Đề tài";
@@ -64,7 +63,7 @@
                                 }
                                 @if (Session["Quyen"].ToString().Contains("Xem danh sách giảng viên bộ môn"))
                                 {
-                                    <li><a href="~/Teacher/ListTeacherSubject" ><span>Danh sách giảng viên</span></a></li>
+                                    <li><a href="~/Teacher/ListTeacherSubject"><span>Danh sách giảng viên</span></a></li>
                                 }
                             </ul>
                         </div>
@@ -168,14 +167,16 @@
                             </div>
                             <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
                                    style="border-collapse:collapse;margin:10px 0px 10px 0px">
-                                <thead><tr>
-                                    <th class="center-header" scope="col">STT</th>
-                                    <th class="center-header" scope="col" style="width:35%;">Tên đề tài</th>
-                                    <th class="center-header" scope="col" style="width:30%;">Mô tả</th>
-                                    <th class="center-header" scope="col" style="width:15%;">Lĩnh vực</th>
-                                    <th class="center-header" scope="col">Trạng thái</th>
-                                    <th class="center-header" scope="col">Thao tác</th>
-                                </tr></thead>
+                                <thead>
+                                    <tr>
+                                        <th class="center-header" scope="col">STT</th>
+                                        <th class="center-header" scope="col" style="width:35%;">Tên đề tài</th>
+                                        <th class="center-header" scope="col" style="width:30%;">Mô tả</th>
+                                        <th class="center-header" scope="col" style="width:15%;">Lĩnh vực</th>
+                                        <th class="center-header" scope="col">Trạng thái</th>
+                                        <th class="center-header" scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
                                 <tbody class="tbody"></tbody>
                             </table>
                             <div class="row">
@@ -206,7 +207,7 @@
                                     <label style="float: left;margin: 5px 0px ">Học kỳ </label>
                                     <div class="ddlHocKy1 HocKy1 col-sm-8" style="padding-left:20px">
 
-                                </div>
+                                    </div>
 
                                 </div>
                                 <div class="col-sm-4" style="padding-left:20px">
@@ -217,7 +218,7 @@
                                 </div>
 
 
-                                
+
                             </div>
                             <table id="myTable1" class="mytable table table-bordered" cellspacing="0" cellpadding="5" id=""
                                    style="border-collapse:collapse;margin:10px 0px 10px 0px">
@@ -256,13 +257,13 @@
                         </div>
                     </div>
 
+                </div>
+                <!-- END RECENT PURCHASES -->
+
             </div>
-            <!-- END RECENT PURCHASES -->
-              
         </div>
+        <!-- END MAIN CONTENT -->
     </div>
-    <!-- END MAIN CONTENT -->
-</div>
 </div>
 <!-- Modal sua detai -->
 <div class="modal fade" id="suadetai" role="dialog">
@@ -404,30 +405,49 @@
 <!-- /Modal them detai -->
 <div id="snackbar">
     <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
-    </div>
+</div>
 
-<!-- /Modal thông báo -->
-    <div class="modal fade" id="thongbao" role="dialog" style="margin-top:7%">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content"  style="width:55%;margin:auto;padding:20px">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Warning</h4>
-                </div>               
-                <div>
 
-                    <div class="modal-body">
-                        Đề tài đã được chọn. Bạn không thể xóa !
-
-                    </div>
-                    <div class="modal-footer">
-                       
-                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"> OK</button>
-                    </div>
-
+<!-- Modal HTML -->
+<div id="thongbao" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons"><i class=" fa fa-close mb-2"></i></i>
                 </div>
-
+                <h4 class="modal-title">Error</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Đề tài đã được chọn. Bạn không thể xóa !</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
             </div>
         </div>
-     </div>
+    </div>
+</div>
+<!-- Modal delete -->
+<div id="modal_delete" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons"><i class=" fa fa-close mb-2"></i></i>
+                </div>
+                <h4 class="modal-title">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có thật sự muốn xóa đề tài này? Các thông tin của đề tài sẽ mất.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger btn_delete" onclick="DeleleResult(this.id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 

@@ -99,6 +99,32 @@ namespace QuanLyDeTai.Data.DAL
             return user.OrderBy(i=>i.CreateTime);
         }
 
+        public int GetListByTopicIdCount(long tpid)
+        {
+
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = from d in context.TopicStudents
+                       join t in context.StudentPracticeRelationships on d.StudentPracticeID equals t.ID
+                       join s in context.Students on t.StudentID equals s.ID
+                       join tp in context.Topics on d.TopicID equals tp.ID
+                       where d.TopicID == tpid
+                       select new
+                       {
+                           ID = d.ID,
+                           StudentID = s.MaSV,
+                           Order = d.Order,
+                           Status = d.Status,
+                           CreateTime = d.CreateTime,
+                           FirstName = s.FirstName,
+                           LastName = s.LastName,
+                           Birthday = s.Birthday,
+                           Email = s.Email,
+                           Phone = s.Phone
+                       };
+            return user.OrderBy(i => i.CreateTime).Count();
+        }
+
         public IQueryable GetListByTopicIdNotIncludeUser(long tpid,long userid)
         {
 

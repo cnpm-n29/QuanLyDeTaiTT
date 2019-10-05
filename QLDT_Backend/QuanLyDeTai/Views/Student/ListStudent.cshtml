@@ -361,3 +361,24 @@
 </div>
 
 <!-- /Modal them sv -->
+<!-- Modal delete -->
+<div id="modal_delete" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons"><i class=" fa fa-close mb-2"></i></i>
+                </div>
+                <h4 class="modal-title">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có thật sự muốn xóa sinh viên này? Các thông tin của sinh viên sẽ mất.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger btn_delete" onclick="DeleleResult(this.id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

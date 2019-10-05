@@ -15,6 +15,9 @@ namespace QuanLyDeTai.Controllers
 {
     public class StudentPracticeController : BaseController
     {
+        private FacultyService facultyService = new FacultyService();
+        private FieldService fieldService = new FieldService();
+        private TeacherService teacherService = new TeacherService();
         private PracticeService practiceService = new PracticeService();
         private StudentService studentService = new StudentService();
         private StudentPracticeService studentPracticeService = new StudentPracticeService();
@@ -29,11 +32,54 @@ namespace QuanLyDeTai.Controllers
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
             var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
-            var total = studentPracticeService.getListByPracticeTypeIdCount(thuctap.ID,masv,studentname);
+            var total = studentPracticeService.getListByPracticeTypeIdCount(thuctap.ID, masv, studentname);
             var listst = studentPracticeService.getListByPracticeTypeIdSort(thuctap.ID, masv, studentname, pageNumber, pageSize);
-           
+            
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return Json(new { TotalRecords = total, List = listst }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetByKHvaLoaiTTByTeacher(long IDHK, long IDTT, string masv, string studentname, int pageNumber = 0, int pageSize = 10)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var total = studentPracticeService.getListByPracticeTypeIdAndTeacherIdCount(thuctap.ID, id_gv, masv, studentname);
+            var listst = studentPracticeService.getListByPracticeTypeIdAndTeacherIdSort(thuctap.ID, id_gv, masv, studentname, pageNumber, pageSize);
+            var list = new List<StudentModel>();
+            foreach (var i in listst)
+            {
+                var listField = fieldService.GetByStudentId(i.ID);
+                var field = "";
+                for (var j = 0; j < listField.Count(); j++)
+                {
+                    if (j == listField.Count() - 1)
+                    {
+                        field += listField[j];
+                    }
+                    else
+                    {
+                        field += listField[j] + ",";
+                    }
+                }
+                var faculty = facultyService.GetById(i.FacultyID).FacultyName;
+                var student = new StudentModel
+                {
+                    Faculty=faculty,
+                    Masv = i.MaSV,
+                    FieldName = field,
+                    FirstName = i.FirstName,
+                    LastName = i.LastName,
+                    Birthday = i.Birthday.Value.Day + "/" + i.Birthday.Value.Month + "/" + i.Birthday.Value.Year,
+                    Sex = i.Sex,
+                    Email = i.Email,
+                    Phone = i.Phone,
+                    Address = i.Address,
+                    Note = i.Note
+                };
+                list.Add(student);
+            }
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { TotalRecords = total, List = list }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AddPractice(long PracticeID, long SemesterID)
@@ -73,6 +119,11 @@ namespace QuanLyDeTai.Controllers
         public JsonResult Delete(long id)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
+            var checkChooseTopic = topicStudentService.GetByStudentPracticeIdNoCheckStatus(id);
+            if (checkChooseTopic != null)
+            {
+                return Json("Sinh viên này đã có đề tài. Không thể xóa !", JsonRequestBehavior.AllowGet);
+            }
             return Json(studentPracticeService.Delete(id,id_gv), JsonRequestBehavior.AllowGet);
         }
 

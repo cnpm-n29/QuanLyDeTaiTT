@@ -490,23 +490,45 @@ function Update() {
         });
 }
 
-
 function Delele(ID) {
-    var ans = confirm("Bạn muốn xóa sinh viên thực tập này?");
-    if (ans) {
+    $("#modal_delete").modal("show");
+    $(".btn_delete").attr("id", ID);
+}
+
+
+function DeleleResult(ID) {
         $.ajax({
             url: "/StudentPractice/Delete/" + ID,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
+                $("#modal_delete").modal("hide");
+                if (result == true) {
+                    $("#thongbao").modal("hide");
+                    changeDropHocKy($("#HocKy").val());
+                    $('#notification').addClass('alert-success');
+                    $('#notification').text('Xóa thành công');
+                    myFunction();
+                }
+                else if (result == false) {
+                    $("#thongbao").modal("hide");
+                    changeDropHocKy($("#HocKy").val());
+                    $('#notification').addClass('alert-danger');
+                    $('#notification').text('Xóa thất bại');
+                    myFunction();
+                }
+                else {
+                    $("#thongbao").modal("hide");
+                    $("#alerterror").text(result);
+                    $("#error").modal("show");
+                }
                 changeDropHocKy($("#HocKy").val());
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
             }
         });
-    }
 }
 
 function QuestionDelete() {

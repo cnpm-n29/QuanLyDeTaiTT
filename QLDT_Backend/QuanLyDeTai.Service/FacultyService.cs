@@ -11,6 +11,12 @@ namespace QuanLyDeTai.Service
     public class FacultyService
     {
         private FacultyDAL facultyDA = new FacultyDAL();
+
+        public Faculty GetById(long? id)
+        {
+            return facultyDA.GetById(id);
+        }
+
         public IEnumerable<Faculty> GetAllFaculty()
         {
             return facultyDA.GetAll();

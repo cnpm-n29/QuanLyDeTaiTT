@@ -202,36 +202,42 @@ function Update() {
 
 //function for deleting employee's record  
 function Delele(ID) {
-    var ans = confirm("Bạn muốn xóa đề tài này?");
-    if (ans) {
-        $.ajax({
-            url: "/Topic/Delete/" + ID,
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            success: function (result) {
-                if (result == "ErrorCheck") {
-                    $('#thongbao').modal('show');
-                }
-                else if (result == true) {
-                    $('#notification').addClass('alert-success');
-                    $('#notification').text('Xóa đề tài thành công');
-                    myFunction();
-                }
-                else {
-                    $('#notification').addClass('alert-danger');
-                    $('#notification').text('Xóa đề tài thất bại');
-                    myFunction();
-                }
-                changeDropThucTap($("#LoaiTT").val());
-            },
-            error: function (errormessage) {
+    $("#modal_delete").modal("show");
+    $(".btn_delete").attr("id", ID);
+}
+function DeleleResult(ID) {
+    var a = ID;
+    $.ajax({
+        url: "/Topic/Delete/" + ID,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $("#modal_delete").modal("hide");
+            if (result == "ErrorCheck") {
+                $('#thongbao').modal('show');
+                
+            }
+            else if (result == true) {
+                $('#notification').addClass('alert-success');
+                $('#notification').text('Xóa đề tài thành công');
+                myFunction();
+            }
+            else {
                 $('#notification').addClass('alert-danger');
                 $('#notification').text('Xóa đề tài thất bại');
                 myFunction();
             }
-        });
-    }
+            changeDropThucTap($("#LoaiTT").val());
+
+        },
+        error: function (errormessage) {
+            $('#notification').addClass('alert-danger');
+            $('#notification').text('Xóa đề tài thất bại');
+            myFunction();
+        }
+    });
+
 }
 
 //Function for clearing the textboxes  

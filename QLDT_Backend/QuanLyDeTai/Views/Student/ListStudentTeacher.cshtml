@@ -161,57 +161,125 @@
                 <div class="panel-heading">
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <label style="float: left;margin: 5px 10px 25px 0px ">Khóa học </label>
-                        <div class="ddlKhoaHoc col-sm-3" style="padding-left:20px">
-                        </div>
-                        <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5"
-                               style="border-collapse:collapse;margin: 10px 0px 10px 0px">
-                            <thead>
-                                <tr>
-                                    <th class="center-header" scope="col">STT</th>
-                                    <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
-                                    <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
-                                    <th class="center-header" scope="col">Ngày sinh</th>
-                                    <th class="center-header" scope="col">Giới tính</th>
-                                    <th class="center-header" scope="col">Email</th>
-                                    <th class="center-header" scope="col">SĐT</th>
-                                    <th class="center-header" scope="col" style="width:20%;">Địa chỉ</th>
-                                    <th class="center-header" scope="col" style="width:20%;">Lĩnh vực</th>
-                                    <th class="center-header" scope="col">Ghi chú</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tbody"></tbody>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab1">Thực tập</a></li>
+                        <li><a data-toggle="tab" href="#tab2">Khóa</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab1" class="tab-pane fade in active">
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label style="float: left;margin: 5px 0px ">Học kỳ </label>
+                                        <div class="ddlHocKy HocKy col-sm-8" style="padding-left:20px">
 
-                        </table>
-                        <div class="row">
+                                        </div>
 
-                            <div class="col-sm-5">
-                                <p style="float: left;margin-top: 5px">Hiển thị </p>
-                                <div style="float: left;margin: 0px 5px;" class="form-group">
-                                    <select name="state" id="maxRows" class="form-control" style="width:80px;">
-                                        <option value="10" selected>10</option>
-                                        <option value="20">20</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
+                                    </div>
+                                    <div class="col-sm-4" style="padding-left:20px">
+                                        <label style="float: left;margin: 5px 0px ">Thực tập </label>
+                                        <div class="ddlLoaiTT LoaiTT col-sm-9" style="padding-left:20px">
+                                        </div>
 
+                                    </div>
+
+
+                                    
                                 </div>
-                                <p style="float: left;margin-top: 5px">trên 1 trang </p>
-                            </div>
-                            <div class="pagination-container col-sm-7">
-                                <nav style="float:right;">
-                                    <ul class="pagination"></ul>
-                                </nav>
+                                <table id="myTable2" class="mytable table table-bordered" cellspacing="0" cellpadding="5"
+                                       style="border-collapse:collapse;margin: 10px 0px 10px 0px">
+                                    <thead>
+                                        <tr>
+                                            <th class="center-header" scope="col">STT</th>
+                                            <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
+                                            <th class="center-header" scope="col">Ngày sinh</th>
+                                            <th class="center-header" scope="col">Giới tính</th>
+                                            <th class="center-header" scope="col">Email</th>
+                                            <th class="center-header" scope="col">SĐT</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Địa chỉ</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Khóa</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Lĩnh vực</th>
+                                            <th class="center-header" scope="col">Ghi chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody2"></tbody>
+
+                                </table>
+                                <div class="row">
+
+                                    <div class="col-sm-5">
+                                        <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                        <div style="float: left;margin: 0px 5px;" class="form-group">
+                                            <select name="state" id="maxRows2" class="form-control" style="width:80px;">
+                                                <option value="10" selected>10</option>
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+
+                                        </div>
+                                        <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                                    </div>
+                                    <div class="pagination-container col-sm-7">
+                                        <nav style="float:right;">
+                                            <ul class="pagination2"></ul>
+                                        </nav>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div id="tab2" class="tab-pane fade">
+                            <div>
+                                <label style="float: left;margin: 5px 10px 25px 0px ">Khóa học </label>
+                                <div class="ddlKhoaHoc col-sm-3" style="padding-left:20px"></div>
+                                <table id="myTable" class="mytable table table-bordered" cellspacing="0" cellpadding="5"
+                                       style="border-collapse:collapse;margin: 10px 0px 10px 0px">
+                                    <thead>
+                                        <tr>
+                                            <th class="center-header" scope="col">STT</th>
+                                            <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
+                                            <th class="center-header" scope="col">Ngày sinh</th>
+                                            <th class="center-header" scope="col">Giới tính</th>
+                                            <th class="center-header" scope="col">Email</th>
+                                            <th class="center-header" scope="col">SĐT</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Địa chỉ</th>
+                                            <th class="center-header" scope="col" style="width:20%;">Lĩnh vực</th>
+                                            <th class="center-header" scope="col">Ghi chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody"></tbody>
+
+                                </table>
+                                <div class="row">
+
+                                    <div class="col-sm-5">
+                                        <p style="float: left;margin-top: 5px">Hiển thị </p>
+                                        <div style="float: left;margin: 0px 5px;" class="form-group">
+                                            <select name="state" id="maxRows" class="form-control" style="width:80px;">
+                                                <option value="10" selected>10</option>
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+
+                                        </div>
+                                        <p style="float: left;margin-top: 5px">trên 1 trang </p>
+                                    </div>
+                                    <div class="pagination-container col-sm-7">
+                                        <nav style="float:right;">
+                                            <ul class="pagination"></ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                    <!-- END RECENT PURCHASES -->
+
                 </div>
-
-            </div>
-            <!-- END RECENT PURCHASES -->
-
-        </div>
     </div>
     <!-- END MAIN CONTENT -->
 </div>

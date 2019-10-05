@@ -122,6 +122,8 @@ namespace QuanLyDeTai.Models
         public string Note { get; set; }
 
         public long? StudentPracticeID { get; set; }
+
+        public string Faculty { get; set; }
     }
 
 }

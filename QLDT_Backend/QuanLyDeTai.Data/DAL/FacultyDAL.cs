@@ -11,7 +11,7 @@ namespace QuanLyDeTai.Data.DAL
     {
         private DefaultDbContent context = new DefaultDbContent();
 
-        public Faculty GetById(long id)
+        public Faculty GetById(long? id)
         {
             context.Configuration.ProxyCreationEnabled = false;
             var user = context.Faculties
@@ -28,5 +28,7 @@ namespace QuanLyDeTai.Data.DAL
                 .ToList();
             return user;
         }
+
+
     }
 }

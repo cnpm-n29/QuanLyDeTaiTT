@@ -30,7 +30,7 @@ namespace QuanLyDeTai.Data.DAL
             var user = from i in context.Teachers
                 join c in context.TeacherRoleRelationships on i.ID equals c.TeacherID
                 join d in context.Roles on c.RoleID equals d.ID
-                where(i.MaGV == magv && d.RoleName == rolename && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                where(i.MaGV == magv && d.RoleName.ToLower().Equals(rolename.ToLower()) && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
                 select d;
             return user.ToList();
         }

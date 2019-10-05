@@ -215,23 +215,26 @@ function Update() {
     });
 }
 
-//function for deleting employee's record  
 function Delele(ID) {
-    var ans = confirm("Bạn muốn xóa sinh viên này?");
-    if (ans) {
+    $("#modal_delete").modal("show");
+    $(".btn_delete").attr("id", ID);
+}
+
+
+function DeleleResult(ID) {
         $.ajax({
             url: "/Student/Delete/" + ID,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
+                $("#modal_delete").modal("hide");
                 changeDropKhoaHoc($("#KhoaHoc").val())
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
             }
         });
-    }
 }
 
 
