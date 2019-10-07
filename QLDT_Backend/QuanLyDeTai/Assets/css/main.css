@@ -3211,6 +3211,7 @@ form .panel{
 .modal-confirm {
     color: #636363;
     width: 400px;
+    top:100px;
 }
 
     .modal-confirm .modal-content {
@@ -3310,7 +3311,7 @@ form .panel{
     }
 
 .modal-confirm .btn-danger {
-    background: #f15e5e;
+    background: #d9534f;
 }
 
     .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
