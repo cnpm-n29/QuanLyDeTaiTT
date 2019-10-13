@@ -10,6 +10,8 @@ using OfficeOpenXml.Style;
 using System.Drawing;
 using QuanLyDeTai.Service;
 using QuanLyDeTai.Data.Entities;
+using System.Net.Mail;
+using System.Net;
 
 namespace QuanLyDeTai.Controllers
 {
@@ -25,6 +27,7 @@ namespace QuanLyDeTai.Controllers
         // GET: StudentPractice
         public ActionResult Index()
         {
+            ViewBag.id2 = "StudentPracticeIndex";
             return View();
         }
 
@@ -37,6 +40,186 @@ namespace QuanLyDeTai.Controllers
             
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return Json(new { TotalRecords = total, List = listst }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetForReturn(long IDSV)
+        {
+            var query = studentService.GetById(IDSV);
+            var teacher = new List<string>();
+            var student = new List<Object>();
+            var sb = studentPracticeService.getByStudent(IDSV);
+            if (sb == null)
+            {
+                student.Add(query);
+                teacher.Add(null);
+            }
+            else
+            {
+                student.Add(query);
+                teacher.Add(sb.FirstName + " " + sb.LastName);
+            }
+
+
+            return Json(new { Student = student, TeacherName = teacher }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetByKHvaLoaiTTReport(long IDHK, long IDTT)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var list = studentPracticeService.getListByPracticeTypeIdReport(thuctap.ID);
+            var listreport = new List<StudentModel>();
+            foreach (var i in list)
+            {
+                 var model = new StudentModel{
+                   ID=i.ID,
+                   Masv=i.MaSV,
+                   FirstName=i.FirstName,
+                   LastName=i.LastName
+                };
+                var teacher = studentPracticeService.getByStudent(i.ID);
+                if (teacher != null)
+                {
+                    model.TeacherName = teacher.FirstName + " " + teacher.LastName;
+                }
+                else
+                {
+                    model.TeacherName = "";
+                }
+                listreport.Add(model);
+            }
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { List = listreport }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetByTeacherReport(long teacherID)
+        {
+            var list = studentPracticeService.getByTeacherReport(teacherID);
+            
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { List = list }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Random(long IDHK, long IDTT,List<string> listteacher)
+        {
+            var dem = 0;
+            var rand = new Random();
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var list = studentPracticeService.getListByPracticeTypeIdReport(thuctap.ID);
+            var chianguyen = list.Count() / listteacher.Count();
+            var chiadu = list.Count() % listteacher.Count();
+            var i = 1;
+            while (list.Count() > 0 && i <= listteacher.Count())
+            {
+                // Get the next item at random.
+                if (list.Count() <= 0)
+                {
+
+                }
+                else
+                {
+                    var index = rand.Next(0, list.Count);
+                    var item = list[index];
+                    var student = studentPracticeService.GetBySinhVienvaKieuTT(item.ID, thuctap.ID);
+                    studentPracticeService.UpdateReport(Convert.ToInt32(listteacher[i - 1]), student.ID);
+                    list.RemoveAt(index);
+                    dem++;
+                    if (i < chiadu)
+                    {
+                        if (dem == chianguyen + 1)
+                        {
+                            i++;
+                        }
+                    }
+                }
+                
+                
+            }
+
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { List = list }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public JsonResult GetByTeacher(long IDHK, long IDTT, long IDGV)
+        {
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var query = studentPracticeService.getListByPracticeTypeIdReport(thuctap.ID);
+            var teacher = new List<string>();
+            var student = new List<Object>();
+            var studentTeacher = new List<Object>();
+            foreach (var i in query)
+            {
+                var sb = studentPracticeService.getByTeacherReport(IDGV);
+                if (sb.Count <= 0)
+                {
+                    var model = new StudentModel
+                    {
+                        ID = i.ID,
+                        Masv = i.MaSV,
+                        FirstName = i.FirstName,
+                        LastName = i.LastName
+                    };
+                    var teacherId = studentPracticeService.getByStudent(i.ID);
+                    if (teacherId != null)
+                    {
+                        model.TeacherName = teacherId.FirstName + " " + teacherId.LastName;
+                    }
+                    else
+                    {
+                        model.TeacherName = "";
+                    }
+                    student.Add(model);
+                }
+                else
+                {
+                    var dem = 0;
+                    foreach (var x in sb)
+                    {
+                        if (x.ID == i.ID)
+                        {
+                            dem++;
+                            var tc = teacherService.GetById(IDGV);
+                            var m = new StudentModel
+                            {
+                                ID = i.ID,
+                                Masv = i.MaSV,
+                                FirstName = i.FirstName,
+                                LastName = i.LastName,
+                                TeacherName = tc.FirstName + " " + tc.LastName
+                            };
+                            studentTeacher.Add(m);
+                        }
+                    }
+                    if (dem == 0)
+                    {
+                        var model = new StudentModel
+                        {
+                            ID = i.ID,
+                            Masv = i.MaSV,
+                            FirstName = i.FirstName,
+                            LastName = i.LastName
+                        };
+                        var teacherId = studentPracticeService.getByStudent(i.ID);
+                        if (teacherId != null)
+                        {
+                            model.TeacherName = teacherId.FirstName + " " + teacherId.LastName;
+                        }
+                        else
+                        {
+                            model.TeacherName = "";
+                        }
+                        student.Add(model);
+                    }
+                    
+                }
+            }
+
+
+
+            return Json(new { StudentTeacher = studentTeacher, Student = student }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetByKHvaLoaiTTByTeacher(long IDHK, long IDTT, string masv, string studentname, int pageNumber = 0, int pageSize = 10)
@@ -116,6 +299,18 @@ namespace QuanLyDeTai.Controllers
             return Json(studentPracticeService.Update(studentPractice), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult AddReport(List<string> list, long IDGV, long IDHK, long IDTT)
+        {
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+
+            foreach (var i in list)
+            {
+                var studentPracticeId = studentPracticeService.GetBySinhVienvaKieuTT(Convert.ToInt32(i), thuctap.ID).ID;
+                studentPracticeService.UpdateReport(IDGV,studentPracticeId);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Delete(long id)
         {
             long id_gv = long.Parse(Session["UserId"].ToString());
@@ -146,6 +341,13 @@ namespace QuanLyDeTai.Controllers
             return Json(dem, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult DeleteReport(long IDSV, long IDHK, long IDTT)
+        {
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
+            var student = studentPracticeService.GetBySinhVienvaKieuTT(IDSV, thuctap.ID);
+            return Json(studentPracticeService.DeleteReport(student.ID), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult DeleteAll(long PracticeID, long SemesterID)
         {
             var thuctap = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
@@ -168,6 +370,42 @@ namespace QuanLyDeTai.Controllers
                 }
             }
             return Json(studentPracticeService.DeleteAll(practiceTypeId, id_gv), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SendEmail()
+        {
+            try
+            {
+                var senderEmail = new MailAddress("Buchap2105@gmail.com", "bu chap");
+                var receiverEmail = new MailAddress("dinhthithuthuy2105@gmail.com", "Receiver");
+                var password = "21051997";
+                var sub = "Danh sách sinh viên thực tập";
+                var body = "okkkkkkkkkkkkkkkkkkkk";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(e, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public ActionResult Upload(long PracticeID, long SemesterID)

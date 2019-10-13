@@ -3318,3 +3318,7 @@ form .panel{
         background: #ee3535;
     }
 
+
+    .display{
+        display:none;
+    }

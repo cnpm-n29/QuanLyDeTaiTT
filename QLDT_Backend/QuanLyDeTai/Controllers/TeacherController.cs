@@ -14,6 +14,7 @@ namespace QuanLyDeTai.Controllers
         // GET: Teacher
         public ActionResult ListTeacherSubject()
         {
+            ViewBag.id2 = "ListTeacherSubject";
             return View();
         }
 
@@ -35,6 +36,30 @@ namespace QuanLyDeTai.Controllers
                     Phone=i.Phone,
                     Address=i.Address,
                     Note=i.Note
+                };
+                list.Add(teacher);
+            }
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetListBySubject(long SubjectId)
+        {
+            var listtc = teacherService.getList();
+            if (SubjectId > 0)
+            {
+                listtc = teacherService.getListBySubjectId(SubjectId);
+            }
+            var list = new List<TeacherModel>();
+            foreach (var i in listtc)
+            {
+                var teacher = new TeacherModel
+                {
+                    ID=i.ID,
+                    MaGV = i.MaGV,
+                    FirstName = i.FirstName,
+                    LastName = i.LastName,
+                    Birthday = i.Birthday.Value.Day + "/" + i.Birthday.Value.Month + "/" + i.Birthday.Value.Year
                 };
                 list.Add(teacher);
             }

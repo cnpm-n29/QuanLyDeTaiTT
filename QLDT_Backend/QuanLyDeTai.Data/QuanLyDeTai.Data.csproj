@@ -58,6 +58,7 @@
     <Compile Include="DAL\NotificationDAL.cs" />
     <Compile Include="DAL\PracticeDAL.cs" />
     <Compile Include="DAL\PracticeTypeDAL.cs" />
+    <Compile Include="DAL\ReportDAL.cs" />
     <Compile Include="DAL\ScoreDAL.cs" />
     <Compile Include="DAL\SemesterDAL.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="DAL\TopicDAL.cs" />
     <Compile Include="DAL\TopicStudentDAL.cs" />
     <Compile Include="Entities\Branch.cs" />
-    <Compile Include="DefaultDbContent.cs" />
+    <Compile Include="DefaultDbContext.cs" />
     <Compile Include="Entities\Faculty.cs" />
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\Function.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\Practice.cs" />
     <Compile Include="Entities\PracticeType.cs" />
+    <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Score.cs" />
     <Compile Include="Entities\Semester.cs" />
@@ -109,5 +111,6 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

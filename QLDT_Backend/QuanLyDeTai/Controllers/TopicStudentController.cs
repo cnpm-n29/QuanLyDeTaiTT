@@ -28,11 +28,13 @@ namespace QuanLyDeTai.Controllers
         // GET: DeTaiSinhVienTT
         public ActionResult ChooseTopic()
         {
+            
             return View();
         }
 
         public ActionResult MonitorProgress()
         {
+            ViewBag.id = "MonitorProgress";
             return View();
         }
 
@@ -126,6 +128,7 @@ namespace QuanLyDeTai.Controllers
 
         public ActionResult SaveTopic()
         {
+            ViewBag.id = "SaveTopic";
             return View();
         }
 

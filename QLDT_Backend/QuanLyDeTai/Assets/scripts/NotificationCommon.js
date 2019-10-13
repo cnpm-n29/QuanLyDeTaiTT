@@ -122,9 +122,10 @@ function changeStatus(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            toastr.success('Thay đổi trạng thái thành công !');
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('cập nhật lỗi !');
         }
     });
 

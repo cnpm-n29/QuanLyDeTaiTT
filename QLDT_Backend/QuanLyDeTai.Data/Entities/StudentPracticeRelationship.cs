@@ -12,6 +12,7 @@ namespace QuanLyDeTai.Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StudentPracticeRelationship()
         {
+            Reports = new HashSet<Report>();
             TopicStudents = new HashSet<TopicStudent>();
         }
 
@@ -20,6 +21,8 @@ namespace QuanLyDeTai.Data.Entities
         public long? StudentID { get; set; }
 
         public long? PracticeTypeID { get; set; }
+
+        public long? TeacherID { get; set; }
 
         public long? CreateBy { get; set; }
 
@@ -34,6 +37,9 @@ namespace QuanLyDeTai.Data.Entities
         public long? DeletedBy { get; set; }
 
         public DateTime? DeletedTime { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Report> Reports { get; set; }
 
         public virtual Student Student { get; set; }
 

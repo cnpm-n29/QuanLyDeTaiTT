@@ -1,5 +1,22 @@
 ﻿$(document).ready(function () {
-    
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "100",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "show",
+        "hideMethod": "hide"
+    };
+    toastr.info('MY MESSAGE!');
+
 
     $('.collapsed').on('click', function () {
         var id = $(this).attr("href").replace("#","");
@@ -78,7 +95,8 @@
 	});
 
     $(window).on('load', function () {
-        if ($("a").hasClass("menu")){
+
+        if ($("a").hasClass("menu")) {
             $("#menu").addClass('active');
             $("#subPages").addClass("in");
             $("#menu").attr("aria-expanded", true);
@@ -94,6 +112,7 @@
             $("#menu2").find("i.icon-submenu").removeClass("lnr-chevron-left")
             $("#menu2").find("i.icon-submenu").addClass("lnr-chevron-down");
         }
+
 
 		if($(window).innerWidth() < 1025) {
 			$('.btn-toggle-fullwidth').find('.icon-arrows')

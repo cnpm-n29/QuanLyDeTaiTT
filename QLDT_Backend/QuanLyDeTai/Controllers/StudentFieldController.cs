@@ -21,6 +21,7 @@ namespace QuanLyDeTai.Controllers
 
         public JsonResult GetList()
         {
+
             return Json(fieldService.GetListField(), JsonRequestBehavior.AllowGet);
         }
 

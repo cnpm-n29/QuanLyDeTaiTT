@@ -70,9 +70,10 @@ function Add() {
         success: function (result) {
             changeDropThucTap($("#LoaiTT").val());
             $('#themthongbao').modal('hide');
+            toastr.success('Thêm mới thành công !');
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('Thêm mới thất bại !');
         }
     });
 
@@ -126,10 +127,11 @@ function Update() {
         success: function (result) {
             changeDropThucTap($("#LoaiTT").val());
             $('#suathongbao').modal('hide');
+            toastr.success('Cập nhật thành công !');
 
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('Cập nhật thất bại !');
         }
     });
 }
@@ -145,9 +147,10 @@ function Delele(ID) {
             dataType: "json",
             success: function (result) {
                 changeDropThucTap($("#LoaiTT").val());
+                toastr.success('Xóa thành công !');
             },
             error: function (errormessage) {
-                alert(errormessage.responseText);
+                toastr.error('Xóa thất bại !');
             }
         });
     }

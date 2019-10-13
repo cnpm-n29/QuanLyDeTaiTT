@@ -28,6 +28,7 @@ namespace QuanLyDeTai.Controllers
 
         public ActionResult ListScore()
         {
+            ViewBag.active = "ListScore";
             return View();
         }
 

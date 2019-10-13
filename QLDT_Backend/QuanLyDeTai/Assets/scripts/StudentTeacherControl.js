@@ -2,27 +2,31 @@
     getListKhoaHoc();
     getListGiangVien();
     changeDropKhoaHoc($("#KhoaHoc").val())
-    var lastChecked = null;
-
-    var $chkboxes = $('.checkbox');
-    $chkboxes.click(function (event) {
-        if (!lastChecked) {
-            lastChecked = this;
-            return;
-        }
-
-        if (event.shiftKey) {
-            var start = $chkboxes.index(this);
-            var end = $chkboxes.index(lastChecked);
-
-            $chkboxes.slice(Math.min(start, end), Math.max(start, end) + 1).attr('checked', lastChecked.checked);
-
-        }
-
-        lastChecked = this;
-    });
     
 });
+
+var lastChecked = null;
+
+function changeCheck(key) {
+    var $chkboxes = $('.checkbox');
+    if (lastChecked == null) {
+        lastChecked = key;
+        return;
+    }
+
+    if (window.event.shiftKey) {
+        var start = key;
+        var end = lastChecked;
+
+        for (var i = end; i <= start; i++) {
+            $("#" + i).prop('checked', true);
+        }
+
+    }
+
+    lastChecked = key;
+
+}
 
 //Thay doi dropdown cua thuc tap
 function changeDropKhoaHoc(IDKH) {
@@ -47,7 +51,7 @@ function changeDropKhoaHoc(IDKH) {
                 var n = 0;
                 $.each(result.Student, function (key, item) {
                     html += '<tr >';
-                    html += '<td style="text-align:center"><input style="margin:auto" name="ids[]" class="checkbox" type="checkbox"></td>';
+                    html += '<td style="text-align:center"><input onclick="changeCheck(' + key + ')" style="margin:auto" id="' + key + '" class="checkbox" type="checkbox"></td>';
                     html += '<td style="display:none">' + item.ID + '</td>';
                     html += '<td>' + item.MaSV + '</td>';
                     html += '<td>' + item.FirstName + ' ' + item.LastName + '</td>';
@@ -384,9 +388,10 @@ function Save() {
                 async: false,
                 success: function (result) {
                     changeDropGiangVien(IDGV);
+                    toastr.success('Lưu thành công !');
                 },
                 error: function (errormessage) {
-                    alert(errormessage.responseText);
+                    toastr.error('Lưu thất bại !');
                 }
             });
         }

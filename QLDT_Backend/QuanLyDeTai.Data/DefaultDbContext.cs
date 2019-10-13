@@ -5,10 +5,10 @@ namespace QuanLyDeTai.Data.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class DefaultDbContent : DbContext
+    public partial class DefaultDbContext : DbContext
     {
-        public DefaultDbContent()
-            : base("name=DefaultDbContent")
+        public DefaultDbContext()
+            : base("name=DefaultDbContext")
         {
         }
 
@@ -20,6 +20,7 @@ namespace QuanLyDeTai.Data.Entities
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Practice> Practices { get; set; }
         public virtual DbSet<PracticeType> PracticeTypes { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Score> Scores { get; set; }
         public virtual DbSet<Semester> Semesters { get; set; }
@@ -42,6 +43,11 @@ namespace QuanLyDeTai.Data.Entities
                 .Property(e => e.Phone)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<StudentPracticeRelationship>()
+                .HasMany(e => e.Reports)
+                .WithOptional(e => e.StudentPracticeRelationship)
+                .HasForeignKey(e => e.StudentPracticeID);
 
             modelBuilder.Entity<StudentPracticeRelationship>()
                 .HasMany(e => e.TopicStudents)

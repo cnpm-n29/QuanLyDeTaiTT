@@ -43,6 +43,11 @@ namespace QuanLyDeTai.Service
             return teacherDAL.GetByMagv(magv);
         }
 
+        public Teacher GetById(long id)
+        {
+            return teacherDAL.GetById(id);
+        }
+
         public bool GetRole(string magv,string rolename)
         {
 
@@ -76,5 +81,9 @@ namespace QuanLyDeTai.Service
             return teacherDAL.getListBySubjectIdSort(id,magv,teachername,pageNumber,pageSize);
         }
 
+        public IEnumerable<Teacher> getList()
+        {
+            return teacherDAL.getList();
+        }
     }
 }

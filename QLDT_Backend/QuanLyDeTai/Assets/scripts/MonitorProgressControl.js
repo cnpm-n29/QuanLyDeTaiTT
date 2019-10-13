@@ -213,17 +213,13 @@ $(document).ready(function () {
             result(id, true);
             create(score, id);
             
-            $('#notification').addClass('alert-success');
-            $('#notification').text('Thành công');
-            myFunction();
+            toastr.success('Thành công !');
             Reload();
         }
         
         else {
             $('#giamsattd').modal('hide');
-            $('#notification').addClass('alert-danger');
-            $('#notification').text('Đã xảy ra lỗi khi xét duyệt');
-            myFunction();
+            toastr.error('Lỗi khi xét duyệt !');
         }
         
     })

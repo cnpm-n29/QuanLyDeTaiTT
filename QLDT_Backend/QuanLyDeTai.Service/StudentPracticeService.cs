@@ -33,7 +33,7 @@ namespace QuanLyDeTai.Service
         }
 
 
-            public StudentPracticeRelationship GetBySinhVienvaKieuTT(long idsv, long idktt)
+        public StudentPracticeRelationship GetBySinhVienvaKieuTT(long idsv, long idktt)
         {
             return studentPracticeDAL.GetBySinhVienvaKieuTT(idsv, idktt);
         }
@@ -56,6 +56,21 @@ namespace QuanLyDeTai.Service
         public int getListByPracticeTypeIdAndTeacherIdCount(long practiceTypeId, long teacherid, string masv, string studentname)
         {
             return studentPracticeDAL.getListByPracticeTypeIdAndTeacherIdCount(practiceTypeId, teacherid, masv, studentname);
+        }
+
+        public List<Student> getListByPracticeTypeIdReport(long practiceTypeId)
+        {
+            return studentPracticeDAL.getListByPracticeTypeIdReport(practiceTypeId);
+        }
+
+        public Teacher getByStudent(long studentID)
+        {
+            return studentPracticeDAL.getByStudent(studentID);
+        }
+
+        public List<Student> getByTeacherReport(long teacherID)
+        {
+            return studentPracticeDAL.getByTeacherReport(teacherID);
         }
 
         public bool Create(StudentPracticeRelationship model)
@@ -92,11 +107,37 @@ namespace QuanLyDeTai.Service
             }
         }
 
+        public bool UpdateReport(long teacherID, long ID)
+        {
+            try
+            {
+                var update = studentPracticeDAL.UpdateReport(teacherID,ID);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool Delete(long id, long person)
         {
             try
             {
                 var update = studentPracticeDAL.Delete(id, person);
+                return update;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteReport(long id)
+        {
+            try
+            {
+                var update = studentPracticeDAL.DeleteReport(id);
                 return update;
             }
             catch

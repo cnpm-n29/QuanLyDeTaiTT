@@ -11,7 +11,17 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class TeacherDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
+
+        public Teacher GetById(long id)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            //Get from database
+            var user = context.Teachers
+                .Where(i => i.ID == id && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .FirstOrDefault();
+            return user;
+        }
 
         public Teacher GetByMagv(string magv)
         {
@@ -33,6 +43,15 @@ namespace QuanLyDeTai.Data.DAL
                 where(i.MaGV == magv && d.RoleName.ToLower().Equals(rolename.ToLower()) && (i.IsDeleted == false || i.IsDeleted.Equals(null)))
                 select d;
             return user.ToList();
+        }
+
+        public IEnumerable<Teacher> getList()
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = context.Teachers
+                .Where(i =>i.SubjectID!=null&&(i.IsDeleted == false || i.IsDeleted.Equals(null)))
+                .ToList();
+            return user;
         }
 
         public IEnumerable<Teacher> getListBySubjectId(long? id)

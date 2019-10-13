@@ -9,7 +9,7 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class ScoreDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
 
         public Score GetByTopicStudent2(long id)
         {

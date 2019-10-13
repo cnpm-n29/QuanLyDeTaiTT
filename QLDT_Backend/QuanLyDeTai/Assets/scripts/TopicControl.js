@@ -7,7 +7,6 @@
 
     changeDropHocKy1($(".HocKy1 #HocKy1").val());
 
-   
 
 });
 
@@ -63,13 +62,13 @@ function changeDropThucTap(IDTT,search="", PgNumber = 0, PgSize = $("#maxRows").
                 if (totalRows > PgSize) {
                     var pagenum = Math.ceil(totalRows / PgSize)
 
-                    $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                    $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link"><span aria-hidden="true"><i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
                     for (var j = 1; j <= pagenum;) {
                         $('.pagination').append('<li onclick="Page(' + j + ')" class="page-item page page-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
 
                     }
                     num = pagenum;
-                    $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                    $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
                 }
                 $('.page-number-1').addClass('active')
                 $('.page-number-1').addClass('abc')
@@ -106,20 +105,15 @@ function Add() {
             changeDropThucTap($("#LoaiTT").val());
             $('#themdetai').modal('hide');
             if (result == true) {
-                $('#notification').addClass('alert-success');
-                $('#notification').text('Thêm đề tài thành công');
-                myFunction();
+                toastr.success('Thêm mới thành công !');
+                
             }
             else {
-                $('#notification').addClass('alert-danger');
-                $('#notification').text('Thêm đề tài thất bại');
-                myFunction();
+                toastr.error('Thêm mới thất bại !');
             }
         },
         error: function (errormessage) {
-            $('#notification').addClass('alert-danger');
-            $('#notification').text('Thêm đề tài thất bại');
-            myFunction();
+            toastr.error('Thêm mới thất bại !');
         }
     });
 
@@ -183,19 +177,13 @@ function Update() {
             changeDropThucTap($("#LoaiTT").val())
             $('#suadetai').modal('hide');
             if (result == true) {
-                $('#notification').addClass('alert-success');
-                $('#notification').text('Sửa đề tài thành công');
-                myFunction();
+                toastr.success('Cập nhật thành công !');
             } else {
-                $('#notification').addClass('alert-danger');
-                $('#notification').text('Sửa đề tài thất bại');
-                myFunction();
+                toastr.error('Cập nhật thất bại !');
             }
         },
         error: function (errormessage) {
-            $('#notification').addClass('alert-danger');
-            $('#notification').text('Sửa đề tài thất bại');
-            myFunction();
+            toastr.error('Cập nhật thất bại !');
         }
     });
 }
@@ -219,22 +207,16 @@ function DeleleResult(ID) {
                 
             }
             else if (result == true) {
-                $('#notification').addClass('alert-success');
-                $('#notification').text('Xóa đề tài thành công');
-                myFunction();
+                toastr.success('Xóa thành công !');
             }
             else {
-                $('#notification').addClass('alert-danger');
-                $('#notification').text('Xóa đề tài thất bại');
-                myFunction();
+                toastr.error('Xóa thất bại !');
             }
             changeDropThucTap($("#LoaiTT").val());
 
         },
         error: function (errormessage) {
-            $('#notification').addClass('alert-danger');
-            $('#notification').text('Xóa đề tài thất bại');
-            myFunction();
+            toastr.error('Xóa thất bại !');
         }
     });
 
@@ -361,13 +343,13 @@ function Search() {
                     if (totalRows > PgSize) {
                         var pagenum = Math.ceil(totalRows / PgSize)
 
-                        $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                        $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
                         for (var j = 1; j <= pagenum;) {
                             $('.pagination').append('<li onclick="Page(' + j + ')" class="page-item page page-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
 
                         }
                         num = pagenum;
-                        $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                        $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
                     }
                     $('.page-number-1').addClass('active')
                     $('.page-number-1').addClass('abc')
@@ -390,10 +372,11 @@ function changeStatus(id)
         dataType: "json",
         success: function (result) {
             $("this").attr("checked", result.Status);
+            toastr.success('Cập nhật trạng thái thành công !');
         },
 
         error: function (errormessage) {
-
+            toastr.error('Cập nhật lỗi !');
         }
     });
     return false;
@@ -555,13 +538,13 @@ function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRow
                 if (totalRows > PgSize) {
                     var pagenum = Math.ceil(totalRows / PgSize)
 
-                    $('.pagination1').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                    $('.pagination1').append('<li class="page-item"><a onclick="Previous_all1()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous1()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
                     for (var j = 1; j <= pagenum;) {
-                        $('.pagination1').append('<li onclick="Page(' + j + ')" class="page-item page pages-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
+                        $('.pagination1').append('<li onclick="Page1(' + j + ')" class="page-item page pages-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
 
                     }
                     num1 = pagenum;
-                    $('.pagination1').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
+                    $('.pagination1').append('<li class="page-item next"><a onclick="Next1()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all1()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
                 }
                 $('.pages-number-1').addClass('active')
                 $('.pages-number-1').addClass('abcd')
@@ -592,7 +575,7 @@ function Previous_all1() {
     $('.page-number-1').addClass('abcd')
 }
 
-function Previous() {
+function Previous1() {
     var pageNum = $('.abcd').attr('data-page')
 
     if (pageNum == 1) {
@@ -608,7 +591,7 @@ function Previous() {
     }
 }
 
-function Next_all() {
+function Next_all1() {
     var pageNum = num1;
     changeDropThucTap1($("#LoaiTT1").val(), pageNum - 1, $("#maxRows1").val());
     $('.pagination1 li').removeClass('active')
@@ -617,7 +600,7 @@ function Next_all() {
     $('.pages-number-' + num).addClass('abcd')
 }
 
-function Next() {
+function Next1() {
     var pageNum = $('.abcd').attr('data-page')
 
     if (pageNum == num1) {

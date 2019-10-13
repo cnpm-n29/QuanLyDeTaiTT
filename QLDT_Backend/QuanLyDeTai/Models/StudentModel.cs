@@ -74,12 +74,15 @@ namespace QuanLyDeTai.Models
 
 
         public long ID { get; set; }
+        
 
         public string Masv { get; set; }
 
         public long? FacultyId { get; set; }
 
         public string FieldName { get; set; }
+
+        public string TeacherName { get; set; }
 
         public string FullName { get; set; }
 

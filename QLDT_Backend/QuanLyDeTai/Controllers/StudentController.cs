@@ -26,18 +26,20 @@ namespace QuanLyDeTai.Controllers
         // GET: Student
         public ActionResult ListStudentSubject()
         {
+            ViewBag.id2 = "ListStudentSubject";
             return View();
         }
 
         public ActionResult ListStudentTeacher()
         {
+            ViewBag.id = "ListStudentTeacher";
             return View();
         }
 
         public ActionResult ListStudent()
         {
             var result = facultyService.GetAllFaculty();
-            
+            ViewBag.id2 = "ListStudent";
             // Tạo SelectList
             SelectList facultyList = new SelectList(result, "ID", "FacultyName");
 

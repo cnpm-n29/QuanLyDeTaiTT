@@ -20,6 +20,7 @@ namespace QuanLyDeTai.Controllers
         // GET: DeTai
         public ActionResult Index()
         {
+            ViewBag.id = "TopicIndex";
             if (Session["Quyen"].ToString().Contains("Thêm, Sửa,Xóa đề tài"))
             {
                 //listHocKy1();

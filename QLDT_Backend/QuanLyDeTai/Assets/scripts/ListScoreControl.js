@@ -257,10 +257,11 @@ function Update() {
         success: function (result) {
             changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
             $('#suadiem').modal('hide');
+            toastr.success('Cập nhật thành công !');
 
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('Cập nhật thất bại !');
         }
     });
 }
@@ -281,9 +282,10 @@ function DeleleResult(ID) {
             success: function (result) {
                 $("#modal_delete").modal("hide");
                 changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", "", 0, $("#maxRows").val());
+                toastr.success('Xóa thành công !');
             },
             error: function (errormessage) {
-                alert(errormessage.responseText);
+                toastr.error('Xóa thất bại !');
             }
         });
 }
@@ -511,16 +513,12 @@ $("#deleteall").click(function () {
             if (result == true) {
                 $("#thongbao").modal("hide");
                 changeDropHocKy($("#HocKy").val());
-                $('#notification').addClass('alert-success');
-                $('#notification').text('Xóa thành công');
-                myFunction();
+                toastr.success('Xóa thành công !');
             }
             else if (result == false) {
                 $("#thongbao").modal("hide");
                 changeDropHocKy($("#HocKy").val());
-                $('#notification').addClass('alert-danger');
-                $('#notification').text('Xóa thất bại');
-                myFunction();
+                toastr.error('Xóa thất bại !');
             }
             else {
                 $("#thongbao").modal("hide");
@@ -531,7 +529,7 @@ $("#deleteall").click(function () {
 
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('Xóa thất bại !');
         }
     });
 });

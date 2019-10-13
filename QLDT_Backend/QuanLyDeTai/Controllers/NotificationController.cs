@@ -18,7 +18,9 @@ namespace QuanLyDeTai.Controllers
         // GET: Notification
         public ActionResult Index()
         {
+            ViewBag.id2 = "NotificationIndex";
             return View();
+            
         }
 
         public JsonResult GetbyStudentID()

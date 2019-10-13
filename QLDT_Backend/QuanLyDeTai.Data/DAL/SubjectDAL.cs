@@ -9,7 +9,7 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class SubjectDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
 
         public Subject GetById(long id)
         {

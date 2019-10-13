@@ -231,7 +231,7 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
 
 // function button paganition
 function Page2(pageNum) {
-    changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows").val());
+    changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows2").val());
     $('.pagination2 li').removeClass('active')
     $('.pagination2 li').removeClass('abc')
     $('.page-number2-' + pageNum).addClass('active')
@@ -239,16 +239,16 @@ function Page2(pageNum) {
 
 }
 
-function Previous_all() {
+function Previous_all2() {
     var pageNum = 1;
-    changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows").val());
+    changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows2").val());
     $('.pagination2 li').removeClass('active')
     $('.pagination2 li').removeClass('abc')
     $('.page-number2-1').addClass('active')
     $('.page-number2-1').addClass('abc')
 }
 
-function Previous() {
+function Previous2() {
     var pageNum = $('.abc').attr('data-page')
 
     if (pageNum == 1) {
@@ -256,7 +256,7 @@ function Previous() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum - 1;
-        changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows").val());
+        changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows2").val());
         $('.pagination2 li').removeClass('active')
         $('.pagination2 li').removeClass('abc')
         $('.page-number2-' + pageNum).addClass('active')
@@ -264,16 +264,16 @@ function Previous() {
     }
 }
 
-function Next_all() {
+function Next_all2() {
     var pageNum = num1;
-    changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows").val());
+    changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows2").val());
     $('.pagination2 li').removeClass('active')
     $('.pagination2 li').removeClass('abc')
     $('.page-number2-' + num).addClass('active')
     $('.page-number2-' + num).addClass('abc')
 }
 
-function Next() {
+function Next2() {
     var pageNum = $('.abc').attr('data-page')
 
     if (pageNum == num1) {
@@ -281,7 +281,7 @@ function Next() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum + 1;
-        changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows").val());
+        changeDropThucTap($("#LoaiTT").val(), "", "", pageNum - 1, $("#maxRows2").val());
         $('.pagination2 li').removeClass('active')
         $('.pagination2 li').removeClass('abc')
         $('.page-number2-' + pageNum).addClass('active')
@@ -290,5 +290,5 @@ function Next() {
 }
 
 $('#maxRows2').on('change', function () {
-    changeDropThucTap($("#LoaiTT").val(), "", "", 0, $("#maxRows").val());
+    changeDropThucTap($("#LoaiTT").val(), "", "", 0, $("#maxRows2").val());
 })

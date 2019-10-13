@@ -207,10 +207,11 @@ function Update() {
         success: function (result) {
             changeDropKhoaHoc($("#KhoaHoc").val())
             $('#suasvthuctap').modal('hide');
+            toastr.success('Cập nhật thành công !');
 
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('Cập nhật thất bại !');
         }
     });
 }
@@ -229,10 +230,11 @@ function DeleleResult(ID) {
             dataType: "json",
             success: function (result) {
                 $("#modal_delete").modal("hide");
-                changeDropKhoaHoc($("#KhoaHoc").val())
+                changeDropKhoaHoc($("#KhoaHoc").val());
+                toastr.success('Xóa thành công !');
             },
             error: function (errormessage) {
-                alert(errormessage.responseText);
+                toastr.error('Xóa thất bại !');
             }
         });
 }

@@ -60,14 +60,14 @@ function check(id) {
             dataType: "json",
             success: function (result) {
                 if (result == true) {
-
+                    toastr.success('Chọn thành công !');
                 }
                 else {
-                    alert('Đã xảy ra lỗi!');
+                    toastr.error('Chọn thất bại !');
                 }
             },
             error: function (errormessage) {
-                alert(errormessage.responseText);
+                toastr.error('Đã có lỗi !');
             }
         });
     }
@@ -79,10 +79,10 @@ function check(id) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
-               
+                toastr.success('Bỏ chọn thành công !');
             },
             error: function (errormessage) {
-                alert(errormessage.responseText);
+                toastr.error('Đã có lỗi !');
             }
         });
     }

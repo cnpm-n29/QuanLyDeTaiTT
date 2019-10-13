@@ -10,7 +10,7 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class TopicDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
 
         public IQueryable GetById(long id)
         {

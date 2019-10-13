@@ -354,9 +354,10 @@ function Save() {
             html += '</tr>';
             $('.tbody').html(html);
             $('.page').remove('div');
+            toastr.success('Lưu thành công !');
         },
         error: function (errormessage) {
-            alert(errormessage.responseText);
+            toastr.error('Lưu thất bại !');
         }
     });
 }

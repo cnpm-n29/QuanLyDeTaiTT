@@ -405,9 +405,10 @@ function Save() {
                 async: false,
                 success: function (result) {
                     changeDropBoMon(IDBM);
+                    toastr.success('Lưu thành công !');
                 },
                 error: function (errormessage) {
-                    alert(errormessage.responseText);
+                    toastr.error('Lưu thất bại !');
                 }
             });
         }

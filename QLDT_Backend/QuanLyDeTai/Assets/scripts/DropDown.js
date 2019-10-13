@@ -145,7 +145,7 @@ function getListGiangVien() {
         dataType: "json",
         success: function (result) {
 
-            var html = '<select id="GiangVien" class="form-control" onchange ="changeDropGiangVien(this.value)">';
+            var html = '<select id="GiangVien" data-live-search="true" class="form-control selectpicker" onchange ="changeDropGiangVien(this.value)">';
             html += '<option disabled > -- Chọn giảng viên -- </option>';
             $.each(result, function (key, item) {
                 html += '<option value=' + item.ID + '>' + item.FirstName + " " + item.LastName + '</option>';

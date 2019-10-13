@@ -16,6 +16,7 @@ namespace QuanLyDeTai.Controllers
         // GET: StudentSubject
         public ActionResult Index()
         {
+            ViewBag.active = "StudentSubjectIndex";
             return View();
         }
 

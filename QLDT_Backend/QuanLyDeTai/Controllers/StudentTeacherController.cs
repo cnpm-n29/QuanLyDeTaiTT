@@ -16,6 +16,7 @@ namespace QuanLyDeTai.Controllers
         // GET: StudentTeacher
         public ActionResult AssignedTeacher()
         {
+            ViewBag.active = "AssignedTeacher";
             return View();
         }
 
@@ -75,6 +76,7 @@ namespace QuanLyDeTai.Controllers
 
             return Json(new { Student = student, TeacherName = teacher }, JsonRequestBehavior.AllowGet);
         }
+
 
 
         public JsonResult Delete(long IDSV)

@@ -154,10 +154,11 @@ function changeStatus(id,studentid) {
                     //tr[i].style.display = "";
                 }
             }
+            toastr.success('Cập nhật trạng thái thành công !');
         },
 
         error: function (errormessage) {
-
+            toastr.error('Cập nhật trạng thái thất bại !');
         }
     });
     return false;

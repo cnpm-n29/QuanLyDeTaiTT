@@ -10,6 +10,8 @@ namespace QuanLyDeTai.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.active = null;
+            ViewBag.id = null;
             return View();
         }
 

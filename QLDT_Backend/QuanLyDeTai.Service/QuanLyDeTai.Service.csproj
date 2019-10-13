@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailService.cs" />
     <Compile Include="FacultyService.cs" />
     <Compile Include="FieldService.cs" />
     <Compile Include="NotificationService.cs" />
+    <Compile Include="ReportService.cs" />
     <Compile Include="ScoreService.cs" />
     <Compile Include="StudentFieldService.cs" />
     <Compile Include="StudentNotificationService.cs" />

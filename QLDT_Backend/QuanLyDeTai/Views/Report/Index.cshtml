@@ -1,0 +1,195 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Phân hội đồng chấm thi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section footer
+{
+    <script src="~/Assets/scripts/DropDown.js"></script>
+    <script src="~/Assets/scripts/ReportControl.js"></script>
+}
+
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- OVERVIEW -->
+            <div class="panel panel-headline row">
+                <div class="panel-heading col-md-4">
+                    <h4>PHÂN GIÁO VIÊN HƯỚNG DẪN</h4>
+                </div>
+                <div class="col-md-8 form-search display" style="margin-top: 10px">
+                    <div class="input-group" style="max-width: 300px;float: right;" id="adv-search">
+                        <input onkeyup="search()" id="myInput" type="text" class="form-control"
+                               placeholder="Search ..." />
+                        <div class="input-group-btn" style="width: 20%;">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button"
+                                            class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         role="menu">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label for="filter">
+                                                    Tìm kiếm
+                                                    theo
+                                                </label> <select id="searchfor" class="form-control">
+                                                    <option value="0" selected>Mã sinh viên</option>
+                                                    <option value="1">Tên sinh viên </option>
+                                                </select>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="search()" class="btn btn-primary">
+                                    <span class="fa fa-search"
+                                          aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OVERVIEW -->
+            <!-- RECENT PURCHASES -->
+
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body main1">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label style="float: left;margin: 2px 0px ">Chọn bộ môn </label>
+                                <div class="ddlBoMon BoMon col-sm-8" style="padding-left:20px">
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label style="float: left;margin: 2px 0px ">Chọn học kỳ </label>
+                                <div class="ddlHocKy col-sm-6" style="padding-left:20px">
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label style="float: left;margin: 2px 0px ">Chọn thực tập </label>
+                                <div class="ddlLoaiTT col-sm-6" style="padding-left:20px">
+
+                                </div>
+
+                            </div>
+                            <div class="pull-right">
+                                <button onclick="assignedReport()" style="float: right;border-radius: 2%;" class="btn btn-outline-info btn-primary">
+                                    <i class="fa fa-plus"></i> Phân HD chấm thi
+                                </button>
+                            </div>
+
+                        </div>
+                        <table id="myTable" class="table table-bordered" cellspacing="0" cellpadding="5" id=""
+                               style="border-collapse:collapse;margin-top:10px">
+                            <thead>
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:10%;">Mã GV</th>
+                                    <th class="center-header" scope="col" style="width:20%;">Họ tên</th>
+                                    <th class="center-header" scope="col" style="width:20%;">Ngày sinh</th>
+                                    <th class="center-header" scope="col"><input type="checkbox" id="select_checkbox_teacher" /> All</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-body display main2">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button style="margin-left:15px" id="btn-random" class="btn btn-info" onclick="Report()">Sắp xếp ngẫu nhiên</button>
+                        </div>
+                        <div class="col-lg-5">
+                            
+                                <label style="float:left;margin:10px">Giảng viên</label>
+                                <div id="Teacher" class="ddlGiangVien col-lg-8" style="padding-left:20px">
+                          </div>
+
+                        </div>
+                        </div>
+                        <div class="tab-pane active row" style="padding: 20px">
+                            <table id="TableStudent" class="TableStudent table table-bordered col-sm-6" style="max-width: 40%;" cellspacing="0" cellpadding="5px" id=""
+                                   style="border-collapse:collapse;">
+                                <tr>
+                                    <th class="center-header" scope="col" style="width:20%;"><input id="select_checkbox" type="checkbox" /> All</th>
+                                    <th class="center-header" scope="col" style="width:10%;">Mã SV</th>
+                                    <th class="center-header" scope="col" style="width:30%;">Họ tên</th>
+                                    <th class="center-header" scope="col" style="width:25%;">GVBC</th>
+                                </tr>
+                                <tbody class="tbodystudent"></tbody>
+
+                            </table>
+
+                            <div style="max-width: 10%;" class="col-sm-2">
+                                <button id="move" class="btn btn-primary center-block" style="margin-top: 100px;"><i class="fa fa-angle-right fa-2x"></i></button>
+                            </div>
+                            <table id="TableTeacher" style="max-width: 50%;" class="table table-bordered col-sm-4" cellspacing="0" cellpadding="10" id=""
+                                   style="border-collapse:collapse;">
+
+                                <tr>
+                                    <th class="center-header" scope="col">STT</th>
+                                    <th class="center-header" scope="col" style="width:35%;">Mã SV</th>
+                                    <th class="center-header" scope="col" style="width:45%;">Họ tên</th>
+                                    <th class="center-header" scope="col" style="width:45%;">Thao tác</th>
+                                </tr>
+                                <tbody class="tbodyteacher"></tbody>
+
+                            </table>
+
+
+                        </div>
+                        <button style="margin-left:20px" class="btn btn-danger" onclick="Back()"><i class="fa fa-arrow-left "></i> Trở lại</button>
+
+                    </div>
+            </div>
+
+        </div>
+        <!-- END RECENT PURCHASES -->
+
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- Modal HTML -->
+<div id="error" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons"><i class=" fa fa-question mb-2"></i></i>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="alerterror">Bạn chưa chọn giảng viên !</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /Modal them detai -->
+<div id="snackbar">
+    <div id="notification" class="alert" style="padding: 10px 15px 10px 15px"></div>
+</div>

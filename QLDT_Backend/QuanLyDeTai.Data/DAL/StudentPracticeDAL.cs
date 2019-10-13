@@ -10,7 +10,7 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class StudentPracticeDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
 
         public Object GetById(long id)
         {
@@ -86,6 +86,18 @@ namespace QuanLyDeTai.Data.DAL
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
 
+        public List<Student> getListByPracticeTypeIdAndTeacherId(long practiceTypeId, long teacherid)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       join f in context.Faculties on s.FacultyID equals f.ID
+                       where c.PracticeTypeID == practiceTypeId && c.TeacherID == teacherid  && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
+                       select s;
+
+            return user.OrderBy(i => i.LastName).ToList();
+        }
+
         public int getListByPracticeTypeIdAndTeacherIdCount(long practiceTypeId, long teacherid, string masv, string studentname)
         {
             context.Configuration.ProxyCreationEnabled = false;
@@ -123,6 +135,45 @@ namespace QuanLyDeTai.Data.DAL
 
             return user.ToList().Count();
         }
+
+        public List<Student> getListByPracticeTypeIdReport(long practiceTypeId)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       join t in context.TopicStudents on c.ID equals t.StudentPracticeID
+                       where t.Status==true && c.PracticeTypeID == practiceTypeId && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
+                       select s;
+
+
+            return user.ToList();
+        }
+
+        public Teacher getByStudent(long studentID)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.StudentPracticeRelationships
+                       join t in context.Teachers on s.TeacherID equals t.ID
+                       where s.StudentID == studentID && (s.IsDeleted == false || s.IsDeleted.Equals(null)) && (t.IsDeleted == false || t.IsDeleted.Equals(null))
+                       select t;
+
+
+            return user.FirstOrDefault();
+        }
+
+        public List<Student> getByTeacherReport(long teacherID)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.StudentPracticeRelationships
+                       join st in context.Students on s.StudentID equals st.ID 
+                       where s.TeacherID == teacherID && (s.IsDeleted == false || s.IsDeleted.Equals(null))
+                       select st;
+
+
+            return user.ToList();
+        }
+
+
 
         public bool Create(StudentPracticeRelationship model)
         {
@@ -173,6 +224,28 @@ namespace QuanLyDeTai.Data.DAL
             }
         }
 
+        public bool UpdateReport(long teacherID,long ID)
+        {
+            try
+            {
+                //Initialization empty item
+                var item = context.StudentPracticeRelationships.Where(i => i.ID == ID && (i.IsDeleted == false || i.IsDeleted.Equals(null))).FirstOrDefault();
+
+                //Set value for item with value from model
+                //item.StudentID = model.StudentID;
+                item.TeacherID = teacherID;
+
+
+                //Save change to database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool Delete(long id, long person)
         {
             try
@@ -185,6 +258,27 @@ namespace QuanLyDeTai.Data.DAL
                 item.IsDeleted = true;
                 item.DeletedBy = person;
                 item.DeletedTime = DateTime.Now;
+
+                //Change database
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteReport(long id)
+        {
+            try
+            {
+                //Tương tự update
+                var item = context.StudentPracticeRelationships.Where(i => i.ID == id && (i.IsDeleted == false || i.IsDeleted.Equals(null))).FirstOrDefault();
+
+                //Remove item.
+
+                item.TeacherID = null;
 
                 //Change database
                 context.SaveChanges();

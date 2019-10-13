@@ -11,16 +11,19 @@ namespace QuanLyDeTai.Controllers
         // GET: Additional
         public ActionResult ListTopic()
         {
+            ViewBag.active = "ListTopic";
             return View("ListTopic");
         }
 
         public ActionResult ListPractice()
         {
+            ViewBag.active = "ListPractice";
             return View("ListPractice");
         }
 
         public ActionResult ListScore()
         {
+            ViewBag.active = "ListScoreNoEdit";
             return View("ListScore");
         }
     }

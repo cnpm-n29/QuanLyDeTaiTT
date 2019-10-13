@@ -9,7 +9,7 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class SemesterDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
         
         public Semester GetById(long id)
         {

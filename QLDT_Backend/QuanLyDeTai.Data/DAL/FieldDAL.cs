@@ -9,7 +9,7 @@ namespace QuanLyDeTai.Data.DAL
 {
     public class FieldDAL
     {
-        private DefaultDbContent context = new DefaultDbContent();
+        private DefaultDbContext context = new DefaultDbContext();
         public Field GetById(long id)
         {
             context.Configuration.ProxyCreationEnabled = false;
