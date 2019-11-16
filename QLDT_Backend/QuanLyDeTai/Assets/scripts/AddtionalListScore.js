@@ -10,6 +10,8 @@ $(window).on('load', function () {
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy #HocKy").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
@@ -82,6 +84,8 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 // function button paganition

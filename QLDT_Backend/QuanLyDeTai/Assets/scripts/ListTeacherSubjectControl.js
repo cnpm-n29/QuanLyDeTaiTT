@@ -4,7 +4,9 @@
 });
 
 //Lay danh sach giang vien trong bo mon
-function getListTeacher(magv="",teachername="",PgNumber = 0, PgSize = $("#maxRows").val()) {
+function getListTeacher(magv = "", teachername = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $("#HocKy").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
@@ -68,6 +70,8 @@ function getListTeacher(magv="",teachername="",PgNumber = 0, PgSize = $("#maxRow
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 } 
 
 function Search() {

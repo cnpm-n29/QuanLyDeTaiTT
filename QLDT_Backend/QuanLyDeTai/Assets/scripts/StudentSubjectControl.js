@@ -49,6 +49,8 @@ function changeCheck(key) {
 
 //Thay doi dropdown cua thuc tap
 function changeDropKhoaHoc(IDKH) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDBM = $("#BoMon").val();
     $.ajax({
         async: false,
@@ -115,10 +117,14 @@ function changeDropKhoaHoc(IDKH) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 //Thay doi dropdown cua thuc tap
 function changeDropBoMon(IDBM) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDKH = $("#KhoaHoc").val();
     $.ajax({
         async: false,
@@ -184,6 +190,8 @@ function changeDropBoMon(IDBM) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 

@@ -1,4 +1,11 @@
 ﻿$(document).ready(function () {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
+
+    setInterval('window.location.reload()', 1000 * 60 * 20);
+
+    $("#GiangVien").select2();
+
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -15,7 +22,6 @@
         "showMethod": "show",
         "hideMethod": "hide"
     };
-    toastr.info('MY MESSAGE!');
 
 
     $('.collapsed').on('click', function () {

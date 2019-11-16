@@ -8,6 +8,8 @@ $(window).on('load', function () {
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     i = 1;
     $.ajax({
         async: false,
@@ -135,6 +137,8 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 } 
 
 function checkUserChoose(id) {

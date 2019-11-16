@@ -8,7 +8,9 @@
 
 
 //Thay doi dropdown cua thuc tap
-function changeDropKhoaHoc(facultyId,masv="",studentname="",PgNumber = 0, PgSize = $("#maxRows").val()) {
+function changeDropKhoaHoc(facultyId, masv = "", studentname = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var i = 1;
     $.ajax({
         async: false,
@@ -71,6 +73,8 @@ function changeDropKhoaHoc(facultyId,masv="",studentname="",PgNumber = 0, PgSize
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 // function button paganition

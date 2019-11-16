@@ -4,6 +4,8 @@
 });
 
 function getInfo() {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     $.ajax({
         async: false,
         url: "/StudentTeacher/GetInfo",
@@ -34,4 +36,6 @@ function getInfo() {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }

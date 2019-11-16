@@ -6,7 +6,8 @@
     getListHocKy1();
 
     changeDropHocKy1($(".HocKy1 #HocKy1").val());
-
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 
 });
 
@@ -16,7 +17,9 @@
 var num, num1;
 
 //Thay doi dropdown cua thuc tap
-function changeDropThucTap(IDTT,search="", PgNumber = 0, PgSize = $("#maxRows").val()) {
+function changeDropThucTap(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy #HocKy").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
@@ -78,6 +81,7 @@ function changeDropThucTap(IDTT,search="", PgNumber = 0, PgSize = $("#maxRows").
             alert(errormessage.responseText);
         }
     });
+    
 }  
 
 //Add Data Function
@@ -181,6 +185,8 @@ function Update() {
             } else {
                 toastr.error('Cập nhật thất bại !');
             }
+            $("#loading").addClass("display");
+            $(".main").removeClass("opacity-bg");
         },
         error: function (errormessage) {
             toastr.error('Cập nhật thất bại !');
@@ -212,6 +218,8 @@ function DeleleResult(ID) {
             else {
                 toastr.error('Xóa thất bại !');
             }
+            $("#loading").addClass("display");
+            $(".main").removeClass("opacity-bg");
             changeDropThucTap($("#LoaiTT").val());
 
         },
@@ -360,6 +368,8 @@ function Search() {
             }
         });
     }
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 //function for change status
@@ -475,6 +485,7 @@ function getListHocKy1() {
 
 //thay doi dropdown hoc ky
 function changeDropHocKy1(IDHK) {
+
     $.ajax({
         url: "/Topic/GetLoaiTTByHK/" + IDHK,
         type: "GET",
@@ -502,12 +513,15 @@ function changeDropHocKy1(IDHK) {
 }
 
 function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows1").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy1 #HocKy1").val();
+
     var i = PgSize;
     i = (i * PgNumber) + 1;
     $.ajax({
         async: false,
-        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + IDBM+ "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -554,6 +568,8 @@ function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRow
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 } 
 
 // function button paganition

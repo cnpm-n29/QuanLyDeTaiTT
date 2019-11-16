@@ -5,6 +5,8 @@
 });
 
 function load() {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     $.ajax({
         async: false,
         url: "/StudentField/GetList",
@@ -28,6 +30,8 @@ function load() {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 function loadcheck() {

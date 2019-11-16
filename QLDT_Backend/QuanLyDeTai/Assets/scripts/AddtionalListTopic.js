@@ -13,6 +13,8 @@
 
 
 function changeDropBoMon(id_bm, search = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy #HocKy").val();
     var IDTT = $("#LoaiTT").val();
 
@@ -67,12 +69,16 @@ function changeDropBoMon(id_bm, search = "", PgNumber = 0, PgSize = $("#maxRows"
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 var num, num1;
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy #HocKy").val();
     var id_bm = $("#BoMon").val();
     var i = PgSize;
@@ -126,6 +132,8 @@ function changeDropThucTap(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 //function for search ten de tai

@@ -65,6 +65,8 @@ function changeDropHocKy1(IDHK) {
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy #HocKy").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
@@ -138,6 +140,8 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 // function button paganition
@@ -353,59 +357,7 @@ function Search() {
             var PgSize = $("#maxRows").val()
             var i = PgSize;
             i = (i * PgNumber) + 1;
-            $.ajax({
-                async: false,
-                url: "/Score/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + input.value + "&studentname=" + studentname + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
-                type: "GET",
-                contentType: "application/json;charset=UTF-8",
-                dataType: "json",
-                success: function (result) {
-                    var html = '';
-
-                    if (result.List == "") {
-                        html += '<tr>';
-                        html += '<td colspan="10">Không có dữ liệu</td>';
-
-                        html += '</tr>';
-                        $('.tbody').html(html);
-                    }
-                    else {
-                        $.each(result.List, function (key, item) {
-                            html += '<tr>';
-                            html += '<td align="center">' + (i++) + '</td>';
-                            html += '<td>' + item.Masv + '</td>';
-                            html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
-                            html += '<td>' + item.TopicName + '</td>';
-                            html += '<td>' + item.CompanyScore + '</td>';
-                            html += '<td>' + item.TeacherScore + '</td>';
-                            html += '<td>' + item.ReportScore + '</td>';
-                            html += '<td>' + item.TotalScore + '</td>';
-                            html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
-                            html += '</tr>';
-                        });
-                        $('.tbody').html(html);
-                        $('.pagination').html('')
-                        var totalRows = result.TotalRecords;
-
-                        if (totalRows > PgSize) {
-                            var pagenum = Math.ceil(totalRows / PgSize)
-
-                            $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
-                            for (var j = 1; j <= pagenum;) {
-                                $('.pagination').append('<li onclick="Page(' + j + ')" class="page-item page page-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
-
-                            }
-                            num = pagenum;
-                            $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
-                        }
-                        $('.page-number-1').addClass('active')
-                        $('.page-number-1').addClass('abc')
-                    }
-                },
-                error: function (errormessage) {
-                    alert(errormessage.responseText);
-                }
-            });
+            changeDropThucTap($(".LoaiTT #LoaiTT").val(), input.value, "", 0, $("#maxRows").val());
         }
     }
     else {
@@ -420,59 +372,7 @@ function Search() {
             var PgSize = $("#maxRows").val()
             var i = PgSize;
             i = (i * PgNumber) + 1;
-            $.ajax({
-                async: false,
-                url: "/Score/GetByKHvaLoaiTT?IDHK=" + IDHK + "&IDTT=" + IDTT + "&masv=" + masv + "&studentname=" + input.value + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
-                type: "GET",
-                contentType: "application/json;charset=UTF-8",
-                dataType: "json",
-                success: function (result) {
-                    var html = '';
-
-                    if (result.List == "") {
-                        html += '<tr>';
-                        html += '<td colspan="10">Không có dữ liệu</td>';
-
-                        html += '</tr>';
-                        $('.tbody').html(html);
-                    }
-                    else {
-                        $.each(result.List, function (key, item) {
-                            html += '<tr>';
-                            html += '<td align="center">' + (i++) + '</td>';
-                            html += '<td>' + item.Masv + '</td>';
-                            html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
-                            html += '<td>' + item.TopicName + '</td>';
-                            html += '<td>' + item.CompanyScore + '</td>';
-                            html += '<td>' + item.TeacherScore + '</td>';
-                            html += '<td>' + item.ReportScore + '</td>';
-                            html += '<td>' + item.TotalScore + '</td>';
-                            html += ' <td align="center"><a onclick="return getbyID(' + item.ID + ')"><i style="color:#009933" class="fa fa-edit"></i></a> | <a href="#" onclick="Delele(' + item.ID + ')"><i style="color:red" class="fa fa-trash"></i></a></td>';
-                            html += '</tr>';
-                        });
-                        $('.tbody').html(html);
-                        $('.pagination').html('')
-                        var totalRows = result.TotalRecords;
-
-                        if (totalRows > PgSize) {
-                            var pagenum = Math.ceil(totalRows / PgSize)
-
-                            $('.pagination').append('<li class="page-item"><a onclick="Previous_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-left"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item previous"><a onclick="Previous()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-left"></i></span><span class="sr-only">Previous</span></a></li>').show();
-                            for (var j = 1; j <= pagenum;) {
-                                $('.pagination').append('<li onclick="Page(' + j + ')" class="page-item page page-number-' + j + '" data-page="' + j + '">\<span>' + j++ + '<span class="sr-only">(current)</span></span>\</li>').show()
-
-                            }
-                            num = pagenum;
-                            $('.pagination').append('<li class="page-item next"><a onclick="Next()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-right"></i></span><span class="sr-only">Previous</span></a></li><li class="page-item next-all"><a onclick="Next_all()" class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"<i class="fa fa-angle-double-right"></i></span><span class="sr-only">Previous</span></a></li>').show();
-                        }
-                        $('.page-number-1').addClass('active')
-                        $('.page-number-1').addClass('abc')
-                    }
-                },
-                error: function (errormessage) {
-                    alert(errormessage.responseText);
-                }
-            });
+            changeDropThucTap($(".LoaiTT #LoaiTT").val(), "", input.value, 0, $("#maxRows").val());
         }
     }
 }

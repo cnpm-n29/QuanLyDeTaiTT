@@ -10,6 +10,8 @@
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(IDTT) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $(".HocKy #HocKy").val();
     var i = 1;
     $.ajax({
@@ -47,6 +49,8 @@ function changeDropThucTap(IDTT) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 //Add Data Function

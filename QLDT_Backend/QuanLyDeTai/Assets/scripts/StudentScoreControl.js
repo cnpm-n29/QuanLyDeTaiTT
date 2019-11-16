@@ -5,6 +5,8 @@
 
 //Thay doi dropdown cua thuc tap
 function changeDropThucTap(Id) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var i = 1;
     $.ajax({
         async: false,
@@ -61,4 +63,6 @@ function changeDropThucTap(Id) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 } 

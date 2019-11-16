@@ -2,7 +2,7 @@
     getListKhoaHoc();
     getListGiangVien();
     changeDropKhoaHoc($("#KhoaHoc").val())
-    
+    $("#GiangVien").select2();
 });
 
 var lastChecked = null;
@@ -30,6 +30,8 @@ function changeCheck(key) {
 
 //Thay doi dropdown cua thuc tap
 function changeDropKhoaHoc(IDKH) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDGV = $("#GiangVien").val();
     $.ajax({
         async: false,
@@ -95,10 +97,14 @@ function changeDropKhoaHoc(IDKH) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 //Thay doi dropdown cua thuc tap
 function changeDropGiangVien(IDGV) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDKH = $("#KhoaHoc").val();
     $.ajax({
         async: false,
@@ -164,6 +170,8 @@ function changeDropGiangVien(IDGV) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 

@@ -78,6 +78,8 @@ function changeCheck(key) {
 
 //Thay doi dropdown cua bomon
 function changeDropBoMon(IDBM) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var i = 1;
     $.ajax({
         async: false,
@@ -116,6 +118,8 @@ function changeDropBoMon(IDBM) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 $("#select_checkbox_teacher").click(function () {
@@ -127,6 +131,8 @@ $("#select_checkbox_teacher").click(function () {
 });
 
 function assignedReport() {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDTT = $("#LoaiTT").val();
     if (IDTT != "1") {
         $("#btn-random").addClass("display");
@@ -138,7 +144,7 @@ function assignedReport() {
     dem = 0;
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-    var html = '<select id="GiangVien"  class="select form-control selectpicker" data-live-search="true" onchange ="changeDropGiangVien(this.value)">';
+    var html = '<select id="GiangVien"  class="select form-control" onchange ="changeDropGiangVien(this.value)">';
     html += '<option disabled > -- Chọn giảng viên -- </option>';
     while (i < tr.length) {
         
@@ -153,15 +159,19 @@ function assignedReport() {
     }
 
     html += '</select>'
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
     if (dem != 0) {
         $(".ddlGiangVien").html(html);
         $(".form-search").removeClass("display");
         $(".main1").addClass("display");
         $(".main2").removeClass("display");
+        $("#GiangVien").select2();
     }
     else {
         $("#error").modal("show");
     }
+    
     
 }
 
@@ -252,6 +262,8 @@ function changeDropThucTap(IDTT) {
 }  
 
 function Report() {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = parseInt($("#HocKy").val());
     var IDTT = parseInt($("#LoaiTT").val());
     var listteacher = new Array();
@@ -275,6 +287,8 @@ function Report() {
             toastr.error('Sắp xếp thất bại !');
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }  
 
 
@@ -282,6 +296,8 @@ function Report() {
 
 //Thay doi dropdown cua thuc tap
 function changeDropGiangVien(IDGV) {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var IDHK = $("#HocKy").val();
     var IDTT = $("#LoaiTT").val();
     $.ajax({
@@ -343,6 +359,8 @@ function changeDropGiangVien(IDGV) {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 
@@ -582,6 +600,8 @@ function Save() {
 }
 
 function search() {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
@@ -624,6 +644,8 @@ function search() {
             }
         }
     }
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 

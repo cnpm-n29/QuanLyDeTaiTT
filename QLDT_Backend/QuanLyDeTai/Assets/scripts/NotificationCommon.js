@@ -5,6 +5,8 @@ $(window).on('load', function () {
 });
 
 function GetNotification() {
+    $("#loading").removeClass("display");
+    $(".main").addClass("opacity-bg");
     $.ajax({
         url: "/Notification/GetbyStudentIDLimit/",
         type: "GET",
@@ -42,6 +44,8 @@ function GetNotification() {
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 function GetAllNotification() {
