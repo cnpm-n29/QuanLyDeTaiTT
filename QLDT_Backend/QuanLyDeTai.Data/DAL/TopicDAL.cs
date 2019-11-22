@@ -62,7 +62,7 @@ namespace QuanLyDeTai.Data.DAL
                        join t in context.PracticeTypes on d.PracticeTypeID equals t.ID
                        join x in context.Teachers on d.TeacherID equals x.ID
                        join a in context.Fields on d.FieldID equals a.ID
-                       where d.PracticeTypeID == id_tt && d.TeacherID != id_gv && d.TopicName.Contains(search) && (d.IsDeleted == false || d.IsDeleted.Equals(null))
+                       where d.PracticeTypeID == id_tt && d.TeacherID != id_gv  && (d.IsDeleted == false || d.IsDeleted.Equals(null))
                         && (x.IsDeleted == false || x.IsDeleted.Equals(null))
                        select new
                        {

@@ -68,3 +68,17 @@ C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Servic
 C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CopyComplete
 C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.dll
 C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Service.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Service.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Core.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\EntityFramework.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Core.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.dll.config
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\EntityFramework.xml
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CopyComplete
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.pdb

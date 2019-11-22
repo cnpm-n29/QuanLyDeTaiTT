@@ -178,6 +178,7 @@ namespace QuanLyDeTai.Data.DAL
 
         public bool Plus(long id, int progress)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             try
             {
                 //Get item user with Id from database

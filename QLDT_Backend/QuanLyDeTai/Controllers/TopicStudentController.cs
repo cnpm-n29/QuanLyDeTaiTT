@@ -249,6 +249,15 @@ namespace QuanLyDeTai.Controllers
             foreach (var item in listtc)
             {
                 var ID = (long)item.GetType().GetProperty("ID").GetValue(item, null);
+                bool? result;
+                if (item.GetType().GetProperty("Result").GetValue(item, null) != null)
+                {
+                    result = (bool)item.GetType().GetProperty("Result").GetValue(item, null);
+                }
+                else
+                {
+                    result = null;
+                }
                 var topic = new TopicStudentModel
                 {
                     ID = ID,
@@ -258,7 +267,7 @@ namespace QuanLyDeTai.Controllers
                     MaSV = (string)item.GetType().GetProperty("MaSV").GetValue(item, null),
                     TeacherName= (string)item.GetType().GetProperty("TeacherName").GetValue(item, null),
                     Progress = (int)item.GetType().GetProperty("Progress").GetValue(item, null),
-                    Result = (bool)item.GetType().GetProperty("Result").GetValue(item, null)
+                    Result = result
 
                 };
                 var check = scoreService.GetByTopicStudent2(ID);
@@ -284,8 +293,8 @@ namespace QuanLyDeTai.Controllers
 
         public JsonResult Plus(long id,int progress)
         {
-
-            return Json(topicStudentService.Plus(id,progress), JsonRequestBehavior.AllowGet);
+            topicStudentService.Plus(id, progress);
+            return Json(topicStudentService.GetById(id), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Result(long id, bool result)

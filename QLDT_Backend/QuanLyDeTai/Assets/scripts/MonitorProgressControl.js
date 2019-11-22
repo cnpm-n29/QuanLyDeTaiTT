@@ -114,8 +114,17 @@ function getbyID(ID) {
             }
             else if (result.Progress == 0) {
                     id = ID;
-                    progress = result.Progress;
-                    $('#giamsattd').modal('show');
+                progress = result.Progress;
+                $('#step2').attr("disabled");
+                $('#step2').removeClass('btn-success').addClass('btn-default');
+                $('#step-2').hide();
+                $('#step1').removeAttr("disabled");
+                $('#step1').addClass('btn-success');
+                $('#step-1').show();
+                $('#step3').attr("disabled");
+                $('#step-3').hide();
+                $('#giamsattd').modal('show');
+
                 }
             else if (result.Progress == 1){
                 $('#step1').attr("disabled");
@@ -125,6 +134,7 @@ function getbyID(ID) {
                 $('#step2').addClass('btn-success');
                 $('#step-2').show();
                 $('#step3').attr("disabled");
+                $('#step-3').hide();
                 id = ID;
                 progress = result.Progress;
                 $('#giamsattd').modal('show');
@@ -133,6 +143,7 @@ function getbyID(ID) {
                 $('#step1').attr("disabled");
                 $('#step1').removeClass('btn-success').addClass('btn-default');
                 $('#step-1').hide();
+                $('#step-2').hide();
                 $('#step3').removeAttr("disabled");
                 $('#step3').addClass('btn-success');
                 $('#step-3').show();
@@ -162,7 +173,7 @@ $(document).ready(function () {
         allWells = $('.setup-content'),
         allNextBtn = $('.nextBtn');
 
-    allWells.hide();
+
 
     navListItems.click(function (e) {
         e.preventDefault();
@@ -238,7 +249,46 @@ function plus(id,progress) {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            if (result.Progress == 0) {
+                id = ID;
+                progress = result.Progress;
+                $('#step2').attr("disabled");
+                $('#step2').removeClass('btn-success').addClass('btn-default');
+                $('#step-2').hide();
+                $('#step1').removeAttr("disabled");
+                $('#step1').addClass('btn-success');
+                $('#step-2').show();
+                $('#step3').attr("disabled");
+                $('#giamsattd').modal('show');
 
+            }
+            else if (result.Progress == 1) {
+                $('#step1').attr("disabled");
+                $('#step1').removeClass('btn-success').addClass('btn-default');
+                $('#step-1').hide();
+                $('#step2').removeAttr("disabled");
+                $('#step2').addClass('btn-success');
+                $('#step-2').show();
+                $('#step3').attr("disabled");
+                $('#step-3').hide();
+                id = ID;
+                progress = result.Progress;
+                $('#giamsattd').modal('show');
+            }
+            else if (result.Progress == 2) {
+                $('#step1').attr("disabled");
+                $('#step1').removeClass('btn-success').addClass('btn-default');
+                $('#step-1').hide();
+                $('#step-2').hide();
+                $('#step3').removeAttr("disabled");
+                $('#step3').addClass('btn-success');
+                $('#step-3').show();
+                $('#step2').attr("disabled");
+                $('#step2').removeClass('btn-success').addClass('btn-default');
+                id = ID;
+                progress = result.Progress;
+                $('#giamsattd').modal('show');
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

@@ -123,7 +123,7 @@ namespace QuanLyDeTai.Controllers
         {
             var tc = teacherService.GetByMagv(Session["Username"].ToString());
             var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
-            
+            if (search == null) { search = ""; }
             var i = 0;
             IQueryable listtc;
             if (teacherService.GetRole(Session["Username"].ToString(), "Trưởng bộ môn"))

@@ -15,3 +15,9 @@ C:\Users\Huyen Le\Downloads\QLDeTaiThucTap\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTa
 C:\Users\Huyen Le\Downloads\QLDeTaiThucTap\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.csproj.CoreCompileInputs.cache
 C:\Users\Huyen Le\Downloads\QLDeTaiThucTap\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.dll
 C:\Users\Huyen Le\Downloads\QLDeTaiThucTap\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\bin\Debug\QuanLyDeTai.Core.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\bin\Debug\QuanLyDeTai.Core.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Core\obj\Debug\QuanLyDeTai.Core.pdb

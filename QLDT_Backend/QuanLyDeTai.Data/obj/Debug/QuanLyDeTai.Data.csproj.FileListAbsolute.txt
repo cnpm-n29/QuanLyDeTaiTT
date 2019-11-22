@@ -54,3 +54,17 @@ C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\o
 C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CopyComplete
 C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.dll
 C:\Users\Huyen Le\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.dll.config
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Core.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Core.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.xml
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CopyComplete
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.dll
+C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.pdb

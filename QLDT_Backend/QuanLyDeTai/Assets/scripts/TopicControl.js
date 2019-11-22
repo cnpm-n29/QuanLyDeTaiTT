@@ -81,6 +81,8 @@ function changeDropThucTap(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows
             alert(errormessage.responseText);
         }
     });
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
     
 }  
 
@@ -509,7 +511,8 @@ function changeDropHocKy1(IDHK) {
 
         }
     });
-    return false;
+    $("#loading").addClass("display");
+    $(".main").removeClass("opacity-bg");
 }
 
 function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRows1").val()) {
@@ -519,9 +522,10 @@ function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRow
 
     var i = PgSize;
     i = (i * PgNumber) + 1;
+
     $.ajax({
         async: false,
-        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + IDBM+ "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        url: "/Topic/GetList?IDHK=" + IDHK + "&IDTT=" + IDTT + "&id_bm=" + + "&search=" + search + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -534,6 +538,7 @@ function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRow
 
                 html += '</tr>';
                 $('.tbody1').html(html);
+                $('.pagination1').html('')
             }
             else {
                 $.each(result.List, function (key, item) {
@@ -574,7 +579,7 @@ function changeDropThucTap1(IDTT, search = "", PgNumber = 0, PgSize = $("#maxRow
 
 // function button paganition
 function Page1(pageNum) {
-    changeDropThucTap1($("#LoaiTT1").val(), pageNum - 1, $("#maxRows1").val());
+    changeDropThucTap1($("#LoaiTT1").val(), "",pageNum - 1, $("#maxRows1").val());
     $('.pagination1 li').removeClass('active')
     $('.pagination1 li').removeClass('abcd')
     $('.pages-number-' + pageNum).addClass('active')
@@ -584,7 +589,7 @@ function Page1(pageNum) {
 
 function Previous_all1() {
     var pageNum = 1;
-    changeDropThucTap1($("#LoaiTT1").val(), pageNum - 1, $("#maxRows1").val());
+    changeDropThucTap1($("#LoaiTT1").val(),"", pageNum - 1, $("#maxRows1").val());
     $('.pagination1 li').removeClass('active')
     $('.pagination1 li').removeClass('abcd')
     $('.page-number-1').addClass('active')
@@ -599,7 +604,7 @@ function Previous1() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum - 1;
-        changeDropThucTap1($("#LoaiTT1").val(), pageNum - 1, $("#maxRows1").val());
+        changeDropThucTap1($("#LoaiTT1").val(),"", pageNum - 1, $("#maxRows1").val());
         $('.pagination1 li').removeClass('active')
         $('.pagination1 li').removeClass('abcd')
         $('.pages-number-' + pageNum).addClass('active')
@@ -609,7 +614,7 @@ function Previous1() {
 
 function Next_all1() {
     var pageNum = num1;
-    changeDropThucTap1($("#LoaiTT1").val(), pageNum - 1, $("#maxRows1").val());
+    changeDropThucTap1($("#LoaiTT1").val(),"", pageNum - 1, $("#maxRows1").val());
     $('.pagination1 li').removeClass('active')
     $('.pagination1 li').removeClass('abcd')
     $('.pages-number-' + num).addClass('active')
@@ -624,7 +629,7 @@ function Next1() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum + 1;
-        changeDropThucTap1($("#LoaiTT1").val(), pageNum - 1, $("#maxRows1").val());
+        changeDropThucTap1($("#LoaiTT1").val(),"", pageNum - 1, $("#maxRows1").val());
         $('.pagination1 li').removeClass('active')
         $('.pagination1 li').removeClass('abc')
         $('.pages-number-' + pageNum).addClass('active')
