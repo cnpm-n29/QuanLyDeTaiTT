@@ -559,7 +559,12 @@ namespace QuanLyDeTai.Controllers
 
             }
 
-            using (var range = worksheet.Cells["E3:E1000"])
+            using (var range = worksheet.Cells["E3:E100"])
+            {
+                range.Style.Numberformat.Format = "@";
+            }
+
+            using (var range = worksheet.Cells["G4:G100"])
             {
                 range.Style.Numberformat.Format = "@";
             }
