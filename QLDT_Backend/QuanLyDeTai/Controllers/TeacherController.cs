@@ -18,10 +18,10 @@ namespace QuanLyDeTai.Controllers
             return View();
         }
 
-        public JsonResult GetListBySubjectId(string magv,string teachername,int pageNumber = 0, int pageSize = 10)
+        public JsonResult GetListBySubjectId(long id,string magv,string teachername,int pageNumber = 0, int pageSize = 10)
         {
             var tc = teacherService.GetByMagv(Session["Username"].ToString());
-            var listtc = teacherService.getListBySubjectIdSort(tc.SubjectID,magv,teachername,pageNumber,pageSize);
+            var listtc = teacherService.getListBySubjectIdSort(id,magv,teachername,pageNumber,pageSize);
             var list = new List<TeacherModel>();
             foreach(var i in listtc)
             {

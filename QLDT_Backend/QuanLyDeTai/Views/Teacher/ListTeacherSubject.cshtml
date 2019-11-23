@@ -5,6 +5,7 @@
 }
 @section footer
 {
+    <script src="~/Assets/scripts/DropDown.js"></script>
     <script src="~/Assets/scripts/ListTeacherSubjectControl.js"></script>
 }
 
@@ -68,12 +69,9 @@
 
                             <div class="col-sm-6">
                                 <label style="float: left;margin: 5px 0px ">Bộ môn </label>
-                                <select style="float: right;width: 75%;" class="form-control">
-                                    <option disabled value="thuctap"> -- Chọn bộ môn -- </option>
-                                    <option value="1">Hệ thống và mạng máy tính</option>
-                                    <option value="2">Khoa học máy tính và CN Phần mềm</option>
+                                <div class="ddlBoMon" style="padding-left:20px" style="float: right;width: 75%;">
 
-                                </select>
+                                </div>
                             </div>
                             <div class="col-sm-6" style="padding: 0px;">
                                 <button data-toggle="modal"

@@ -1,18 +1,19 @@
 ﻿$(window).on('load', function () {
-    getListTeacher();
-   
+    getListBoMon();
+    changeDropBoMon($("#BoMon").val());
 });
 
 //Lay danh sach giang vien trong bo mon
-function getListTeacher(magv = "", teachername = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
+function changeDropBoMon(IDBM,magv = "", teachername = "", PgNumber = 0, PgSize = $("#maxRows").val()) {
     $("#loading").removeClass("display");
     $(".main").addClass("opacity-bg");
     var IDHK = $("#HocKy").val();
+    var IDBM = $("#BoMon").val();
     var i = PgSize;
     i = (i * PgNumber) + 1;
     $.ajax({
         async: false,
-        url: "/Teacher/GetListBySubjectId?magv=" + magv + "&teachername=" + teachername + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
+        url: "/Teacher/GetListBySubjectId?id="+IDBM+"&magv=" + magv + "&teachername=" + teachername + "&PageNumber=" + PgNumber + "&PageSize=" + PgSize,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -82,25 +83,25 @@ function Search() {
 
     if ($("#choosen").val() == 0) {
         if (filter == "") {
-            getListTeacher();
+            changeDropBoMon($("#BoMon").val());
         }
         else {
-            getListTeacher(input.value, "", PgNumber = 0, PgSize = $("#maxRows").val());
+            changeDropBoMon($("#BoMon").val(),input.value, "", PgNumber = 0, PgSize = $("#maxRows").val());
         }
     }
     else {
         if (filter == "") {
-            getListTeacher();
+            changeDropBoMon($("#BoMon").val());
         }
         else {
-            getListTeacher("",input.value, PgNumber = 0, PgSize = $("#maxRows").val());
+            changeDropBoMon($("#BoMon").val(),"",input.value, PgNumber = 0, PgSize = $("#maxRows").val());
         }
     }
 }
 
 // function button paganition
 function Page(pageNum) {
-    changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+    changeDropBoMon($("#BoMon").val(),"","", pageNum - 1, $("#maxRows").val());
     $('.pagination li').removeClass('active')
     $('.pagination li').removeClass('abc')
     $('.page-number-' + pageNum).addClass('active')
@@ -110,7 +111,7 @@ function Page(pageNum) {
 
 function Previous_all() {
     var pageNum = 1;
-    changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+    changeDropBoMon($("#BoMon").val(),"","", pageNum - 1, $("#maxRows").val());
     $('.pagination li').removeClass('active')
     $('.pagination li').removeClass('abc')
     $('.page-number-1').addClass('active')
@@ -125,7 +126,7 @@ function Previous() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum - 1;
-        changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+        changeDropBoMon($("#BoMon").val(),"","", pageNum - 1, $("#maxRows").val());
         $('.pagination li').removeClass('active')
         $('.pagination li').removeClass('abc')
         $('.page-number-' + pageNum).addClass('active')
@@ -135,7 +136,7 @@ function Previous() {
 
 function Next_all() {
     var pageNum = num;
-    changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+    changeDropBoMon($("#BoMon").val(), "", "", pageNum - 1, $("#maxRows").val());
     $('.pagination li').removeClass('active')
     $('.pagination li').removeClass('abc')
     $('.page-number-' + num).addClass('active')
@@ -150,7 +151,7 @@ function Next() {
     else {
         pageNum = Number(pageNum)
         pageNum = pageNum + 1;
-        changeDropThucTap($("#LoaiTT").val(), pageNum - 1, $("#maxRows").val());
+        changeDropBoMon($("#BoMon").val(), "", "", pageNum - 1, $("#maxRows").val());
         $('.pagination li').removeClass('active')
         $('.pagination li').removeClass('abc')
         $('.page-number-' + pageNum).addClass('active')
@@ -159,29 +160,29 @@ function Next() {
 }
 
 $('#maxRows').on('change', function () {
-    changeDropThucTap($("#LoaiTT").val(), 0, $("#maxRows").val());
+    changeDropBoMon($("#BoMon").val(),"","", 0, $("#maxRows").val());
 })
 
-function Search() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
+//function Search() {
+//    var input, filter, table, tr, td, i, txtValue;
+//    input = document.getElementById("myInput");
+//    filter = input.value.toUpperCase();
 
 
-    if ($("#choosen").val() == 0) {
-        if (filter == "") {
-            getListTeacher();
-        }
-        else {
-            getListTeacher(input.value, "", PgNumber = 0, PgSize = $("#maxRows").val());
-        }
-    }
-    else {
-        if (filter == "") {
-            getListTeacher();
-        }
-        else {
-            getListTeacher("", input.value, PgNumber = 0, PgSize = $("#maxRows").val());
-        }
-    }
-}
+//    if ($("#choosen").val() == 0) {
+//        if (filter == "") {
+//            getListTeacher();
+//        }
+//        else {
+//            getListTeacher(input.value, "", PgNumber = 0, PgSize = $("#maxRows").val());
+//        }
+//    }
+//    else {
+//        if (filter == "") {
+//            getListTeacher();
+//        }
+//        else {
+//            getListTeacher("", input.value, PgNumber = 0, PgSize = $("#maxRows").val());
+//        }
+//    }
+//}
