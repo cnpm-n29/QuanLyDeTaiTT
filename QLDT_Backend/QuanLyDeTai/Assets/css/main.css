@@ -3376,3 +3376,8 @@ form .panel{
 }
 
 
+.input-group {
+    width: inherit !important;
+}
+
+

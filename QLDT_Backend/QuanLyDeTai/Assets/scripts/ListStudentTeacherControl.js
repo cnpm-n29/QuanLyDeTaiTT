@@ -19,6 +19,7 @@ function changeDropKhoaHoc(facultyId, masv = "", studentname = "", PgNumber = 0,
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            
             var html = '';
             if (result.List == "") {
                 html += '<tr>';
@@ -50,6 +51,7 @@ function changeDropKhoaHoc(facultyId, masv = "", studentname = "", PgNumber = 0,
                     html += '<td>' + item.Note + '</td>';
                     html += '</tr>';
                 });
+
                 $('.tbody').html(html);
                 $('.pagination').html('')
                 var totalRows = result.TotalRecords
@@ -189,7 +191,7 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
                 $.each(result.List, function (key, item) {
                     html += '<tr>';
                     html += '<td align="center">' + (i++) + '</td>';
-                    html += '<td>' + item.MaSV + '</td>';
+                    html += '<td>' + item.Masv + '</td>';
                     html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
                     html += '<td>' + item.Birthday + '</td>';
                     if (item.Sex == true) {

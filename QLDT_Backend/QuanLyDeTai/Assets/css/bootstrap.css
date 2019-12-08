@@ -2926,10 +2926,10 @@ select[multiple].input-lg {
   .form-inline .form-control-static {
     display: inline-block;
   }
-  .form-inline .input-group {
-    display: inline-table;
-    vertical-align: middle;
-  }
+    .form-inline .input-group {
+        display: inline-table;
+        vertical-align: middle;
+    }
   .form-inline .input-group .input-group-addon,
   .form-inline .input-group .input-group-btn,
   .form-inline .input-group .form-control {
@@ -6755,3 +6755,7 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.input-group {
+    width: inherit !important;
+}

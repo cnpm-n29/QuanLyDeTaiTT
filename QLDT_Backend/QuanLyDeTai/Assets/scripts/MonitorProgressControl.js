@@ -122,6 +122,7 @@ function getbyID(ID) {
                 $('#step1').addClass('btn-success');
                 $('#step-1').show();
                 $('#step3').attr("disabled");
+                $('#step3').removeClass('btn-success').addClass('btn-default');
                 $('#step-3').hide();
                 $('#giamsattd').modal('show');
 
@@ -134,6 +135,7 @@ function getbyID(ID) {
                 $('#step2').addClass('btn-success');
                 $('#step-2').show();
                 $('#step3').attr("disabled");
+                $('#step3').removeClass('btn-success').addClass('btn-default');
                 $('#step-3').hide();
                 id = ID;
                 progress = result.Progress;
@@ -148,6 +150,7 @@ function getbyID(ID) {
                 $('#step3').addClass('btn-success');
                 $('#step-3').show();
                 $('#step2').attr("disabled");
+                $('#step2').removeClass('btn-success').addClass('btn-default');
                 id = ID;
                 progress = result.Progress;
                 $('#giamsattd').modal('show');
@@ -259,6 +262,7 @@ function plus(id,progress) {
                 $('#step1').addClass('btn-success');
                 $('#step-2').show();
                 $('#step3').attr("disabled");
+                $('#step3').removeClass('btn-success').addClass('btn-default');
                 $('#giamsattd').modal('show');
 
             }
@@ -270,6 +274,7 @@ function plus(id,progress) {
                 $('#step2').addClass('btn-success');
                 $('#step-2').show();
                 $('#step3').attr("disabled");
+                $('#step3').removeClass('btn-success').addClass('btn-default');
                 $('#step-3').hide();
                 id = ID;
                 progress = result.Progress;
@@ -346,7 +351,17 @@ function QuestionUpdate() {
     $('#thongbao').modal('hide');
 
     if (progress == 0) {
+        $('#step2').attr("disabled");
+        $('#step2').removeClass('btn-success').addClass('btn-default');
+        $('#step-2').hide();
+        $('#step1').removeAttr("disabled");
+        $('#step1').addClass('btn-success');
+        $('#step-1').show();
+        $('#step3').attr("disabled");
+        $('#step3').removeClass('btn-success').addClass('btn-default');
+        $('#step-3').hide();
         $('#giamsattd').modal('show');
+
     }
     else if (progress == 1) {
         $('#step1').attr("disabled");
@@ -356,16 +371,21 @@ function QuestionUpdate() {
         $('#step2').addClass('btn-success');
         $('#step-2').show();
         $('#step3').attr("disabled");
+        $('#step3').removeClass('btn-success').addClass('btn-default');
+        $('#step-3').hide();
         $('#giamsattd').modal('show');
     }
     else if (progress == 2) {
         $('#step1').attr("disabled");
         $('#step1').removeClass('btn-success').addClass('btn-default');
         $('#step-1').hide();
+        $('#step-2').hide();
+        $('#step2').removeClass('btn-success').addClass('btn-default');
         $('#step3').removeAttr("disabled");
         $('#step3').addClass('btn-success');
         $('#step-3').show();
         $('#step2').attr("disabled");
+
         $('#giamsattd').modal('show');
     }
 }

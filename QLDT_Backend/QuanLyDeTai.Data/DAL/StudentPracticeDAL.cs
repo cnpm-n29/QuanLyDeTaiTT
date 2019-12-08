@@ -142,7 +142,7 @@ namespace QuanLyDeTai.Data.DAL
             var user = from s in context.Students
                        join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
                        join t in context.TopicStudents on c.ID equals t.StudentPracticeID
-                       where t.Status==true && c.PracticeTypeID == practiceTypeId && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
+                       where t.Status==true &&t.Result==true && c.PracticeTypeID == practiceTypeId && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
                        select s;
 
 
