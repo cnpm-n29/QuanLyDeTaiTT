@@ -355,6 +355,7 @@ namespace QuanLyDeTai.Data.DAL
                            LastName=a.LastName,
                            Progress=b.Progress,
                            Result=b.Result,
+                           Birthday = a.Birthday,
                            TeacherName=t.FirstName+ " "+t.LastName 
                        };
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize);
@@ -409,6 +410,7 @@ namespace QuanLyDeTai.Data.DAL
                            a.LastName,
                            b.Progress,
                            b.Result,
+                           a.Birthday,
                            TeacherName = t.FirstName + " " + t.LastName
                        };
             return user.OrderBy(i => i.LastName).Skip(pageNumber * pageSize).Take(pageSize);

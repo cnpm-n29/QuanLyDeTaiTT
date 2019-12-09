@@ -69,6 +69,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                 }
                 html += '</tr>';
                 $('.tableTopic').html(html);
+                $('.tbody').html("");
             } 
             else if (result.ChooseTopic != null) {
                 $('.mytable').hide();
@@ -88,6 +89,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                     html += '</tr>';
                 })
                 $('.tableTopic').html(html);
+                $('.tbody').html("");
             }
             else if (result.Error == "Chưa được phân giảng viên") {
                 $('.mytable').show();
@@ -96,6 +98,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                 html += '<td colspan="6">Chưa được phân giảng viên</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
+                $('.tableTopic').html("");
             }
             else if (result.Error == "Chưa được phân thực tập") {
                 $('.mytable').show();
@@ -104,6 +107,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                 html += '<td colspan="6">Chưa được phân thực tập</td>';
                 html += '</tr>';
                 $('.tbody').html(html);
+                $('.tableTopic').html("");
             }
             else if (result.List == null) {
                 $('.mytable').show();
@@ -130,6 +134,7 @@ function changeDropThucTap(Id, search = "", PgNumber = 0, PgSize = 100) {
                     html += '</tr>';
                 });
                 $('.tbody').html(html);
+                $('.tableTopic').html("");
                 
             }
         },
@@ -162,9 +167,10 @@ function checkUserChoose(id) {
                     html += '<td>' + item.FirstName + " " + item.LastName + '</td>';
 
                     html += '</tr>';
-                    $('.tablecheck').html(html);
+                   
                 });
             }
+            $('.tablecheck').html(html);
             },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -186,7 +192,7 @@ function check(ID)
                 dataType: "json",
                 success: function (result) {
                     if (numberOfChecked == 1) {
-                        var html = '<h3 class="text-center">Danh sách chọn đề tài</h3><table id="edittable" class="table table-bordered" cellspacing="0" cellpadding="5"><thread><th style="display:none">ID</th><th class="center-header" scope="col" style="width:60%;">Tên đề tài</th><th class="center-header" scope="col">Độ ưu tiên</th><th class="center-header" scope="col">Thao tác</th></thread>';
+                        var html = '<h3 class="text-center" id="editsave">Danh sách chọn đề tài</h3><table id="edittable" class="table table-bordered" cellspacing="0" cellpadding="5"><thread><th style="display:none">ID</th><th class="center-header" scope="col" style="width:60%;">Tên đề tài</th><th class="center-header" scope="col">Độ ưu tiên</th><th class="center-header" scope="col">Thao tác</th></thread>';
                         $.each(result, function (key, item) {
                             html += '<tr class="' + item.ID + ' ' + numberOfChecked + '">';
                             html += '<td style="display:none">' + item.ID + '</td>';
@@ -230,6 +236,7 @@ function check(ID)
         if (numberOfChecked == 1) {
             $('#edit').remove("button");
             $('#edittable').remove("table");
+            $('#editsave').remove("h3");
             $("#" + ID).attr("checked", false);
         }
         else {
@@ -264,6 +271,7 @@ function Delete(ID) {
     if (numberOfChecked == 1) {
         $('#edit').remove("button");
         $('#edittable').remove("table");
+        $('#editsave').remove("h3");
         $("#" + ID).attr("checked", false);
     }
     else { 

@@ -60,7 +60,13 @@ function changeDropThucTap(IDTT, masv = "", studentname = "", PgNumber = 0, PgSi
                     else {
                         html += '<td align="center"><label style="background-color:red;padding:5px;color:white">Không đạt</label ></td >';
                     }
-                    html += '<td align="center">' + item.TeacherScore + '</td>';
+                    if (item.TeacherScore == null) {
+                        html += '<td align="center"></td>';
+                    }
+                    else {
+                        html += '<td align="center">' + item.TeacherScore + '</td>';
+                    }
+                    
                     
                     html += '</tr>';
                 });

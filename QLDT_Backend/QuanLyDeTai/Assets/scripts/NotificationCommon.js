@@ -55,6 +55,7 @@ function GetAllNotification() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            
             var html = '';
             var i = 0;
             if (result == "") {
@@ -66,6 +67,7 @@ function GetAllNotification() {
             }
             else {
                 $.each(result, function (key, item) {
+                    changeStatus(item.ID);
                     if (parseInt(item.Day) < 10) {
                         item.Day = "0" + item.Day;
                     }

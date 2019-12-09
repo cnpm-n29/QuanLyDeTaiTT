@@ -304,18 +304,32 @@ namespace QuanLyDeTai.Controllers
         }
 
 
-        //public JsonResult Plus(int i)
-        //{
-        //    long id_gv = long.Parse(Session["UserId"].ToString());
-        //    var thuctap = practiceService.GetByLoaiTTvaHocKy(IDTT, IDHK);
-        //    var total = deTaiService.getCount(thuctap.ID, id_gv, search);
-        //    var list = topicStudentService.GetListByTTvaMaGV(thuctap.ID, id_gv, search);
+        public JsonResult Test(long PracticeID, long SemesterID)
+        {
+            long id_gv = long.Parse(Session["UserId"].ToString());
+            IQueryable List = null;
+            var thuctap = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
+            if (Session["Quyen"].ToString().Contains("Phân hội đồng chấm thi"))
+            {
+                var bomon = teacherService.GetByMagv(Session["Username"].ToString()).SubjectID;
+                List = topicStudentService.GetListByTTvaBoMon(thuctap.ID, bomon, "", "", 0, 50);
 
-        //    // 5. Trả về các Link được phân trang theo kích thước và số trang.
-        //    return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else if (Session["Quyen"].ToString().Contains("Xem list thực tập"))
+            {
+                List = topicStudentService.GetListByTT(thuctap.ID, "", "", 0, 50);
+            }
+            else
+            {
+                List = topicStudentService.getExport(thuctap.ID, id_gv, "");
+
+            }
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(List, JsonRequestBehavior.AllowGet);
 
 
-        //}
+        }
 
 
         private Stream CreateExcelFile(long PracticeID, long SemesterID, Stream stream = null)
@@ -323,15 +337,15 @@ namespace QuanLyDeTai.Controllers
             long id_gv = long.Parse(Session["UserId"].ToString());
             IQueryable List = null;
             var thuctap = practiceService.GetByLoaiTTvaHocKy(PracticeID, SemesterID);
-            if (teacherService.GetRole(Session["Username"].ToString(), "Trưởng bộ môn"))
+            if (Session["Quyen"].ToString().Contains("Phân hội đồng chấm thi"))
             {
                 var bomon = teacherService.GetByMagv(Session["Username"].ToString()).SubjectID;
-                List = topicStudentService.GetListByTTvaBoMon(thuctap.ID, bomon, "", "", 1, 1000);
+                List = topicStudentService.GetListByTTvaBoMon(thuctap.ID, bomon, "", "", 0, 50);
 
             }
-            else if (teacherService.GetRole(Session["Username"].ToString(), "Viện Trưởng") || teacherService.GetRole(Session["Username"].ToString(), "Viện Phó"))
+            else if (Session["Quyen"].ToString().Contains("Xem list thực tập"))
             {
-                List = topicStudentService.GetListByTT(thuctap.ID, "", "", 1, 1000);
+                List = topicStudentService.GetListByTT(thuctap.ID, "", "", 0, 50);
             }
             else
             {
@@ -339,9 +353,19 @@ namespace QuanLyDeTai.Controllers
 
             }
             var resultsList=new List<TopicStudentModel>();
+     
             foreach (var item in List)
             {
                 var ID = (long)item.GetType().GetProperty("ID").GetValue(item, null);
+                bool? result;
+                if (item.GetType().GetProperty("Result").GetValue(item, null) != null)
+                {
+                    result = (bool)item.GetType().GetProperty("Result").GetValue(item, null);
+                }
+                else
+                {
+                    result = null;
+                }
                 var topic = new TopicStudentModel
                 {
                     ID = ID,
@@ -351,7 +375,7 @@ namespace QuanLyDeTai.Controllers
                     MaSV = (string)item.GetType().GetProperty("MaSV").GetValue(item, null),
                     Birthday = (DateTime)item.GetType().GetProperty("Birthday").GetValue(item, null),
                     Progress = (int)item.GetType().GetProperty("Progress").GetValue(item, null),
-                    Result = (bool)item.GetType().GetProperty("Result").GetValue(item, null)
+                    Result = result
 
                 };
                 var check = scoreService.GetByTopicStudent2(ID);
@@ -489,10 +513,14 @@ namespace QuanLyDeTai.Controllers
                     {
                         worksheet.Cells[i + 5, 7].Value = "Đạt";
                     }
-                    else
-                    {
+            else if (student.Result == false)
+            {
                         worksheet.Cells[i + 5, 7].Value = "Không đạt";
                     }
+            else
+            {
+                worksheet.Cells[i + 5, 7].Value = "Chưa đánh giá";
+            }
 
                     worksheet.Cells[i + 5, 8].Value = student.TeacherScore;
                 }
