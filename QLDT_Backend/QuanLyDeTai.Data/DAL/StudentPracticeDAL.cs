@@ -32,6 +32,24 @@ namespace QuanLyDeTai.Data.DAL
             return user.FirstOrDefault();
         }
 
+        public IQueryable ChartWith(long practiceId)
+        {
+            context.Configuration.ProxyCreationEnabled = false;
+            var user = from s in context.Students
+                       join c in context.StudentPracticeRelationships on s.ID equals c.StudentID
+                       join d in context.PracticeTypes on c.PracticeTypeID equals d.ID
+                       join e in context.Semesters on d.SemesterID equals e.ID
+                       where d.PracticeID == practiceId && (s.IsDeleted == false || s.IsDeleted.Equals(null) && (c.IsDeleted == false || c.IsDeleted.Equals(null)))
+                       select new
+                       {
+                           s.MaSV,
+                           e.SemesterName,
+                           d.SemesterID
+                       };
+
+            return user.GroupBy(x => x.SemesterID).Select(x => x);
+        }
+
         public StudentPracticeRelationship GetBySinhVienvaLoaiTT(long idsv, long idltt)
         {
             context.Configuration.ProxyCreationEnabled = false;

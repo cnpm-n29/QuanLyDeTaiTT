@@ -68,3 +68,17 @@ C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.D
 C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.dll
 C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.dll.config
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Data.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Core.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\QuanLyDeTai.Core.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.xml
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Data\obj\Debug\QuanLyDeTai.Data.pdb

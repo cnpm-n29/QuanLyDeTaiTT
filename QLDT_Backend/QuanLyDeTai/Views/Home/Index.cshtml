@@ -6,6 +6,95 @@
 @section footer
 {
     <script src="~/Assets/scripts/Home.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script>
+        $(window).on('load', function () {
+            $.ajax({
+                url: "/StudentPractice/ChartWith?practiceId="+1,
+                type: "GET",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    var i = 0;
+                    var label = [];
+                    var data = [];
+                    $.each(result.List, function (key, item) {
+                        console.log("aaaaa");
+                        label.push(item[i].SemesterName);
+                        data.push(item.length);
+                        i++;
+                    })
+                    console.log(data);
+                    var ctx = document.getElementById("myChart").getContext('2d');
+
+
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: label,
+                            datasets: [{
+                                label: 'TTCS', // Name the series
+                                data: data, // Specify the data values array
+                                fill: false,
+                                borderColor: '#2196f3', // Add custom color border (Line)
+                                backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                                borderWidth: 1 // Specify bar border width
+                            }]
+                        },
+                        options: {
+
+                            responsive: true, // Instruct chart js to respond nicely.
+                            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+                        }
+                    });
+                },
+
+                error: function (errormessage) {
+
+                }
+            });
+
+        })
+        function getPractice(id) {
+            $.ajax({
+                url: "/StudentPractice/ChartWith?practiceId=" + id,
+                type: "GET",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+
+                    var ctx = document.getElementById("myChart").getContext('2d');
+
+
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ["Tokyo", "Mumbai", "Mexico City", "Shanghai", "Sao Paulo"],
+                            datasets: [{
+                                label: 'Series 1', // Name the series
+                                data: [500, 50, 2424, 1000, 1400], // Specify the data values array
+                                fill: false,
+                                borderColor: '#2196f3', // Add custom color border (Line)
+                                backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                                borderWidth: 1 // Specify bar border width
+                            }]
+                        },
+                        options: {
+
+                            responsive: true, // Instruct chart js to respond nicely.
+                            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+                        }
+                    });
+                },
+
+                error: function (errormessage) {
+
+                }
+            });
+        }
+    </script>
 }
 <!-- MAIN -->
 <div class="main">
@@ -21,9 +110,35 @@
 
             </div>
             <!-- END OVERVIEW -->
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body form-inline row">
+                    <div class="col-lg-9" style="width:800px;height:400px">
+                        <canvas id="myChart" height="400"></canvas>
+                    </div>
+
+                    <div style="float:right" class="col-lg-2">
+                        <div class="form-inline form-practice" onclick="getPractice(1)">
+                            <div class="col-lg-6" style=" width:40px; height:15px; background-color:dodgerblue;margin-top:3px"></div>
+                            <span class="col-lg-6">TTCS</span>
+                        </div>
+                        <div class="form-inline form-practice"
+                        <div class="form-inline form-practice" onclick="getPractice(2)">
+                            <div class="col-lg-6" style=" width:40px; height:15px; background-color:orangered;margin-top:3px"></div>
+                            <span class="col-lg-6">TTCN</span>
+                        </div>
+                        <div class="form-inline form-practice"
+                        <div class="form-inline form-practice" onclick="getPractice(3)">
+                            <div class="col-lg-6" style=" width:40px; height:15px; background-color:limegreen;margin-top:3px"></div>
+                            <span class="col-lg-6">TTTN</span>
+                        </div>
+                    </div>
+                </div>
+                    </div>
 
 
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
         </div>
-    </div>
-    <!-- END MAIN CONTENT -->
-</div>

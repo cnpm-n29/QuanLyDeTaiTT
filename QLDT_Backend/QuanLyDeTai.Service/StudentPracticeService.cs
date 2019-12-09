@@ -27,6 +27,12 @@ namespace QuanLyDeTai.Service
             return null;
         }
 
+        public IQueryable ChartWith(long practiceId)
+        {
+            return studentPracticeDAL.ChartWith(practiceId);
+        }
+
+
         public List<StudentPracticeRelationship> getListByPracticeTypeId(long practiceTypeId)
         {
             return studentPracticeDAL.getListByPracticeTypeId(practiceTypeId);

@@ -82,3 +82,17 @@ C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.S
 C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.dll
 C:\Users\Administrator\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Service.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Service.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Core.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\EntityFramework.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Core.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.pdb
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\QuanLyDeTai.Data.dll.config
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\bin\Debug\EntityFramework.xml
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.dll
+C:\Users\HP\Documents\GitHub\QuanLyDeTaiTT\QLDT_Backend\QuanLyDeTai.Service\obj\Debug\QuanLyDeTai.Service.pdb

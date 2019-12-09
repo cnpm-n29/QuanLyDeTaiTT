@@ -42,6 +42,14 @@ namespace QuanLyDeTai.Controllers
             return Json(new { TotalRecords = total, List = listst }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ChartWith(long practiceId)
+        {
+            var list = studentPracticeService.ChartWith(practiceId);
+
+            // 5. Trả về các Link được phân trang theo kích thước và số trang.
+            return Json(new { List = list }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetForReturn(long IDSV)
         {
             var query = studentService.GetById(IDSV);
