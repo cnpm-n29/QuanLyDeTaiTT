@@ -65,19 +65,41 @@
                 dataType: "json",
                 success: function (result) {
 
+                    var i = 0;
+                    var label = [];
+                    var data = [];
+                    $.each(result.List, function (key, item) {
+                        console.log("aaaaa");
+                        label.push(item[i].SemesterName);
+                        data.push(item.length);
+                        i++;
+                    })
+                    console.log(data);
                     var ctx = document.getElementById("myChart").getContext('2d');
-
-
+                    var background_color;
+                    var title;
+                    if (id == 1) {
+                        title = "TTCS";
+                        background_color = "dodgerblue";
+                    }
+                    else if (id == 2) {
+                        title = "TTCN";
+                        background_color = "orangered";
+                    }
+                    else {
+                        title = "TTTN";
+                        background_color = "limegreen";
+                    }
                     var myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: ["Tokyo", "Mumbai", "Mexico City", "Shanghai", "Sao Paulo"],
+                            labels: label,
                             datasets: [{
-                                label: 'Series 1', // Name the series
-                                data: [500, 50, 2424, 1000, 1400], // Specify the data values array
+                                label: title, // Name the series
+                                data: data, // Specify the data values array
                                 fill: false,
-                                borderColor: '#2196f3', // Add custom color border (Line)
-                                backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                                borderColor: background_color, // Add custom color border (Line)
+                                backgroundColor: background_color, // Add custom color background (Points and Fill)
                                 borderWidth: 1 // Specify bar border width
                             }]
                         },
@@ -110,35 +132,37 @@
 
             </div>
             <!-- END OVERVIEW -->
-            <div class="panel panel-headline">
-                <div class="panel-heading">
-                </div>
-                <div class="panel-body form-inline row">
-                    <div class="col-lg-9" style="width:800px;height:400px">
-                        <canvas id="myChart" height="400"></canvas>
+            @if (Session["Quyen"].ToString().Contains("Phân Bộ Môn") || Session["Quyen"].ToString().Contains("Phân giáo viên hướng dẫn ") || Session["Quyen"].ToString().Contains("Xem list thực tập"))
+            {
+                <div class="panel panel-headline">
+                    <div class="panel-heading">
                     </div>
+                    <div class="panel-body form-inline row">
+                        <div class="col-lg-9" style="width:800px;height:400px">
+                            <canvas id="myChart" height="400"></canvas>
+                        </div>
 
-                    <div style="float:right" class="col-lg-2">
-                        <div class="form-inline form-practice" onclick="getPractice(1)">
-                            <div class="col-lg-6" style=" width:40px; height:15px; background-color:dodgerblue;margin-top:3px"></div>
-                            <span class="col-lg-6">TTCS</span>
-                        </div>
-                        <div class="form-inline form-practice"
-                        <div class="form-inline form-practice" onclick="getPractice(2)">
-                            <div class="col-lg-6" style=" width:40px; height:15px; background-color:orangered;margin-top:3px"></div>
-                            <span class="col-lg-6">TTCN</span>
-                        </div>
-                        <div class="form-inline form-practice"
-                        <div class="form-inline form-practice" onclick="getPractice(3)">
-                            <div class="col-lg-6" style=" width:40px; height:15px; background-color:limegreen;margin-top:3px"></div>
-                            <span class="col-lg-6">TTTN</span>
+                        <div style="float:right" class="col-lg-2">
+                            <div class="form-inline form-practice" onclick="getPractice(1)">
+                                <div class="" style=" width:40px; height:15px; background-color:dodgerblue;margin-top:3px;margin-right:10px"></div>
+                                <span class="">TTCS</span>
+                            </div>
+                            <div class="form-inline form-practice" onclick="getPractice(2)">
+                                <div class="" style=" width:40px; height:15px; background-color:orangered;margin-top:3px;margin-right:10px"></div>
+                                <span class="">TTCN</span>
+                            </div>
+                            <div class="form-inline form-practice" onclick="getPractice(3)">
+                                <div class="" style=" width:40px; height:15px; background-color:limegreen;margin-top:3px;margin-right:10px"></div>
+                                <span class="">TTTN</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                    </div>
+
+            }
 
 
-                </div>
+        </div>
             </div>
             <!-- END MAIN CONTENT -->
         </div>

@@ -3380,4 +3380,16 @@ form .panel{
     width: inherit !important;
 }
 
+.form-practice {
+    display: flex;
+    margin: 20px;
+    padding: 10px;
+    box-shadow: 3px 5px 10px;
+    cursor: default;
+}
+
+.form-practice:hover {
+    background-color: gainsboro;
+}
+
 

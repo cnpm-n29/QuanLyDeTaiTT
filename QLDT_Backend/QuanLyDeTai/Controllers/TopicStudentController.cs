@@ -386,8 +386,8 @@ namespace QuanLyDeTai.Controllers
                 }
                 resultsList.Add(topic);
             }
-        
 
+            string practice = practiceService.GetByIdPractice(PracticeID).PracticeName;
             using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
             {
                 // Tạo author cho file Excel
@@ -400,7 +400,7 @@ namespace QuanLyDeTai.Controllers
                 var workSheet = excelPackage.Workbook.Worksheets[1];
                 // Đổ data vào Excel file
                 workSheet.Cells[1, 1].LoadFromCollection(resultsList, false);
-                BindingFormatForExcel(workSheet, resultsList);
+                BindingFormatForExcel(workSheet, resultsList,practice);
                 excelPackage.Save();
                 return excelPackage.Stream;
             }
@@ -439,7 +439,7 @@ namespace QuanLyDeTai.Controllers
             }
         }
 
-        private void BindingFormatForExcel(ExcelWorksheet worksheet, List<TopicStudentModel> listItems)
+        private void BindingFormatForExcel(ExcelWorksheet worksheet, List<TopicStudentModel> listItems,string practice)
         {
             // Set default width cho tất cả column
             worksheet.DefaultColWidth = 5;
@@ -454,7 +454,7 @@ namespace QuanLyDeTai.Controllers
             //thiếp lập font và cỡ chữ
             worksheet.Cells["A1:H2"].Style.Font.SetFromFont(new Font("Times New Roman", 14));
             worksheet.Cells[1, 1].Value = "DANH SÁCH ĐỀ TÀI THỰC TẬP";
-            worksheet.Cells[2, 1].Value = "Thực tập cơ sở ngành KS CNTT";
+            worksheet.Cells[2, 1].Value = practice+" ngành KS CNTT";
             worksheet.Cells["A3:H3"].Style.Font.SetFromFont(new Font("Times New Roman", 10));
             worksheet.Cells[3, 1].Value = "Thời gian học :";
             // Tự động xuống hàng khi text quá dài
